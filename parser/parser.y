@@ -97,12 +97,14 @@
 %type <nodeList> stamentsList
 %type <node> stament
 %type <node> expresion
+%type <node> functionCall
 %type <node> functionDeclaration
-
+%type <nodeList> functionParams
 %type <nodeList> parameters
-%type <string> name
-
-%type <tokenId> binaryOperator
+%type <node> variableDeclaration
+%type <tokenId> type
+%type <string> identifier
+%type <tokenId> binaryMathOperator
 
 %start module
 
@@ -117,12 +119,17 @@ stamentsList : stament { }
 stament : expresion TOKEN_CR
         | expresion TOKEN_DOT_COMMA
         | functionDeclaration
+        | variableDeclaration
+        | varDeclarationInit
         
-expresion : assignation
+expresion : expresion binaryMathOperator expresion
+          | TOKEN_OP_PARENT expresion TOKEN_CL_PARENT 
+          | identifier TOKEN_ASSIGNAMENT expresion
           | functionCall
         
-        
-        
+
+functionCall : identifier { }
+
 functionDeclaration : TOKEN_FUNC identifier functionParams { }
                     | TOKEN_FUNC identifier functionParams TOKEN_COLON functionParams { }
 
@@ -135,8 +142,10 @@ functionDeclaration : TOKEN_FUNC identifier functionParams { }
         
 		
 variableDeclaration : type identifier { }
-                    | type identifier TOKEN_ASSIGNAMENT expresion { }
-                    | identifier TOKEN_DECLARATE_INIT expresion { }
+
+
+varDeclarationInit : type identifier TOKEN_ASSIGNAMENT expresion { }
+                   | identifier TOKEN_DECLARATE_INIT expresion { }
 
 		
 type : TOKEN_INT | TOKEN_FLOAT
