@@ -2,9 +2,9 @@
 
 namespace AST {
     
-    abstract class ASTNode {
+    class ASTNode {
         
-        virtual ~ASTNode();
+        virtual ~ASTNode() = 0;
         
     };
     
