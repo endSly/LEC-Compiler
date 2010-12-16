@@ -22,6 +22,7 @@
  */
 /* Literal Identifiers */
 %token <string> TOKEN_IDENTIFIER
+%token <string> TOKEN_LITERAL_STRING
 %token <string> TOKEN_INTEGER
 %token <string> TOKEN_DECIMAL
 
@@ -76,7 +77,7 @@
 
 %token TOKEN_DOT
 %token TOKEN_COMMA
-%token TOKEN_DOT_COMMA
+%token TOKEN_SEMICOLON
 %token TOKEN_COLON
 
 %token TOKEN_CR
@@ -86,9 +87,8 @@
 /* 
  *  Precedence 
  */
-%left TOKEN_OP_BI_MATH_MUL 
-%left TOKEN_OP_BI_MATH_DIV
-%left TOKEN_OP_BI_MATH_ADD
+%left TOKEN_OP_BI_MATH_MUL TOKEN_OP_BI_MATH_DIV
+%left TOKEN_OP_BI_MATH_ADD TOKEN_OP_BI_MATH_SUB
 
 /*
  *  Types
@@ -97,6 +97,7 @@
 %type <nodeList> stamentsList
 %type <node> stament
 %type <node> expresion
+%type <node> assignament
 %type <node> functionCall
 %type <node> functionDeclaration
 %type <nodeList> functionParams
@@ -116,17 +117,19 @@ module : stamentsList { syntaxTree = new AST($1); }
 stamentsList : stament { }
              | stamentsList stament { }
 
-stament : expresion TOKEN_CR
-        | expresion TOKEN_DOT_COMMA
-        | functionDeclaration
-        | variableDeclaration
-        | varDeclarationInit
+stament : expresion TOKEN_CR { }
+        | expresion TOKEN_DOT_COMMA { }
+        | functionDeclaration { }
+        | variableDeclaration { }
+        | varDeclarationInit { }
         
 expresion : expresion binaryMathOperator expresion
           | TOKEN_OP_PARENT expresion TOKEN_CL_PARENT 
-          | identifier TOKEN_ASSIGNAMENT expresion
+          | assignament
           | functionCall
         
+assignament : identifier TOKEN_ASSIGNAMENT expresion { }
+
 
 functionCall : identifier { }
 
