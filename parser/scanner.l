@@ -24,6 +24,7 @@ identifier 	        { SAVE_TOKEN; return TOKEN_IDENTIFIER; }
 integer                 { SAVE_TOKEN; return TOKEN_INTEGER; }
 decimal                 { SAVE_TOKEN; return TOKEN_DECIMAL; }
 \".*\"                  { SAVE_TOKEN; return TOKEN_LITERAL_STRING; }
+\"\"[.\n]*\"\"          { SAVE_TOKEN; return TOKEN_LITERAL_STRING; }
 
 "func"                  { return TOKEN_FUNC; }
 "if"                    { return TOKEN_IF; }
