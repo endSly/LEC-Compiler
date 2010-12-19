@@ -23,11 +23,8 @@ namespace ast {
         inline ASTNode* rootNode() { return m_rootNode; }
         
     private:
-        
-        
+
         ASTNode* m_rootNode;
-        
-        
     };
     
 } // namespace ast

@@ -118,7 +118,7 @@ stamentsList : stament { $$ = new ast::NodeBlock(); $<nodeBlock>$->addNode($1); 
 
 stament : expression TOKEN_CR { $$ = $1; }
         | expression TOKEN_SEMICOLON { $$ = $1; }
-        | functionDeclaration { }
+        | functionDeclaration
         | variableDeclaration { }
         | varDeclarationInit { }
         
@@ -132,11 +132,10 @@ assignament : identifier TOKEN_ASSIGNAMENT expression { }
 
 functionCall : identifier { }
 
-functionDeclaration : TOKEN_FUNC identifier functionParams { }
-                    | TOKEN_FUNC identifier functionParams TOKEN_COLON functionParams { }
+functionDeclaration : TOKEN_FUNC identifier functionParams { $$ = new NodeFunctionDeclaration($2, $3, NULL); }
+                    | TOKEN_FUNC identifier functionParams TOKEN_COLON functionParams { $$ = new NodeFunctionDeclaration($2, $3, $5); }
 
-    functionParams : { $$ = NULL; }
-                   | TOKEN_OP_PARENT TOKEN_CL_PARENT  { $$ = NULL; }
+    functionParams : TOKEN_OP_PARENT TOKEN_CL_PARENT  { $$ = NULL; }
                    | TOKEN_OP_PARENT parameters TOKEN_CL_PARENT { $$ = $2; }
 
         parameters : variableDeclaration { $$ = new std::vector<ast::ASTNode*>(); $$->push_back($1); }

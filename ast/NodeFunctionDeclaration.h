@@ -23,7 +23,7 @@ namespace ast {
                                 , m_outputParameters(outputParams)
                                 , m_functionBlock(functionBlock) { }
                                 
-        inline ~NodeFunctionDeclaration() { 
+        ~NodeFunctionDeclaration() { 
             delete m_functionName; 
             delete m_inputParameters;
             delete m_outputParameters;
