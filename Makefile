@@ -4,17 +4,16 @@ $OBJS = parser.o     \
 
 all: lecc
 
-parser.o : parser/parser.y parser/scanner.l
+parser.o:
 	cd parser
-	make
+	make all
 
-ast.o :
-	cd ast
-	make
+ast.o:
 
-codegen.o :
-	cd codegen
-	make
+
+codegen.o:
 
 
 lecc: $(OBJS)
+
+

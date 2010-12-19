@@ -4,14 +4,13 @@
 	extern int yylex();
 	void yyerror(const char *s) { printf("Parser error: %s\n", s); exit(1); }
 	
-	using namespace ast;
-	
-	AST* syntaxTree;
+	ast::AST* syntaxTree;
 %}
 
 %union {
-	ASTNode*               node;
-	std::vector<ASTNode*>* nodeList;
+	ast::ASTNode*          node;
+	ast::NodeBlock*        nodeBlock;
+	std::vector<ast::ASTNode*>*    nodeList;
 	std::string*           string;
 	int                    tokenId;
 }
@@ -94,9 +93,9 @@
  *  Types
  */
 %type <node> module
-%type <nodeList> stamentsList
+%type <node> stamentsList
 %type <node> stament
-%type <node> expresion
+%type <node> expression
 %type <node> assignament
 %type <node> functionCall
 %type <node> functionDeclaration
@@ -112,23 +111,23 @@
 %%
 
 
-module : stamentsList { syntaxTree = new AST($1); }
+module : stamentsList { syntaxTree = new ast::AST($1); }
 
-stamentsList : stament { }
-             | stamentsList stament { }
+stamentsList : stament { $$ = new ast::NodeBlock(); $<nodeBlock>$->addNode($1); }
+             | stamentsList stament { $<nodeBlock>1->addNode($2); }
 
-stament : expresion TOKEN_CR { }
-        | expresion TOKEN_DOT_COMMA { }
+stament : expression TOKEN_CR { $$ = $1; }
+        | expression TOKEN_SEMICOLON { $$ = $1; }
         | functionDeclaration { }
         | variableDeclaration { }
         | varDeclarationInit { }
         
-expresion : expresion binaryMathOperator expresion
-          | TOKEN_OP_PARENT expresion TOKEN_CL_PARENT 
-          | assignament
-          | functionCall
+expression : expression binaryMathOperator expression
+           | TOKEN_OP_PARENT expression TOKEN_CL_PARENT 
+           | assignament
+           | functionCall
         
-assignament : identifier TOKEN_ASSIGNAMENT expresion { }
+assignament : identifier TOKEN_ASSIGNAMENT expression { }
 
 
 functionCall : identifier { }
@@ -138,22 +137,22 @@ functionDeclaration : TOKEN_FUNC identifier functionParams { }
 
     functionParams : { $$ = NULL; }
                    | TOKEN_OP_PARENT TOKEN_CL_PARENT  { $$ = NULL; }
-                   | TOKEN_OP_PARENT parameters TOKEN_CL_PARENT { $$ = $2}
+                   | TOKEN_OP_PARENT parameters TOKEN_CL_PARENT { $$ = $2; }
 
-        parameters : variableDeclaration { $$ = new std::vector<ASTNode*>(); $$->push_back($1); }
+        parameters : variableDeclaration { $$ = new std::vector<ast::ASTNode*>(); $$->push_back($1); }
                    | parameters TOKEN_COMMA variableDeclaration { $1->push_back($3); }
         
 		
 variableDeclaration : type identifier { }
 
 
-varDeclarationInit : type identifier TOKEN_ASSIGNAMENT expresion { }
-                   | identifier TOKEN_DECLARATE_INIT expresion { }
+varDeclarationInit : type identifier TOKEN_ASSIGNAMENT expression { }
+                   | identifier TOKEN_DECLARATE_INIT expression { }
 
 		
 type : TOKEN_INT | TOKEN_FLOAT
 
-identifier : TOKEN_IDENTIFIER { $$ = new std::string($1); }
+identifier : TOKEN_IDENTIFIER { $$ = $1; }
 		
 binaryMathOperator : TOKEN_OP_BI_MATH_ADD 
                    | TOKEN_OP_BI_MATH_SUB 
