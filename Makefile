@@ -1,19 +1,24 @@
-$OBJS = parser.o     \
-	ast.o        \
-	codegen.o    \
 
 all: lecc
 
-parser.o:
-	cd parser
+parser/parser.o:
+	cd parser/; \
 	make all
 
-ast.o:
+ast/ast.o:
+	cd ast/; \
+	make all
 
 
-codegen.o:
+clean:
+	cd parser/; \
+	make clean
+	cd ast/; \
+	make clean
+	rm -f *.o lecc
 
-
-lecc: $(OBJS)
+lecc: main.cpp parser/parser.o parser/scanner.o ast/ast.o 
+	g++  -o $@ $^
+	
 
 

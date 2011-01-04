@@ -20,5 +20,5 @@ parser.o: parser.cpp
 scanner.o: scanner.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
-all: parser.o scanner.o
+all: scanner.o parser.o 
 	

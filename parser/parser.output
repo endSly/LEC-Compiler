@@ -1,0 +1,617 @@
+Terminals which are not used
+
+   T_IMPORT
+   T_OP_BRACKET
+   T_CL_BRACKET
+
+
+Rules never reduced
+
+   15 messagePred: T_METHODIDENTIFIER expression messagePred
+
+
+State 9 conflicts: 1 shift/reduce
+State 13 conflicts: 1 shift/reduce
+State 35 conflicts: 1 shift/reduce
+State 40 conflicts: 1 shift/reduce
+State 47 conflicts: 1 shift/reduce
+State 49 conflicts: 4 reduce/reduce
+
+
+Grammar
+
+    0 $accept: ast $end
+
+    1 ast: classDeclList
+
+    2 classDeclList: classDeclaration
+    3              | classDeclList classDeclaration
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+    5                 | T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    6 classVarsDecl: /* empty */
+    7              | T_VARIDENTIFIER
+    8              | classVarsDecl T_VARIDENTIFIER
+
+    9 classMethsDecl: /* empty */
+   10               | classMethsDecl methodDecl
+
+   11 methodDecl: messageSend codeBlock
+
+   12 messageSend: expression messagePred
+
+   13 messagePred: T_METHODIDENTIFIER
+   14            | T_METHODIDENTIFIER expression
+   15            | T_METHODIDENTIFIER expression messagePred
+
+   16 codeBlock: T_OP_BRACE expressionList T_CL_BRACE
+
+   17 expressionList: expression T_SEMICOLON
+   18               | expressionList expression T_SEMICOLON
+
+   19 expression: messageSend
+   20           | T_INTEGER
+   21           | T_DECIMAL
+   22           | T_CHARACTER
+   23           | T_STRING
+   24           | codeBlock
+   25           | T_OP_PARENT expression T_CL_PARENT
+   26           | T_RET expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_VARIDENTIFIER (258) 4 5 7 8
+T_METHODIDENTIFIER (259) 13 14 15
+T_STRING (260) 23
+T_CHARACTER (261) 22
+T_INTEGER (262) 20
+T_DECIMAL (263) 21
+T_CLASS (264) 4 5
+T_IMPORT (265)
+T_RET (266) 26
+T_SEMICOLON (267) 17 18
+T_COLON (268) 5
+T_PIPE (269) 4 5
+T_OP_BRACE (270) 4 5 16
+T_CL_BRACE (271) 4 5 16
+T_OP_BRACKET (272)
+T_CL_BRACKET (273)
+T_OP_PARENT (274) 25
+T_CL_PARENT (275) 25
+
+
+Nonterminals, with rules where they appear
+
+$accept (21)
+    on left: 0
+ast (22)
+    on left: 1, on right: 0
+classDeclList (23)
+    on left: 2 3, on right: 1 3
+classDeclaration (24)
+    on left: 4 5, on right: 2 3
+classVarsDecl (25)
+    on left: 6 7 8, on right: 4 5 8
+classMethsDecl (26)
+    on left: 9 10, on right: 4 5 10
+methodDecl (27)
+    on left: 11, on right: 10
+messageSend (28)
+    on left: 12, on right: 11 19
+messagePred (29)
+    on left: 13 14 15, on right: 12 15
+codeBlock (30)
+    on left: 16, on right: 11 24
+expressionList (31)
+    on left: 17 18, on right: 16 18
+expression (32)
+    on left: 19 20 21 22 23 24 25 26, on right: 12 14 15 17 18 25 26
+
+
+state 0
+
+    0 $accept: . ast $end
+
+    T_CLASS  shift, and go to state 1
+
+    ast               go to state 2
+    classDeclList     go to state 3
+    classDeclaration  go to state 4
+
+
+state 1
+
+    4 classDeclaration: T_CLASS . T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+    5                 | T_CLASS . T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_VARIDENTIFIER  shift, and go to state 5
+
+
+state 2
+
+    0 $accept: ast . $end
+
+    $end  shift, and go to state 6
+
+
+state 3
+
+    1 ast: classDeclList .
+    3 classDeclList: classDeclList . classDeclaration
+
+    T_CLASS  shift, and go to state 1
+
+    $default  reduce using rule 1 (ast)
+
+    classDeclaration  go to state 7
+
+
+state 4
+
+    2 classDeclList: classDeclaration .
+
+    $default  reduce using rule 2 (classDeclList)
+
+
+state 5
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER . T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+    5                 | T_CLASS T_VARIDENTIFIER . T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_COLON  shift, and go to state 8
+    T_PIPE   shift, and go to state 9
+
+
+state 6
+
+    0 $accept: ast $end .
+
+    $default  accept
+
+
+state 7
+
+    3 classDeclList: classDeclList classDeclaration .
+
+    $default  reduce using rule 3 (classDeclList)
+
+
+state 8
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON . T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_VARIDENTIFIER  shift, and go to state 10
+
+
+state 9
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE . classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_VARIDENTIFIER  shift, and go to state 11
+
+    T_VARIDENTIFIER  [reduce using rule 6 (classVarsDecl)]
+    $default         reduce using rule 6 (classVarsDecl)
+
+    classVarsDecl  go to state 12
+
+
+state 10
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER . T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_PIPE  shift, and go to state 13
+
+
+state 11
+
+    7 classVarsDecl: T_VARIDENTIFIER .
+
+    $default  reduce using rule 7 (classVarsDecl)
+
+
+state 12
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl . T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+    8 classVarsDecl: classVarsDecl . T_VARIDENTIFIER
+
+    T_VARIDENTIFIER  shift, and go to state 14
+    T_PIPE           shift, and go to state 15
+
+
+state 13
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE . classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_VARIDENTIFIER  shift, and go to state 11
+
+    T_VARIDENTIFIER  [reduce using rule 6 (classVarsDecl)]
+    $default         reduce using rule 6 (classVarsDecl)
+
+    classVarsDecl  go to state 16
+
+
+state 14
+
+    8 classVarsDecl: classVarsDecl T_VARIDENTIFIER .
+
+    $default  reduce using rule 8 (classVarsDecl)
+
+
+state 15
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE . T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_OP_BRACE  shift, and go to state 17
+
+
+state 16
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl . T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE
+    8 classVarsDecl: classVarsDecl . T_VARIDENTIFIER
+
+    T_VARIDENTIFIER  shift, and go to state 14
+    T_PIPE           shift, and go to state 18
+
+
+state 17
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE . classMethsDecl T_CL_BRACE
+
+    $default  reduce using rule 9 (classMethsDecl)
+
+    classMethsDecl  go to state 19
+
+
+state 18
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE . T_OP_BRACE classMethsDecl T_CL_BRACE
+
+    T_OP_BRACE  shift, and go to state 20
+
+
+state 19
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl . T_CL_BRACE
+   10 classMethsDecl: classMethsDecl . methodDecl
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_CL_BRACE   shift, and go to state 27
+    T_OP_PARENT  shift, and go to state 28
+
+    methodDecl   go to state 29
+    messageSend  go to state 30
+    codeBlock    go to state 31
+    expression   go to state 32
+
+
+state 20
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE . classMethsDecl T_CL_BRACE
+
+    $default  reduce using rule 9 (classMethsDecl)
+
+    classMethsDecl  go to state 33
+
+
+state 21
+
+   23 expression: T_STRING .
+
+    $default  reduce using rule 23 (expression)
+
+
+state 22
+
+   22 expression: T_CHARACTER .
+
+    $default  reduce using rule 22 (expression)
+
+
+state 23
+
+   20 expression: T_INTEGER .
+
+    $default  reduce using rule 20 (expression)
+
+
+state 24
+
+   21 expression: T_DECIMAL .
+
+    $default  reduce using rule 21 (expression)
+
+
+state 25
+
+   26 expression: T_RET . expression
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_OP_PARENT  shift, and go to state 28
+
+    messageSend  go to state 34
+    codeBlock    go to state 31
+    expression   go to state 35
+
+
+state 26
+
+   16 codeBlock: T_OP_BRACE . expressionList T_CL_BRACE
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_OP_PARENT  shift, and go to state 28
+
+    messageSend     go to state 34
+    codeBlock       go to state 31
+    expressionList  go to state 36
+    expression      go to state 37
+
+
+state 27
+
+    4 classDeclaration: T_CLASS T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE .
+
+    $default  reduce using rule 4 (classDeclaration)
+
+
+state 28
+
+   25 expression: T_OP_PARENT . expression T_CL_PARENT
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_OP_PARENT  shift, and go to state 28
+
+    messageSend  go to state 34
+    codeBlock    go to state 31
+    expression   go to state 38
+
+
+state 29
+
+   10 classMethsDecl: classMethsDecl methodDecl .
+
+    $default  reduce using rule 10 (classMethsDecl)
+
+
+state 30
+
+   11 methodDecl: messageSend . codeBlock
+   19 expression: messageSend .
+
+    T_OP_BRACE  shift, and go to state 26
+
+    $default  reduce using rule 19 (expression)
+
+    codeBlock  go to state 39
+
+
+state 31
+
+   24 expression: codeBlock .
+
+    $default  reduce using rule 24 (expression)
+
+
+state 32
+
+   12 messageSend: expression . messagePred
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+
+    messagePred  go to state 41
+
+
+state 33
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl . T_CL_BRACE
+   10 classMethsDecl: classMethsDecl . methodDecl
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_CL_BRACE   shift, and go to state 42
+    T_OP_PARENT  shift, and go to state 28
+
+    methodDecl   go to state 29
+    messageSend  go to state 30
+    codeBlock    go to state 31
+    expression   go to state 32
+
+
+state 34
+
+   19 expression: messageSend .
+
+    $default  reduce using rule 19 (expression)
+
+
+state 35
+
+   12 messageSend: expression . messagePred
+   26 expression: T_RET expression .
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+
+    T_METHODIDENTIFIER  [reduce using rule 26 (expression)]
+    $default            reduce using rule 26 (expression)
+
+    messagePred  go to state 41
+
+
+state 36
+
+   16 codeBlock: T_OP_BRACE expressionList . T_CL_BRACE
+   18 expressionList: expressionList . expression T_SEMICOLON
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_CL_BRACE   shift, and go to state 43
+    T_OP_PARENT  shift, and go to state 28
+
+    messageSend  go to state 34
+    codeBlock    go to state 31
+    expression   go to state 44
+
+
+state 37
+
+   12 messageSend: expression . messagePred
+   17 expressionList: expression . T_SEMICOLON
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+    T_SEMICOLON         shift, and go to state 45
+
+    messagePred  go to state 41
+
+
+state 38
+
+   12 messageSend: expression . messagePred
+   25 expression: T_OP_PARENT expression . T_CL_PARENT
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+    T_CL_PARENT         shift, and go to state 46
+
+    messagePred  go to state 41
+
+
+state 39
+
+   11 methodDecl: messageSend codeBlock .
+
+    $default  reduce using rule 11 (methodDecl)
+
+
+state 40
+
+   13 messagePred: T_METHODIDENTIFIER .
+   14            | T_METHODIDENTIFIER . expression
+   15            | T_METHODIDENTIFIER . expression messagePred
+
+    T_STRING     shift, and go to state 21
+    T_CHARACTER  shift, and go to state 22
+    T_INTEGER    shift, and go to state 23
+    T_DECIMAL    shift, and go to state 24
+    T_RET        shift, and go to state 25
+    T_OP_BRACE   shift, and go to state 26
+    T_OP_PARENT  shift, and go to state 28
+
+    T_OP_BRACE  [reduce using rule 13 (messagePred)]
+    $default    reduce using rule 13 (messagePred)
+
+    messageSend  go to state 34
+    codeBlock    go to state 31
+    expression   go to state 47
+
+
+state 41
+
+   12 messageSend: expression messagePred .
+
+    $default  reduce using rule 12 (messageSend)
+
+
+state 42
+
+    5 classDeclaration: T_CLASS T_VARIDENTIFIER T_COLON T_VARIDENTIFIER T_PIPE classVarsDecl T_PIPE T_OP_BRACE classMethsDecl T_CL_BRACE .
+
+    $default  reduce using rule 5 (classDeclaration)
+
+
+state 43
+
+   16 codeBlock: T_OP_BRACE expressionList T_CL_BRACE .
+
+    $default  reduce using rule 16 (codeBlock)
+
+
+state 44
+
+   12 messageSend: expression . messagePred
+   18 expressionList: expressionList expression . T_SEMICOLON
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+    T_SEMICOLON         shift, and go to state 48
+
+    messagePred  go to state 41
+
+
+state 45
+
+   17 expressionList: expression T_SEMICOLON .
+
+    $default  reduce using rule 17 (expressionList)
+
+
+state 46
+
+   25 expression: T_OP_PARENT expression T_CL_PARENT .
+
+    $default  reduce using rule 25 (expression)
+
+
+state 47
+
+   12 messageSend: expression . messagePred
+   14 messagePred: T_METHODIDENTIFIER expression .
+   15            | T_METHODIDENTIFIER expression . messagePred
+
+    T_METHODIDENTIFIER  shift, and go to state 40
+
+    T_METHODIDENTIFIER  [reduce using rule 14 (messagePred)]
+    $default            reduce using rule 14 (messagePred)
+
+    messagePred  go to state 49
+
+
+state 48
+
+   18 expressionList: expressionList expression T_SEMICOLON .
+
+    $default  reduce using rule 18 (expressionList)
+
+
+state 49
+
+   12 messageSend: expression messagePred .
+   15 messagePred: T_METHODIDENTIFIER expression messagePred .
+
+    T_METHODIDENTIFIER  reduce using rule 12 (messageSend)
+    T_METHODIDENTIFIER  [reduce using rule 15 (messagePred)]
+    T_SEMICOLON         reduce using rule 12 (messageSend)
+    T_SEMICOLON         [reduce using rule 15 (messagePred)]
+    T_OP_BRACE          reduce using rule 12 (messageSend)
+    T_OP_BRACE          [reduce using rule 15 (messagePred)]
+    T_CL_PARENT         reduce using rule 12 (messageSend)
+    T_CL_PARENT         [reduce using rule 15 (messagePred)]
+    $default            reduce using rule 12 (messageSend)
