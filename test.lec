@@ -28,6 +28,8 @@ Class List
     
     @self [ @objectIndex ] {
         ^ (@self at: @objectIndex);
+        
+        {};
     }
     
 }
