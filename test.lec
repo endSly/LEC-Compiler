@@ -13,26 +13,5 @@ Class List
         @self;
     }
     
-    @self at: @objectIndex {
-        @returnNode = @firstNode;
-        
-        { ((@objectIndex --) > 0); } doWhileTrue: {
-            @returnNode = (@returnNode nextNode);
-        };
-        
-        @returnNode;
-    }
-    
-    @self [ @objectIndex ] {
-        ^ @self at: @objectIndex;
-    }
-    
-    @self @ @objectIndex {
-        (@self at: @objectIndex);
-    }
-    
-    @self firstIterator {
-        @firstNode;
-    }
     
 }

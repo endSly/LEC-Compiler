@@ -61,7 +61,7 @@
 %type <methodDeclaration>   methodDecl
 %type <expression>          messageSend
 %type <messagePredicate>    argMethodDecl   argMessPred         messagePred
-%type <expression>          codeBlock       expressionList      expression
+%type <expression>          codeBlock       expressionList      expression      singleExpression
 
 %start ast
 
@@ -118,13 +118,16 @@ messageSend         : expression messagePred    { $$ = new ast::MessageSend($1, 
 codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
 
-expressionList      :                                           { $$ = new ast::CodeBlock(); }
-                    | expression T_SEMICOLON                    { $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1); }
-                    | expressionList expression T_SEMICOLON     { $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
+expressionList      :                                               { $$ = new ast::CodeBlock(); }
+                    | messageSend T_SEMICOLON expressionList        { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); }
+                    | singleExpression T_SEMICOLON expressionList   { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); } /* This defines a Return Expresion */
+                    ;
+                    
+expression          : messageSend 
+                    | singleExpression    { $$ = $1; }
                     ;
 
-expression          : messageSend
-                    | T_INTEGER     { $$ = new ast::Expression(); }
+singleExpression    : T_INTEGER     { $$ = new ast::Expression(); }
                     | T_DECIMAL     { $$ = new ast::Expression(); }
                     | T_CHARACTER   { $$ = new ast::Expression(); }
                     | T_STRING      { $$ = new ast::Expression(); }
