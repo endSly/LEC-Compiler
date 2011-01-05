@@ -69,7 +69,9 @@ MethodDeclaration::MethodDeclaration(string* subjectObj, string* methodSignature
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
 {
-    
+    #ifdef DEBUG
+    std::cout << "MethodCall: " << subject << " " << *(predicate->methodSignature) << "\n";
+#endif
 }
 
 

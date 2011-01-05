@@ -118,7 +118,8 @@ messageSend         : expression messagePred    { $$ = new ast::MessageSend($1, 
 codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
 
-expressionList      : expression T_SEMICOLON                    { $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1); }
+expressionList      :                                           { $$ = new ast::CodeBlock(); }
+                    | expression T_SEMICOLON                    { $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1); }
                     | expressionList expression T_SEMICOLON     { $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
                     ;
 

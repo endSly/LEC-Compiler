@@ -7,29 +7,32 @@ Class List
         @self = (@super new);
         
         (@self isNotNull) ? {
-            @lastNode = (@firstNode = nil);
+            @lastNode = (@firstNode = @nil);
         };
         
-        
-        
-        ^ @self;
+        @self;
     }
     
     @self at: @objectIndex {
         @returnNode = @firstNode;
         
-        { ^ ((@objectIndex --) > 0); } doWhileTrue: {
+        { ((@objectIndex --) > 0); } doWhileTrue: {
             @returnNode = (@returnNode nextNode);
         };
         
-        
-        ^ @returnNode;
+        @returnNode;
     }
     
     @self [ @objectIndex ] {
-        ^ (@self at: @objectIndex);
-        
-        {};
+        ^ @self at: @objectIndex;
+    }
+    
+    @self @ @objectIndex {
+        (@self at: @objectIndex);
+    }
+    
+    @self firstIterator {
+        @firstNode;
     }
     
 }

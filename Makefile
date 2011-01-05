@@ -17,7 +17,7 @@ clean:
 	make clean
 	rm -f *.o lecc
 
-lecc: main.cpp parser/parser.o parser/scanner.o ast/ast.o 
+lecc: main.cpp parser/parser.o parser/scanner.o ast/ast.o ast/kernelobjs.o 
 	g++  -o $@ $^
 	
 

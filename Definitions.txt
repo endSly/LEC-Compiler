@@ -1,0 +1,11 @@
+@self
+@super
+@nil
+
+
+Object
+    Class
+    Integer
+    String
+    Character
+    CodeBlock

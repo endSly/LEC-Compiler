@@ -19,7 +19,7 @@ using namespace ast;
 
 %option yylineno
 
-identifier          [^ \t\n\{\}\(\)\;\@]+
+identifier          [^ \t\n\{\}\(\)\;]+
 varidentifier       \@[a-zA-Z0-9_]+
 integer             (-)[0-9]+
 decimal             (-)[0-9]*\.[0-9]+(e{integer}+)?
