@@ -8,8 +8,5 @@ clean:
 ast.o: AST.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
-kernelobjs.o : KernelObjects.cpp
-	$(CC) $(CFLAGS) -o $@ $^
-
-all: ast.o kernelobjs.o
+all: ast.o
 	

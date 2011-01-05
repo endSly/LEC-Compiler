@@ -1,7 +1,7 @@
 
 
 Class List
-| @firstNode @lastNode |
+( @firstNode @lastNode @size )
 {
     @List new {
         @self = (@super new);
@@ -9,6 +9,33 @@ Class List
         (@self isNotNull) ? {
             @lastNode = (@firstNode = @nil);
         };
+        
+        (@test isNotNull) ? "4" : { @hola; };
+        
+        {
+            "test" length;
+            -12.2e-2 abs;
+            
+            3 + 2;
+        } eval;
+        
+
+        @self;
+    }
+    
+    @self size {
+        
+        (@self isNotNull) ? {
+            @size;
+        };
+        
+        0;
+    }
+    
+    @self , @secondList {
+        6 !;
+        
+        6 factorial;
         
         @self;
     }

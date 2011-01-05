@@ -44,9 +44,9 @@
 /* Reserved Words */
 %token T_CLASS
 %token T_IMPORT
-%token T_RET
+%token T_INTERCALATE
 
-%token T_SEMICOLON T_COLON T_PIPE
+%token T_SEMICOLON
 
 %token T_OP_BRACE T_CL_BRACE
 %token T_OP_PARENT T_CL_PARENT
@@ -60,7 +60,7 @@
 %type <methodsList>         classMethsDecl
 %type <methodDeclaration>   methodDecl
 %type <expression>          messageSend
-%type <messagePredicate>    argMethodDecl   argMessPred         messagePred
+%type <messagePredicate>    argMethodDecl   messagePred
 %type <expression>          codeBlock       expressionList      expression      singleExpression
 
 %start ast
@@ -76,12 +76,12 @@ classDeclList       : classDeclaration                  { $$ = new ast::AST(); $
 
 
 classDeclaration    : T_CLASS T_IDENTIFIER 
-                        T_PIPE classVarsDecl T_PIPE 
+                        T_OP_PARENT classVarsDecl T_CL_PARENT 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
                     { $$ = new ast::ClassDeclaration($2, NULL, $4, $7); }
                     
-                    | T_CLASS T_IDENTIFIER T_COLON T_IDENTIFIER 
-                        T_PIPE classVarsDecl T_PIPE 
+                    | T_CLASS T_IDENTIFIER T_INTERCALATE T_IDENTIFIER 
+                        T_OP_PARENT classVarsDecl T_CL_PARENT 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
                     { $$ = new ast::ClassDeclaration($2, $4, $6, $9); }
                     ;
@@ -98,22 +98,22 @@ classDeclaration    : T_CLASS T_IDENTIFIER
     methodDecl      : T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration($1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
                     ;
                     
-      argMethodDecl : T_IDENTIFIER                 { $$ = new ast::MessagePredicate($1); }
-                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back(new ast::Object()/*$2*/); }
-                    | T_IDENTIFIER T_VARIDENTIFIER argMethodDecl { $$ = $3; *($$->methodSignature) = (*$1 + ";" + *($$->methodSignature)); $$->methodVars->push_back(new ast::Object() /*$2*/); }
+      argMethodDecl : T_IDENTIFIER T_VARIDENTIFIER argMethodDecl    
+                    { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
+                    | T_IDENTIFIER                 { $$ = new ast::MessagePredicate($1); }
+                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back(new ast::Expression()); }
+                    
                     ;
                     
 
-messageSend         : expression messagePred    { $$ = new ast::MessageSend($1, $2); }
+messageSend         : singleExpression messagePred    { $$ = new ast::MessageSend($1, $2); }
                     ;
                 
-  messagePred       : T_IDENTIFIER      { $$ = new ast::MessagePredicate($1); }
-                    | argMessPred       { $$ = $1; }
+  messagePred       : T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back($2); }
+                    | T_IDENTIFIER                                { $$ = new ast::MessagePredicate($1); }
+                    | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back($2); }
                     ;
-                    
-    argMessPred     : T_IDENTIFIER expression               { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back($2); }
-                    | argMessPred T_IDENTIFIER expression   { $$ = $1; $$->methodSignature->append(";" + *$2); $$->methodVars->push_back($3); }
-                    ; 
+
 
 codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
@@ -127,14 +127,13 @@ expression          : messageSend
                     | singleExpression    { $$ = $1; }
                     ;
 
-singleExpression    : T_INTEGER     { $$ = new ast::Expression(); }
-                    | T_DECIMAL     { $$ = new ast::Expression(); }
-                    | T_CHARACTER   { $$ = new ast::Expression(); }
-                    | T_STRING      { $$ = new ast::Expression(); }
-                    | T_VARIDENTIFIER { $$ = new ast::Expression(); }
+singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::Integer); }
+                    | T_DECIMAL     { $$ = new ast::Value(*$1, ast::Decimal); }
+                    | T_CHARACTER   { $$ = new ast::Value(*$1, ast::Character); }
+                    | T_STRING      { $$ = new ast::Value(*$1, ast::String); }
+                    | T_VARIDENTIFIER { $$ = new ast::Variable(*$1); }
                     | codeBlock
                     | T_OP_PARENT expression T_CL_PARENT { $$ = $2; }
-                    | T_RET expression { $$ = new ast::Expression(); }
                     ;
 
 %%

@@ -57,12 +57,15 @@ namespace ast {
     
     class Expression {
     public:
+        virtual string toString() { return string("Abstract Expression"); }
         virtual ~Expression() { }
     };
     
     class CodeBlock : public Expression {
     public:
         CodeBlock() : m_expressionList(new vector<Expression*>()) { }
+        
+        string toString() { return string("CodeBlock"); }
         
         ~CodeBlock() { delete m_expressionList; }
         
@@ -84,13 +87,37 @@ namespace ast {
     public:
         MessageSend(Expression*, MessagePredicate*);
         
+        string toString() { return string("MsgSend"); }
+        
         ~MessageSend() { }
     };
     
-    class Object : public Expression {
+    
+    enum ValueType { Integer, Decimal, String, Character };
+    
+    class Value : public Expression {
+    public:
+        Value(string val, ValueType type) : m_value(val), m_type(type) { }
         
+        string toString() { return string("Value[") + m_value + "]"; }
+        string value() { return m_value; }
+        
+    private:
+        ValueType m_type;
+        string m_value;
     };
     
+    
+    class Variable : public Expression {
+    public:
+        Variable(string name) : m_varName(name) { }
+        
+        string toString() { return m_varName; }
+        string name() { return m_varName; }
+        
+    private:
+        string m_varName;
+    };
 } // namespace ast
 
 #endif // AST_AST_h

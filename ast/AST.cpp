@@ -39,7 +39,7 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
     , m_varsList(vars)
 {
 #ifdef DEBUG
-    std::cout << "ClassDefinition: " << *className << " : " << (superName ? *superName : "Object");
+    std::cout << "ClassDef: " << *className << " : " << (superName ? *superName : "Object") << "\n";
 #endif
     if (superName && !(m_superClass = syntaxTree->findClass(superName)))
         parserError("Undefined super class.");
@@ -51,10 +51,6 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
         MethodDeclaration* methodDec = *it;
         m_methodsMap->insert(std::pair<string, MethodDeclaration*>(methodDec->signature(), methodDec));      
      }
-     
-#ifdef DEBUG
-    std::cout << " Ok!\n";
-#endif
 
 }
 
@@ -63,14 +59,20 @@ MethodDeclaration::MethodDeclaration(string* subjectObj, string* methodSignature
     : m_methodCode(code)
 {
 #ifdef DEBUG
-    std::cout << "MethodDefinition: " << *subjectObj << " " << *methodSignature << "\n";
+    std::cout << "  MethodDef: " << *subjectObj << " " << *methodSignature << "\n";
 #endif
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
 {
-    #ifdef DEBUG
-    std::cout << "MethodCall: " << subject << " " << *(predicate->methodSignature) << "\n";
+#ifdef DEBUG
+    std::cout << "    MsgSend:" << subject->toString() << " " << *(predicate->methodSignature);
+    if (predicate->methodVars->size()) {
+        std::cout << "\tParams: ";
+        for (int i = 0; i < predicate->methodVars->size(); i++)
+            std::cout << predicate->methodVars->at(i)->toString() << ", ";
+    }
+    std::cout << "\n";
 #endif
 }
 

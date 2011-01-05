@@ -19,10 +19,10 @@ using namespace ast;
 
 %option yylineno
 
-identifier          [^ \t\n\{\}\(\)\;]+
+identifier          [^ \t\n\{\}\(\)\;\@]+
 varidentifier       \@[a-zA-Z0-9_]+
-integer             (-)[0-9]+
-decimal             (-)[0-9]*\.[0-9]+(e{integer}+)?
+integer             ([\-\+])?[0-9]+
+decimal             ([\-\+])?[0-9]*"."[0-9]+("e"([\-\+])?{integer}+)?
 string              \"[^\"]*\"
 character           \'.\'
 
@@ -30,9 +30,8 @@ character           \'.\'
 
 Import              { return T_IMPORT; }
 Class               { return T_CLASS; }
-\^                  { return T_RET; }
+\^                  { return T_INTERCALATE; }
 
-\:                  { return T_COLON; }
 \;                  { return T_SEMICOLON; }
 
 \{                  { return T_OP_BRACE; }
@@ -40,7 +39,6 @@ Class               { return T_CLASS; }
 \(                  { return T_OP_PARENT; }
 \)                  { return T_CL_PARENT; }
 
-\|                  { return T_PIPE; }
 
 {integer}           { SAVE_TOKEN; return T_INTEGER; }
 {decimal}           { SAVE_TOKEN; return T_DECIMAL; }
