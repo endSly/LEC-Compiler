@@ -1,34 +1,33 @@
 
-Class ^! 
-| @var @!98 @#$$@ @@@@ |
-{ 
-    @tres ? {
-        @var ;
-        @··· ;
-    }
-    
-    @dos ? {
-        @var ;
-        @··· ;
-    }
-    
-    @uno ? {
-        @var ;
-        @··· ;
-    }
-    
-    @cero ? {
-        @var ;
-        @··· ;
-    }
-    
-}
 
-
-Class PPP
-| @var2 |
+Class List
+| @firstNode @lastNode |
 {
-    @self ? {
-        @self ?;
+    @List new {
+        @self = (@super new);
+        
+        (@self isNotNull) ? {
+            @lastNode = (@firstNode = nil);
+        };
+        
+        
+        
+        ^ @self;
     }
+    
+    @self at: @objectIndex {
+        @returnNode = @firstNode;
+        
+        { ^ ((@objectIndex --) > 0); } doWhileTrue: {
+            @returnNode = (@returnNode nextNode);
+        };
+        
+        
+        ^ @returnNode;
+    }
+    
+    @self [ @objectIndex ] {
+        ^ (@self at: @objectIndex);
+    }
+    
 }

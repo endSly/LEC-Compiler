@@ -7,14 +7,14 @@
 
 #include <iostream>
 
-//extern int yyline;
+extern int yylineno;
 
 ast::AST* syntaxTree;
 
 #define DEBUG
 
 void parserError(const char* msg) {
-    std::cerr << "Error (Line:" /*<< yyline*/ << "); " << msg << '\n';
+    std::cerr << "Error (Line:" << yylineno << "); " << msg << '\n';
     exit(1);
 }
 
@@ -39,7 +39,7 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
     , m_varsList(vars)
 {
 #ifdef DEBUG
-    std::cout << "ClassDefinition: " << className << " : " << superName;
+    std::cout << "ClassDefinition: " << *className << " : " << (superName ? *superName : "Object");
 #endif
     if (superName && !(m_superClass = syntaxTree->findClass(superName)))
         parserError("Undefined super class.");
@@ -62,7 +62,9 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
 MethodDeclaration::MethodDeclaration(string* subjectObj, string* methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
     : m_methodCode(code)
 {
-    
+#ifdef DEBUG
+    std::cout << "MethodDefinition: " << *subjectObj << " " << *methodSignature << "\n";
+#endif
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)

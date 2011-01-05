@@ -49,7 +49,6 @@
 %token T_SEMICOLON T_COLON T_PIPE
 
 %token T_OP_BRACE T_CL_BRACE
-%token T_OP_BRACKET T_CL_BRACKET
 %token T_OP_PARENT T_CL_PARENT
 
 /*
@@ -68,7 +67,7 @@
 
 %%
 
-ast                 : classDeclList                     { printf("AST\n"); $$ = $1; syntaxTree = $$; }
+ast                 : classDeclList                     { $$ = $1; syntaxTree = $$; }
                     ;
 
 classDeclList       : classDeclaration                  { $$ = new ast::AST(); $$->addClass($1); }
@@ -79,29 +78,29 @@ classDeclList       : classDeclaration                  { $$ = new ast::AST(); $
 classDeclaration    : T_CLASS T_IDENTIFIER 
                         T_PIPE classVarsDecl T_PIPE 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
-                    { DEBUG("ClassDecl0"); $$ = new ast::ClassDeclaration($2, NULL, $4, $7); }
+                    { $$ = new ast::ClassDeclaration($2, NULL, $4, $7); }
                     
                     | T_CLASS T_IDENTIFIER T_COLON T_IDENTIFIER 
                         T_PIPE classVarsDecl T_PIPE 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
-                    { DEBUG("ClassDecl1"); $$ = new ast::ClassDeclaration($2, $4, $6, $9); }
+                    { $$ = new ast::ClassDeclaration($2, $4, $6, $9); }
                     ;
 
-  classVarsDecl     :                               { DEBUG("ClassVarsDecl0"); $$ = new std::vector<std::string*>(); }
-                    | T_VARIDENTIFIER               { DEBUG("ClassVarsDecl1"); $$ = new std::vector<std::string*>(); $$->push_back($1); }
-                    | classVarsDecl T_VARIDENTIFIER  { DEBUG("ClassVarsDecl2"); $$ = $1; $$->push_back($2); }
+  classVarsDecl     :                               { $$ = new std::vector<std::string*>(); }
+                    | T_VARIDENTIFIER               { $$ = new std::vector<std::string*>(); $$->push_back($1); }
+                    | classVarsDecl T_VARIDENTIFIER  { $$ = $1; $$->push_back($2); }
                     ;
   
-  classMethsDecl    : /* Nothing */                 { DEBUG("MethodDecl0"); $$ = new std::vector<ast::MethodDeclaration*>(); }
-                    | methodDecl classMethsDecl     { DEBUG("MethodDecl1"); $$ = $2; $$->push_back($1); }
+  classMethsDecl    : /* Nothing */                 { $$ = new std::vector<ast::MethodDeclaration*>(); }
+                    | methodDecl classMethsDecl     { $$ = $2; $$->push_back($1); }
                     ;
                     
-    methodDecl      : T_VARIDENTIFIER T_IDENTIFIER codeBlock        { $$ = new ast::MethodDeclaration($1, $2, NULL, (ast::CodeBlock*)$3); }
-                    | T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration($1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
+    methodDecl      : T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration($1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
                     ;
                     
-      argMethodDecl : T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back(new ast::Object()/*$2*/); }
-                    | argMethodDecl T_IDENTIFIER T_VARIDENTIFIER { $$ = $1; $$->methodSignature->append(";" + *$2); $$->methodVars->push_back(new ast::Object() /*$3*/); }
+      argMethodDecl : T_IDENTIFIER                 { $$ = new ast::MessagePredicate($1); }
+                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back(new ast::Object()/*$2*/); }
+                    | T_IDENTIFIER T_VARIDENTIFIER argMethodDecl { $$ = $3; *($$->methodSignature) = (*$1 + ";" + *($$->methodSignature)); $$->methodVars->push_back(new ast::Object() /*$2*/); }
                     ;
                     
 
@@ -116,19 +115,19 @@ messageSend         : expression messagePred    { $$ = new ast::MessageSend($1, 
                     | argMessPred T_IDENTIFIER expression   { $$ = $1; $$->methodSignature->append(";" + *$2); $$->methodVars->push_back($3); }
                     ; 
 
-codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { DEBUG("CodeBlock"); $$ = $2; }
+codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
 
-expressionList      : expression T_SEMICOLON                    { DEBUG("Stament"); $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1); }
-                    | expressionList expression T_SEMICOLON     { DEBUG("Stament"); $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
+expressionList      : expression T_SEMICOLON                    { $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1); }
+                    | expressionList expression T_SEMICOLON     { $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
                     ;
 
-expression          : messageSend   { DEBUG("Expr: MessageSend"); $$ = $1; }
+expression          : messageSend
                     | T_INTEGER     { $$ = new ast::Expression(); }
                     | T_DECIMAL     { $$ = new ast::Expression(); }
                     | T_CHARACTER   { $$ = new ast::Expression(); }
                     | T_STRING      { $$ = new ast::Expression(); }
-                    | T_VARIDENTIFIER { DEBUG("Expr: VarIdentifier"); $$ = new ast::Expression(); }
+                    | T_VARIDENTIFIER { $$ = new ast::Expression(); }
                     | codeBlock
                     | T_OP_PARENT expression T_CL_PARENT { $$ = $2; }
                     | T_RET expression { $$ = new ast::Expression(); }

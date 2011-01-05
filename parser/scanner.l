@@ -19,10 +19,11 @@ using namespace ast;
 
 %option yylineno
 
-identifier          [^ \t\n\{\}\;]+
+identifier          [^ \t\n\{\}\(\)\;\@]+
+varidentifier       \@[a-zA-Z0-9_]+
 integer             (-)[0-9]+
 decimal             (-)[0-9]*\.[0-9]+(e{integer}+)?
-string              \"[^\"]\"
+string              \"[^\"]*\"
 character           \'.\'
 
 %%
@@ -36,8 +37,6 @@ Class               { return T_CLASS; }
 
 \{                  { return T_OP_BRACE; }
 \}                  { return T_CL_BRACE; }
-\[                  { return T_OP_BRACKET; }
-\]                  { return T_CL_BRACKET; }
 \(                  { return T_OP_PARENT; }
 \)                  { return T_CL_PARENT; }
 
@@ -48,7 +47,7 @@ Class               { return T_CLASS; }
 {string}            { SAVE_TOKEN; return T_STRING; }
 {character}         { SAVE_TOKEN; return T_CHARACTER; }
 
-\@{identifier}      { SAVE_TOKEN; return T_VARIDENTIFIER; }
+{varidentifier}     { SAVE_TOKEN; return T_VARIDENTIFIER; }
 {identifier}        { SAVE_TOKEN; return T_IDENTIFIER; }
 
 [ \t\n]             { }
