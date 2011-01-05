@@ -19,6 +19,7 @@ namespace ast {
     class MethodDeclaration;
     class CodeBlock;
     class MessageSend;
+    class Expression;
     
     class AST {
     public:
@@ -45,7 +46,7 @@ namespace ast {
     
     class MethodDeclaration {
     public:
-        MethodDeclaration(MessageSend*, CodeBlock*);
+        MethodDeclaration(string*, string*, vector<Expression*>*, CodeBlock*);
      
         string signature() { return m_name; }
     private:
@@ -71,7 +72,7 @@ namespace ast {
         vector<Expression*>* m_expressionList;
     };
     
-    struct MessagePredicate {
+   struct MessagePredicate {
     public:
         MessagePredicate(string* signature) : methodSignature(new string(*signature)), methodVars(new vector<Expression*>()) { }
         

@@ -41,7 +41,7 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
 #ifdef DEBUG
     std::cout << "ClassDefinition: " << className << " : " << superName;
 #endif
-    if (!(m_superClass = syntaxTree->findClass(superName)))
+    if (superName && !(m_superClass = syntaxTree->findClass(superName)))
         parserError("Undefined super class.");
     
     m_methodsMap = new map<string, MethodDeclaration*>();
@@ -59,7 +59,7 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
 }
 
 
-MethodDeclaration::MethodDeclaration(MessageSend* message, CodeBlock* code)
+MethodDeclaration::MethodDeclaration(string* subjectObj, string* methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
     : m_methodCode(code)
 {
     

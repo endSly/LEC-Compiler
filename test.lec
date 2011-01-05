@@ -1,6 +1,34 @@
 
-class Test 
-| var |
+Class ^! 
+| @var @!98 @#$$@ @@@@ |
 { 
+    @tres ? {
+        @var ;
+        @··· ;
+    }
     
+    @dos ? {
+        @var ;
+        @··· ;
+    }
+    
+    @uno ? {
+        @var ;
+        @··· ;
+    }
+    
+    @cero ? {
+        @var ;
+        @··· ;
+    }
+    
+}
+
+
+Class PPP
+| @var2 |
+{
+    @self ? {
+        @self ?;
+    }
 }
