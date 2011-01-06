@@ -26,7 +26,7 @@
 	ast::MessageSend*          messegeSend;
 	ast::MessagePredicate*     messagePredicate;
 	std::string*               string;
-	std::vector<std::string*>* stringList;
+	std::vector<std::string>* stringList;
 	std::vector<ast::MethodDeclaration*>*      methodsList;
 }
 
@@ -86,9 +86,8 @@ classDeclaration    : T_CLASS T_IDENTIFIER
                     { $$ = new ast::ClassDeclaration($2, $4, $6, $9); }
                     ;
 
-  classVarsDecl     :                               { $$ = new std::vector<std::string*>(); }
-                    | T_VARIDENTIFIER               { $$ = new std::vector<std::string*>(); $$->push_back($1); }
-                    | classVarsDecl T_VARIDENTIFIER  { $$ = $1; $$->push_back($2); }
+  classVarsDecl     :                               { $$ = new std::vector<std::string>(); }
+                    | T_VARIDENTIFIER classVarsDecl { $$ = $2; $$->push_back(*$1); }
                     ;
   
   classMethsDecl    : /* Nothing */                 { $$ = new std::vector<ast::MethodDeclaration*>(); }
@@ -109,9 +108,9 @@ classDeclaration    : T_CLASS T_IDENTIFIER
 messageSend         : singleExpression messagePred    { $$ = new ast::MessageSend($1, $2); }
                     ;
                 
-  messagePred       : T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back($2); }
-                    | T_IDENTIFIER                                { $$ = new ast::MessagePredicate($1); }
+  messagePred       : T_IDENTIFIER                                { $$ = new ast::MessagePredicate($1); }
                     | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back($2); }
+                    | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back($2); }
                     ;
 
 

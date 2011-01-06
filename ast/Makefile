@@ -1,4 +1,3 @@
-
 CC = g++
 CFLAGS = -c -I".." -Os
 
@@ -9,4 +8,3 @@ ast.o: AST.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
 all: ast.o
-	

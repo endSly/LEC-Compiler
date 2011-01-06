@@ -4,12 +4,13 @@
  */
 
 #include "AST.h"
+#include "execengine/KernelObjects.h"
 
 #include <iostream>
 
-extern int yylineno;
-
 ast::AST* syntaxTree;
+
+extern int yylineno;
 
 #define DEBUG
 
@@ -34,7 +35,7 @@ ClassDeclaration* AST::findClass(string* className)
             : NULL;
 }
 
-ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<string*>* vars, vector<MethodDeclaration*>* methods)
+ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<string>* vars, vector<MethodDeclaration*>* methods)
     : m_name(*className)
     , m_varsList(vars)
 {
@@ -76,6 +77,22 @@ MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
 #endif
 }
 
+/*
+ *  Code Expressions
+ */
 
+execengine::Object* Value::evaluate(execengine::Object* self) 
+{
+    switch (m_type) {
+    case Integer:
+        return (Object*) new execengine::Integer(atol(m_value.c_str()));
+    case Decimal:
+        return (Object*) new execengine::Decimal(atof(m_value.c_str()));
+    case String:
+        return (Object*) new execengine::String(m_value.substr(1, m_value.length() - 2));
+    case Character:
+        return (Object*) new execengine::Character(m_value.c_str()[1]);
+    }
+}
 
 } // namespace ast 

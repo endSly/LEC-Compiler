@@ -1,9 +1,10 @@
 
+""" Test Comentary """
 
-Class List
-( @firstNode @lastNode @size )
+Class Test
+( @value )
 {
-    @List new {
+    @Test new {
         @self = (@super new);
         
         (@self isNotNull) ? {
@@ -21,6 +22,8 @@ Class List
         
 
         @self;
+        
+        (@self this:@s is:@e very:@j long:@k message:@self ?);
     }
     
     @self size {

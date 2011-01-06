@@ -1,5 +1,7 @@
+CC = g++
+CFLAGS = -Os -I"."
 
-all: clean lecc
+all: lecc
 
 parser/parser.o:
 	cd parser/; \
@@ -9,9 +11,10 @@ ast/ast.o:
 	cd ast/; \
 	make all
 
-execengine/kernelobjs.o:
+execengine/execengine.o:
 	cd execengine/; \
 	make all
+
 
 clean:
 	cd parser/; \
@@ -25,8 +28,8 @@ clean:
 
 	rm -f *.o lecc
 
-lecc: main.cpp parser/parser.o parser/scanner.o ast/ast.o execengine/kernelobjs.o 
-	g++  -o $@ $^
+lecc: main.cpp ast/AST.o parser/parser.o parser/scanner.o execengine/execengine.o execengine/kernelobjs.o 
+	$(CC) $(CFLAGS)  -o $@ $^
 	
 
 

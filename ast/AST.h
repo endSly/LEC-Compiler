@@ -9,11 +9,13 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "execengine/KernelObjects.h"
 
-
+using namespace std;
+    
 namespace ast {
     
-    using namespace std;
+    using namespace execengine;
     
     class ClassDeclaration;
     class MethodDeclaration;
@@ -34,14 +36,14 @@ namespace ast {
     
     class ClassDeclaration {
     public:
-        ClassDeclaration(string*, string*, vector<string*>*, vector<MethodDeclaration*>*);
+        ClassDeclaration(string*, string*, vector<string>*, vector<MethodDeclaration*>*);
     
         string name() { return m_name; }
     private:
         string m_name;
         ClassDeclaration* m_superClass;
         map<string, MethodDeclaration*>* m_methodsMap;
-        vector<string*>* m_varsList;
+        vector<string>* m_varsList;
     };
     
     class MethodDeclaration {
@@ -55,27 +57,7 @@ namespace ast {
         CodeBlock*  m_methodCode;  
     };
     
-    class Expression {
-    public:
-        virtual string toString() { return string("Abstract Expression"); }
-        virtual ~Expression() { }
-    };
-    
-    class CodeBlock : public Expression {
-    public:
-        CodeBlock() : m_expressionList(new vector<Expression*>()) { }
-        
-        string toString() { return string("CodeBlock"); }
-        
-        ~CodeBlock() { delete m_expressionList; }
-        
-        void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
-        
-    private:
-        vector<Expression*>* m_expressionList;
-    };
-    
-   struct MessagePredicate {
+    struct MessagePredicate {
     public:
         MessagePredicate(string* signature) : methodSignature(new string(*signature)), methodVars(new vector<Expression*>()) { }
         
@@ -83,13 +65,40 @@ namespace ast {
         vector<Expression*>* methodVars;
     };
     
+    /*
+     *  Code Expressions
+     */
+    
+    class Expression {
+    public:
+        virtual string toString() { return string("Abstract Expression"); }
+        virtual ~Expression() { }
+        
+        virtual Object* evaluate(Object*) { return execengine::Object::nil(); }
+    };
+    
+    class CodeBlock : public Expression {
+    public:
+        CodeBlock() : m_expressionList(new vector<Expression*>()) { }
+        ~CodeBlock() { delete m_expressionList; }
+        
+        void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
+        string toString() { return string("CodeBlock"); }
+        virtual execengine::Object* evaluate(execengine::Object*);
+        
+    private:
+        vector<Expression*>* m_expressionList;
+    };
+    
+
+    
     class MessageSend : public Expression {
     public:
         MessageSend(Expression*, MessagePredicate*);
+        ~MessageSend() { }
         
         string toString() { return string("MsgSend"); }
-        
-        ~MessageSend() { }
+        virtual execengine::Object* evaluate(execengine::Object*);
     };
     
     
@@ -101,6 +110,8 @@ namespace ast {
         
         string toString() { return string("Value[") + m_value + "]"; }
         string value() { return m_value; }
+        
+        virtual execengine::Object* evaluate(execengine::Object*);
         
     private:
         ValueType m_type;
@@ -114,6 +125,8 @@ namespace ast {
         
         string toString() { return m_varName; }
         string name() { return m_varName; }
+        
+        virtual execengine::Object* evaluate(execengine::Object*);
         
     private:
         string m_varName;

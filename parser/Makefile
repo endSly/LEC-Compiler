@@ -1,4 +1,3 @@
-
 CC = g++
 CFLAGS = -c -I".." -Os
 
@@ -7,7 +6,7 @@ clean:
 
 parser.cpp: parser.y
 	bison -d -o $@ $^
-	
+
 parser.hpp: parser.cpp
 
 scanner.cpp: scanner.l parser.hpp
@@ -21,4 +20,3 @@ scanner.o: scanner.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
 all: scanner.o parser.o 
-	

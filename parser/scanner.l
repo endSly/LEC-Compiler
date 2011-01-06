@@ -25,13 +25,18 @@ integer             ([\-\+])?[0-9]+
 decimal             ([\-\+])?[0-9]*"."[0-9]+("e"([\-\+])?{integer}+)?
 string              \"[^\"]*\"
 character           \'.\'
+commentIdent        \"\"\"
+comment             {commentIdent}.*{commentIdent}
 
 %%
 
+[ \t\n]             { }
+{comment}           { }
+
 Import              { return T_IMPORT; }
 Class               { return T_CLASS; }
-\^                  { return T_INTERCALATE; }
 
+\^                  { return T_INTERCALATE; }
 \;                  { return T_SEMICOLON; }
 
 \{                  { return T_OP_BRACE; }
@@ -47,8 +52,6 @@ Class               { return T_CLASS; }
 
 {varidentifier}     { SAVE_TOKEN; return T_VARIDENTIFIER; }
 {identifier}        { SAVE_TOKEN; return T_IDENTIFIER; }
-
-[ \t\n]             { }
 
 .                   printf("Sintax error at line:%i!\n", yylineno); yyterminate(); exit(1);
 
