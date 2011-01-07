@@ -59,18 +59,18 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
 }
 
 
-MethodDeclaration::MethodDeclaration(string* subjectObj, string* methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
+MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
     : m_methodCode(code)
 {
 #ifdef DEBUG
-    std::cout << "  MethodDef: " << *subjectObj << " " << *methodSignature << "\n";
+    std::cout << "  MethodDef: " << subjectObj << " " << methodSignature << "\n";
 #endif
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
 {
 #ifdef DEBUG
-    std::cout << "    MsgSend:" << subject->toString() << " " << *(predicate->methodSignature);
+    std::cout << "    MsgSend:" << subject->toString() << " " << predicate->methodSignature;
     if (predicate->methodVars->size()) {
         std::cout << "\tParams: ";
         for (int i = 0; i < predicate->methodVars->size(); i++)
@@ -100,7 +100,7 @@ Object* Value::evaluate(Object* self)
 
 Object* Variable::evaluate(Object* self) 
 {
-    return Object::nil();
+    return self->getVariable(m_varName);
 }
 
 Object* CodeBlock::evaluate(Object* self) 
@@ -110,6 +110,7 @@ Object* CodeBlock::evaluate(Object* self)
 
 Object* MessageSend::evaluate(Object* self) 
 {
+    //return self->processMessage;
     return Object::nil();
 }
 

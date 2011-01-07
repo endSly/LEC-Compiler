@@ -18,6 +18,8 @@ namespace execengine {
     
     typedef map<string, CodeBlock*> MethodsMap;
     typedef map<string, Object*> VariablesMap;
+
+    static VariablesMap* m_globalVariables;
     
     class Object {
     public:
@@ -25,6 +27,8 @@ namespace execengine {
         static Object* nil() { return NULL; }
         
         virtual Object* processMessage(const string&, const vector<Object*>&);
+
+        virtual Object* getVariable(const string& varName);
 
         virtual ~Object();
  
@@ -34,8 +38,7 @@ namespace execengine {
     private:
         Class* m_class;
         unsigned int m_referencesCount;
-        
-        static VariablesMap* m_globalVariables;
+
         VariablesMap* m_localVariables;
         MethodsMap* m_localMethods;
     };
@@ -43,9 +46,11 @@ namespace execengine {
     class Class : public Object {
     public:
         Object* processMessage(const string&, const vector<Object*>&);
-
+        string className() { return m_className; }
+        
         ~Class() { }
     private:
+        string m_className;
         Class* m_superClass;
         MethodsMap m_classMethods;
         

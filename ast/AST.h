@@ -48,7 +48,7 @@ namespace ast {
     
     class MethodDeclaration {
     public:
-        MethodDeclaration(string*, string*, vector<Expression*>*, CodeBlock*);
+        MethodDeclaration(string, string, vector<Expression*>*, CodeBlock*);
      
         string signature() { return m_name; }
     private:
@@ -59,9 +59,9 @@ namespace ast {
     
     struct MessagePredicate {
     public:
-        MessagePredicate(string* signature) : methodSignature(new string(*signature)), methodVars(new vector<Expression*>()) { }
+        MessagePredicate(const string& signature) : methodSignature(signature), methodVars(new vector<Expression*>()) { }
         
-        string* methodSignature;
+        string methodSignature;
         vector<Expression*>* methodVars;
     };
     
@@ -99,6 +99,11 @@ namespace ast {
         
         string toString() { return string("MsgSend"); }
         execengine::Object* evaluate(execengine::Object*);
+
+    private:
+        string m_methodName;
+        vector<Expression*>* m_methodParams;
+        Expression* m_subject;
     };
     
     

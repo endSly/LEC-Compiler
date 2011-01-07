@@ -95,13 +95,13 @@ classDeclaration    : T_CLASS T_IDENTIFIER
                     | methodDecl classMethsDecl     { $$ = $2; $$->push_back($1); }
                     ;
                     
-    methodDecl      : T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration($1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
+    methodDecl      : T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration(*$1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
                     ;
                     
       argMethodDecl : T_IDENTIFIER T_VARIDENTIFIER argMethodDecl    
-                    { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
-                    | T_IDENTIFIER                 { $$ = new ast::MessagePredicate($1); }
-                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back(new ast::Expression()); }
+                    { $$ = $3; $$->methodSignature.append(";" + *$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
+                    | T_IDENTIFIER                 { $$ = new ast::MessagePredicate(*$1); }
+                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate(*$1); $$->methodVars->push_back(new ast::Expression()); }
                     
                     ;
                     
@@ -109,9 +109,9 @@ classDeclaration    : T_CLASS T_IDENTIFIER
 messageSend         : singleExpression messagePred    { $$ = new ast::MessageSend($1, $2); }
                     ;
                 
-  messagePred       : T_IDENTIFIER                                { $$ = new ast::MessagePredicate($1); }
-                    | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate($1); $$->methodVars->push_back($2); }
-                    | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature->append(";" + *$1); $$->methodVars->push_back($2); }
+  messagePred       : T_IDENTIFIER                                { $$ = new ast::MessagePredicate(*$1); }
+                    | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate(*$1); $$->methodVars->push_back($2); }
+                    | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature.append(";" + *$1); $$->methodVars->push_back($2); }
                     ;
 
 
