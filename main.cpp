@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <stdio.h>
 #include "ast/AST.h"
 #include "execengine/ExecEngine.h"
 #include "parser/parser.hpp"

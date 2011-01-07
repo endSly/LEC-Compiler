@@ -7,6 +7,7 @@
 #include "execengine/KernelObjects.h"
 
 #include <iostream>
+#include <cstdlib>
 
 ast::AST* syntaxTree;
 

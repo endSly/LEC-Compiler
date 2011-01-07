@@ -3,7 +3,8 @@
 /*
  * (c) 2011 Endika Gutierrez Salas (endSly@gmail.com)
  */
-    
+    #include <stdio.h>
+    #include <cstdlib>
     #include <vector>
     #include <string>
     #include "ast/AST.h"

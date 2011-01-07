@@ -3,6 +3,12 @@
 
 namespace execengine {
 
+Object::Object(Class* objClass)
+    : m_class(objClass)
+{
+
+}
+
 Object* Object::processMessage(const string& method, const vector<Object*>& params)
 {
     

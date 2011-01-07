@@ -31,7 +31,7 @@ namespace execengine {
         virtual ~Object();
  
     protected:
-        Object();
+        Object() { }
         
     private:
         Class* m_class;

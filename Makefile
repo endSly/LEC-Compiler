@@ -3,13 +3,17 @@ CFLAGS = -Os -I"."
 
 all: lecc
 
-parser/parser.o:
-	cd parser/; \
-	make all
 
 ast/ast.o:
 	cd ast/; \
 	make all
+
+
+parser/parser.o:
+	cd parser/; \
+	make all
+
+
 
 execengine/execengine.o:
 	cd execengine/; \
@@ -28,8 +32,8 @@ clean:
 
 	rm -f *.o lecc
 
-lecc: main.cpp ast/AST.o parser/parser.o parser/scanner.o execengine/execengine.o execengine/kernelobjs.o 
-	$(CC) $(CFLAGS)  -o $@ $^
+lecc: main.cpp ast/ast.o parser/parser.o parser/scanner.o execengine/execengine.o execengine/kernelobjs.o 
+	$(CC) $(CFLAGS) -o $@ $^
 	
 
 
