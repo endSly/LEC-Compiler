@@ -67,19 +67,6 @@ MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, 
 #endif
 }
 
-MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
-{
-#ifdef DEBUG
-    std::cout << "    MsgSend:" << subject->toString() << " " << predicate->methodSignature;
-    if (predicate->methodVars->size()) {
-        std::cout << "\tParams: ";
-        for (int i = 0; i < predicate->methodVars->size(); i++)
-            std::cout << predicate->methodVars->at(i)->toString() << ", ";
-    }
-    std::cout << "\n";
-#endif
-}
-
 /*
  *  Code Expressions
  */
@@ -108,10 +95,27 @@ Object* CodeBlock::evaluate(Object* self)
     return Object::nil();
 }
 
+MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
+    : m_subject(subject)
+    , m_methodParams(predicate->methodVars)
+    , m_methodName(predicate->methodSignature)
+{
+
+}
+
 Object* MessageSend::evaluate(Object* self) 
 {
-    //return self->processMessage;
-    return Object::nil();
+    Object* subject = m_subject->evaluate(self);
+    vector<Object*> params;
+
+    for (vector<Expression*>::iterator param = m_methodParams->begin(); param != m_methodParams->end(); param++) 
+        params.push_back((*param)->evaluate(self));
+    
+    Object* result = subject->processMessage(m_methodName, params);
+
+    delete subject;
+
+    return result;
 }
 
 } // namespace ast 
