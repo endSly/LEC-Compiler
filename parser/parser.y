@@ -127,10 +127,10 @@ expression          : messageSend
                     | singleExpression    { $$ = $1; }
                     ;
 
-singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::Integer); }
-                    | T_DECIMAL     { $$ = new ast::Value(*$1, ast::Decimal); }
-                    | T_CHARACTER   { $$ = new ast::Value(*$1, ast::Character); }
-                    | T_STRING      { $$ = new ast::Value(*$1, ast::String); }
+singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::TypeInteger); }
+                    | T_DECIMAL     { $$ = new ast::Value(*$1, ast::TypeDecimal); }
+                    | T_CHARACTER   { $$ = new ast::Value(*$1, ast::TypeCharacter); }
+                    | T_STRING      { $$ = new ast::Value(*$1, ast::TypeString); }
                     | T_VARIDENTIFIER { $$ = new ast::Variable(*$1); }
                     | codeBlock
                     | T_OP_PARENT expression T_CL_PARENT { $$ = $2; }

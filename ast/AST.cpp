@@ -22,6 +22,8 @@ void parserError(const char* msg) {
 
 namespace ast {
 
+using namespace execengine;
+
 void AST::addClass(ClassDeclaration* classDecl) 
 {
     m_classesMap->insert(std::pair<string, ClassDeclaration*>(classDecl->name(), classDecl));
@@ -82,18 +84,33 @@ MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
  *  Code Expressions
  */
 
-execengine::Object* Value::evaluate(execengine::Object* self) 
+Object* Value::evaluate(Object* self) 
 {
     switch (m_type) {
-    case Integer:
-        return (Object*) new execengine::Integer(atol(m_value.c_str()));
-    case Decimal:
-        return (Object*) new execengine::Decimal(atof(m_value.c_str()));
-    case String:
-        return (Object*) new execengine::String(m_value.substr(1, m_value.length() - 2));
-    case Character:
-        return (Object*) new execengine::Character(m_value.c_str()[1]);
+    case TypeInteger:
+        return new Integer((long long)atol(m_value.c_str()));
+    case TypeDecimal:
+        return new Decimal((double)atof(m_value.c_str()));
+    case TypeString:
+        return new String((std::string)m_value.substr(1, m_value.length() - 2));
+    case TypeCharacter:
+        return new Character((char)(m_value.c_str()[1]));
     }
+}
+
+Object* Variable::evaluate(Object* self) 
+{
+    return Object::nil();
+}
+
+Object* CodeBlock::evaluate(Object* self) 
+{
+    return Object::nil();
+}
+
+Object* MessageSend::evaluate(Object* self) 
+{
+    return Object::nil();
 }
 
 } // namespace ast 

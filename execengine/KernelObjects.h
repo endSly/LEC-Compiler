@@ -19,8 +19,6 @@ namespace execengine {
     typedef map<string, CodeBlock*> MethodsMap;
     typedef map<string, Object*> VariablesMap;
     
-    
-    
     class Object {
     public:
         Object(Class*);
@@ -44,8 +42,9 @@ namespace execengine {
     
     class Class : public Object {
     public:
-        virtual Object* processMessage(const string&, const vector<Object*>&);
-        
+        Object* processMessage(const string&, const vector<Object*>&);
+
+        ~Class() { }
     private:
         Class* m_superClass;
         MethodsMap m_classMethods;
@@ -54,13 +53,16 @@ namespace execengine {
     
     class Routine : public Object {
     public:
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+        ~Routine() { }
     };
     
     class String : public Object {
     public:
         String(const std::string& str) : m_string(str) { }
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+
+        ~String() { }
         
     private:
         std::string m_string; 
@@ -69,7 +71,9 @@ namespace execengine {
     class Character : public Object {
     public:
         Character(unsigned int character) : m_character(character) { }
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+
+        ~Character() { }
         
     private:
         unsigned int m_character; 
@@ -80,11 +84,12 @@ namespace execengine {
         static Boolean* True();
         static Boolean* False();
     
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
 
     private:
         Boolean() { }
         Boolean(const Boolean&) { }
+        ~Boolean() { }
     
         bool m_value;
         
@@ -95,7 +100,9 @@ namespace execengine {
     class Integer : public Object {
     public:
         Integer(long long value) : m_value(value) { }
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+
+        ~Integer() { }
         
     private:
         long long m_value;
@@ -104,7 +111,9 @@ namespace execengine {
     class Decimal : public Object {
     public:
         Decimal(double value) : m_value(value) { }
-        virtual Object* processMessage(const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+
+        ~Decimal() { }
         
     private:
         double m_value;

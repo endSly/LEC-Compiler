@@ -84,7 +84,7 @@ namespace ast {
         
         void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
         string toString() { return string("CodeBlock"); }
-        virtual execengine::Object* evaluate(execengine::Object*);
+        execengine::Object* evaluate(execengine::Object*);
         
     private:
         vector<Expression*>* m_expressionList;
@@ -98,11 +98,11 @@ namespace ast {
         ~MessageSend() { }
         
         string toString() { return string("MsgSend"); }
-        virtual execengine::Object* evaluate(execengine::Object*);
+        execengine::Object* evaluate(execengine::Object*);
     };
     
     
-    enum ValueType { Integer, Decimal, String, Character };
+    enum ValueType { TypeInteger, TypeDecimal, TypeString, TypeCharacter };
     
     class Value : public Expression {
     public:
@@ -111,7 +111,7 @@ namespace ast {
         string toString() { return string("Value[") + m_value + "]"; }
         string value() { return m_value; }
         
-        virtual execengine::Object* evaluate(execengine::Object*);
+        execengine::Object* evaluate(execengine::Object*);
         
     private:
         ValueType m_type;
@@ -126,11 +126,12 @@ namespace ast {
         string toString() { return m_varName; }
         string name() { return m_varName; }
         
-        virtual execengine::Object* evaluate(execengine::Object*);
+        execengine::Object* evaluate(execengine::Object*);
         
     private:
         string m_varName;
     };
+
 } // namespace ast
 
 #endif // AST_AST_h
