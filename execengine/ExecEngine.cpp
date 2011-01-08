@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "ast/AST.h"
 #include "ExecEngine.h"
 
@@ -15,15 +16,16 @@ ExecEngine::ExecEngine(ast::AST* tree)
         string className = (*it).first;
         ClassDeclaration* classDecl = (*it).second;
         
+        Class* newClass = new Class(className, NULL, NULL, NULL);
         string classVar = "@" + className;
         
-        
+        (*m_globalVars)[classVar] = newClass;
     }
 }
         
 ExecEngine::~ExecEngine()
 {
-    
+    delete m_globalVars;
 }
         
 void ExecEngine::initializeEngine()
@@ -33,9 +35,17 @@ void ExecEngine::initializeEngine()
         
 int ExecEngine::execute(const std::string& className, const std::string& method)
 {
+    Object* receiverClass = (*m_globalVars)["@" + className];
+    if (receiverClass) {
+        Object* result = receiverClass->processMessage(method, vector<Object*>());
+        return (result == Nil::nil());
+    } else {
+        std::cout << "Class:" << className << " not found\n";
+        return 1;
+    }
     
     
-    return 0;
+    
 }
 
 } // namespace execengine

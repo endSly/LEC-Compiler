@@ -57,9 +57,7 @@ ClassDeclaration::ClassDeclaration(string className, string superName, vector<st
 MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
     : m_methodCode(code)
 {
-#ifdef DEBUG
-    std::cout << "  MethodDef: " << subjectObj << " " << methodSignature << "\n";
-#endif
+
 }
 
 /*

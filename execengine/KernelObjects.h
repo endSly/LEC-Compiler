@@ -17,6 +17,7 @@ namespace execengine {
     using namespace ast;
     
     class Class;
+    class KernelClass;
     class Routine;
     class Object;
     class Nil;
@@ -50,7 +51,7 @@ namespace execengine {
      */
     class Class : public Object {
     public:
-        Class(string);
+        Class(string, Class*, MethodsMap*, vector<string>*);
     
         Object* processMessage(const string&, const vector<Object*>&);
         string className() { return m_className; }
@@ -59,8 +60,10 @@ namespace execengine {
         
         ~Class() { }
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classKernelMethods;
+        Class() { }
+        Class(const Class&) { }
+        
+        static KernelClass* m_classKernelMethods;
         
         MethodsMap* m_classMethods;
         vector<string>* m_classVars;
@@ -80,7 +83,6 @@ namespace execengine {
         
     private:
         Class* m_class;
-        
         
         VariablesMap* m_localVariables;
     };

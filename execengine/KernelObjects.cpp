@@ -57,6 +57,21 @@ Object* DynamicObject::getVariable(const string& varName)
 }
 
 /*
+ *  Class
+ */
+Class::Class(string name, Class* superclass, MethodsMap* methods, vector<string>* vars)
+    : m_className(name)
+    , m_superClass(superclass)
+    , m_classMethods(methods)
+    , m_classVars(vars)
+{ }
+
+Object* Class::processMessage(const string& method, const vector<Object*>& params)
+{
+    return Nil::nil();
+}
+
+/*
  *  String
  */
 Object* String::processMessage(const string& method, const vector<Object*>& params)

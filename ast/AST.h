@@ -88,15 +88,17 @@ namespace ast {
     
     class CodeBlock : public Expression {
     public:
-        CodeBlock() : m_expressionList(new vector<Expression*>()) { }
-        ~CodeBlock() { delete m_expressionList; }
-        
+        CodeBlock() : m_expressionList(new vector<Expression*>()), m_blockVars(new vector<string>()) { }
+
         void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
         string toString() { return string("CodeBlock"); }
         execengine::Object* evaluate(execengine::Object*);
         
+        ~CodeBlock() { delete m_expressionList; }
+        
     private:
         vector<Expression*>* m_expressionList;
+        vector<string>* m_blockVars;
     };
     
 
