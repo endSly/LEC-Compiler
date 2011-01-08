@@ -9,11 +9,46 @@ Las variables especiales accesibles desde todos los objetos son:
 @super      Referencia a la clase padre
 @nil        Objeto Nulo
 
--- Jerarquía de clases básicas
+-- Jerarquía de clases básicas --
 Object
     Class
     Integer
     Decimal
     String
     Character
-    CodeBlock
+    Routine
+    Range
+
+-- Referencia --
+
+Routine
+    evaluate
+
+Class
+    class
+    superclass
+
+Integer
+    +
+    -
+    *
+    /
+    %
+    ++
+    --
+    abs
+
+Decimal
+    +
+    -
+    *
+    /
+    abs
+
+String
+    +
+    [@]
+    ,
+
+
+

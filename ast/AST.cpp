@@ -92,7 +92,7 @@ Object* Variable::evaluate(Object* self)
 
 Object* CodeBlock::evaluate(Object* self) 
 {
-    return Object::nil();
+    return Nil::nil();
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)

@@ -74,7 +74,7 @@ namespace ast {
         virtual string toString() { return string("Abstract Expression"); }
         virtual ~Expression() { }
         
-        virtual Object* evaluate(Object*) { return execengine::Object::nil(); }
+        virtual Object* evaluate(Object*) { return execengine::Nil::nil(); }
     };
     
     class CodeBlock : public Expression {
