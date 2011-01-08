@@ -45,47 +45,10 @@ namespace execengine {
         static VariablesMap* m_globalVariables;
     };
     
-    class DynamicObject : public Object {
-    public:
-        DynamicObject(Class*);
-    
-        Object* processMessage(const string&, const vector<Object*>&);
-        Object* getVariable(const string& varName);
-
-        ~DynamicObject() { delete m_localVariables; }
-        
-    private:
-        Class* m_class;
-        
-        
-        VariablesMap* m_localVariables;
-    };
-    
-    class KernelObject : public Object {
-    public:
-        virtual Object* processMessage(const string&, const vector<Object*>&);
-        Object* getVariable(const string&);
-        
-        ~KernelObject() { }
-        
-    protected:
-        KernelObject() { }
-    };
-    
-    class Nil : public KernelObject {
-    private:
-        Nil() { }
-        Nil(const Nil&) { }
-        
-    public:
-        static Object* nil() { static Nil s_nil; return &s_nil; }
-        
-        Object* processMessage(const string&, const vector<Object*>&) { return this; }
-        Object* getVariable(const string& varName) { return this; }
-    };
-    
-    
-    class Class : public KernelObject {
+    /**
+     *  Class is used to store dynamic class methods
+     */
+    class Class : public Object {
     public:
         Class(string);
     
@@ -106,47 +69,93 @@ namespace execengine {
         Class* m_superClass;
     };
     
-    class Routine : public KernelObject {
+    class DynamicObject : public Object {
+    public:
+        DynamicObject(Class*);
+    
+        Object* processMessage(const string&, const vector<Object*>&);
+        Object* getVariable(const string& varName);
+
+        ~DynamicObject() { delete m_localVariables; }
+        
+    private:
+        Class* m_class;
+        
+        
+        VariablesMap* m_localVariables;
+    };
+    
+    
+    /**
+     *  KernelClass stores KernelObjects methods
+     */
+    class KernelClass : public Object {
+    public:
+        KernelClass();
+        
+        Object* processMessage(const string&, const vector<Object*>&);
+        Object* getVariable(const string&);
+        
+        KernelMethodsMap* classMethods() { return m_kernelMethods; }
+        
+        ~KernelClass() { }
+
+    private:
+        KernelMethodsMap* m_kernelMethods;
+    };
+    
+    class Nil : public Object {    
+    public:
+        static Object* nil() { static Nil s_nil; return &s_nil; }
+        
+        Object* processMessage(const string&, const vector<Object*>&) { return this; }
+        Object* getVariable(const string& varName) { return this; }
+        
+    private:
+        Nil() { }
+        Nil(const Nil&) { }
+    };
+    
+    
+
+    class Routine : public Object {
     public:
         Routine(CodeBlock* code, Object* obj) : m_routineCode(code), m_runningObject(obj) { }
         Object* processMessage(const string&, const vector<Object*>&);
         ~Routine() { }
         
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
-        
+        static KernelClass* m_class;
+
         CodeBlock* m_routineCode;
         Object* m_runningObject;
     };
     
-    class String : public KernelObject {
+    class String : public Object {
     public:
         String(const std::string& str) : m_string(str) { }
         Object* processMessage(const string&, const vector<Object*>&);
         ~String() { }
         
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
-        
+        static KernelClass* m_class;
+
         std::string m_string; 
     };
     
-    class Character : public KernelObject {
+    class Character : public Object {
     public:
         Character(unsigned int character) : m_character(character) { }
         Object* processMessage(const string&, const vector<Object*>&);
         ~Character() { }
         
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
-        
+        static KernelClass* m_class;
+
         unsigned int m_character; 
     };
     
-    class Boolean : public KernelObject {
+    class Boolean : public Object {
     public:
         static Boolean* True();
         static Boolean* False();
@@ -158,29 +167,27 @@ namespace execengine {
         Boolean(const Boolean&) { }
         ~Boolean() { }
     
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
-    
+        static KernelClass* m_class;
+        
         bool m_value;
         
         static Boolean* m_false;
         static Boolean* m_true;
     };
     
-    class Integer : public KernelObject {
+    class Integer : public Object {
     public:
         Integer(long long value) : m_value(value) { }
         Object* processMessage(const string&, const vector<Object*>&);
         ~Integer() { }
         
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
-        
+        static KernelClass* m_class;
+
         long long m_value;
     };
     
-    class Decimal : public KernelObject {
+    class Decimal : public Object {
     public:
         Decimal(double value) : m_value(value) { }
         Object* processMessage(const string&, const vector<Object*>&);
@@ -188,8 +195,7 @@ namespace execengine {
         ~Decimal() { }
         
     private:
-        static Class* m_class;
-        static KernelMethodsMap* m_classMethods;
+        static KernelClass* m_class;
         
         double m_value;
     };

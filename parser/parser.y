@@ -79,12 +79,12 @@ classDeclList       : classDeclaration                  { $$ = new ast::AST(); $
 classDeclaration    : T_CLASS T_IDENTIFIER 
                         T_OP_PARENT classVarsDecl T_CL_PARENT 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
-                    { $$ = new ast::ClassDeclaration($2, NULL, $4, $7); }
+                    { $$ = new ast::ClassDeclaration(*$2, string(ast::ROOT_CLASS_NAME), $4, $7); }
                     
                     | T_CLASS T_IDENTIFIER T_INTERCALATE T_IDENTIFIER 
                         T_OP_PARENT classVarsDecl T_CL_PARENT 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
-                    { $$ = new ast::ClassDeclaration($2, $4, $6, $9); }
+                    { $$ = new ast::ClassDeclaration(*$2, *$4, $6, $9); }
                     ;
 
   classVarsDecl     :                               { $$ = new std::vector<std::string>(); }
@@ -99,9 +99,9 @@ classDeclaration    : T_CLASS T_IDENTIFIER
                     ;
                     
       argMethodDecl : T_IDENTIFIER T_VARIDENTIFIER argMethodDecl    
-                    { $$ = $3; $$->methodSignature.append(";" + *$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
+                    { $$ = $3; $$->methodSignature.append("@" + *$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
                     | T_IDENTIFIER                 { $$ = new ast::MessagePredicate(*$1); }
-                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate(*$1); $$->methodVars->push_back(new ast::Expression()); }
+                    | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate(*$1); $$->methodVars->push_back(new ast::Variable(*$2)); }
                     
                     ;
                     
@@ -120,7 +120,7 @@ codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
 
 expressionList      :                                               { $$ = new ast::CodeBlock(); }
                     | messageSend T_SEMICOLON expressionList        { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); }
-                    | singleExpression T_SEMICOLON expressionList   { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); } /* This defines a Return Expresion */
+| singleExpression T_SEMICOLON expressionList   { $1->setReturningExpression(true); $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); } /* This defines a Return Expresion */
                     ;
                     
 expression          : messageSend 

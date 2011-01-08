@@ -2,9 +2,17 @@
 #define execengine_ExecEngine_h
 
 #include <string>
-#include "ast/AST.h"
+#include <map>
+
+#include "KernelObjects.h"
+
+namespace ast {
+    class AST;
+}
 
 namespace execengine {
+    
+    using namespace std;
     
     class ExecEngine {
     public:
@@ -17,7 +25,7 @@ namespace execengine {
         int execute(const std::string&, const std::string&);
         
     private:
-        
+        VariablesMap* m_globalVars;
     };
     
 } // namespace execengine

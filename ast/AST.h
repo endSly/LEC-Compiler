@@ -23,12 +23,15 @@ namespace ast {
     class MessageSend;
     class Expression;
     
+    extern const char* ROOT_CLASS_NAME;
+    
     class AST {
     public:
         AST() : m_classesMap(new map<string, ClassDeclaration*>) { }
         
         void addClass(ClassDeclaration*);
-        ClassDeclaration* findClass(string*);
+        ClassDeclaration* findClass(const string&);
+        map<string, ClassDeclaration*>* classesMap() { return m_classesMap; }
         
     private:
         map<string, ClassDeclaration*>* m_classesMap;
@@ -36,12 +39,12 @@ namespace ast {
     
     class ClassDeclaration {
     public:
-        ClassDeclaration(string*, string*, vector<string>*, vector<MethodDeclaration*>*);
+        ClassDeclaration(string, string, vector<string>*, vector<MethodDeclaration*>*);
     
         string name() { return m_name; }
     private:
         string m_name;
-        ClassDeclaration* m_superClass;
+        string m_superName;
         map<string, MethodDeclaration*>* m_methodsMap;
         vector<string>* m_varsList;
     };
@@ -53,7 +56,7 @@ namespace ast {
         string signature() { return m_name; }
     private:
         string m_name;
-        vector<string*>* m_paramsList; 
+        vector<string>* m_paramsList; 
         CodeBlock*  m_methodCode;  
     };
     
@@ -71,10 +74,16 @@ namespace ast {
     
     class Expression {
     public:
+        void setReturningExpression(bool ret) { m_returningExpression = ret; }
+        bool isReturningExpression() { return m_returningExpression; }
         virtual string toString() { return string("Abstract Expression"); }
         virtual ~Expression() { }
         
         virtual Object* evaluate(Object*) { return execengine::Nil::nil(); }
+        
+    protected:
+        Expression() : m_returningExpression(false) { }
+        bool m_returningExpression;
     };
     
     class CodeBlock : public Expression {

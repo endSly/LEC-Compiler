@@ -56,28 +56,37 @@ Object* DynamicObject::getVariable(const string& varName)
     return result;
 }
 
-Object* KernelObject::getVariable(const string&) { return Nil::nil(); }
-
-Object* KernelObject::processMessage(const string&, const vector<Object*>&) { return Nil::nil(); }
-
+/*
+ *  String
+ */
 Object* String::processMessage(const string& method, const vector<Object*>& params)
 {
-    return Nil::nil();
+    std::cout << m_string;
+    return this;
 }
-     
+    
+/*
+ *  Character
+ */ 
 Object* Character::processMessage(const string& method, const vector<Object*>& params)
 {
-    return Nil::nil();
+    return this;
 }
-     
+
+/*
+ *  Integer
+ */ 
 Object* Integer::processMessage(const string& method, const vector<Object*>& params)
 {
-    return Nil::nil();
+    return this;
 }
-     
+
+/*
+ *  Decimal
+ */
 Object* Decimal::processMessage(const string& method, const vector<Object*>& params)
 {
-    return Nil::nil();
+    return this;
 }
      
 } // namespace execengine

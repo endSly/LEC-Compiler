@@ -22,6 +22,8 @@ void parserError(const char* msg) {
 
 namespace ast {
 
+const char* ROOT_CLASS_NAME = "Object";
+
 using namespace execengine;
 
 void AST::addClass(ClassDeclaration* classDecl) 
@@ -29,25 +31,19 @@ void AST::addClass(ClassDeclaration* classDecl)
     m_classesMap->insert(std::pair<string, ClassDeclaration*>(classDecl->name(), classDecl));
 }
 
-ClassDeclaration* AST::findClass(string* className)
+ClassDeclaration* AST::findClass(const string& className)
 {
-    map<string, ClassDeclaration*>::iterator it = m_classesMap->find(*className);
-    
+    map<string, ClassDeclaration*>::iterator it = m_classesMap->find(className);
     return (it != m_classesMap->end()) 
             ? it->second 
             : NULL;
 }
 
-ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<string>* vars, vector<MethodDeclaration*>* methods)
-    : m_name(*className)
+ClassDeclaration::ClassDeclaration(string className, string superName, vector<string>* vars, vector<MethodDeclaration*>* methods)
+    : m_name(className)
+    , m_superName(superName)
     , m_varsList(vars)
-{
-#ifdef DEBUG
-    std::cout << "ClassDef: " << *className << " : " << (superName ? *superName : "Object") << "\n";
-#endif
-    if (superName && !(m_superClass = syntaxTree->findClass(superName)))
-        parserError("Undefined super class.");
-    
+{   
     m_methodsMap = new map<string, MethodDeclaration*>();
     for (vector<MethodDeclaration*>::iterator it = methods->begin()
          ; it != methods->end()
@@ -55,7 +51,6 @@ ClassDeclaration::ClassDeclaration(string* className, string* superName, vector<
         MethodDeclaration* methodDec = *it;
         m_methodsMap->insert(std::pair<string, MethodDeclaration*>(methodDec->signature(), methodDec));      
      }
-
 }
 
 
@@ -92,16 +87,25 @@ Object* Variable::evaluate(Object* self)
 
 Object* CodeBlock::evaluate(Object* self) 
 {
-    return Nil::nil();
+    for (vector<Expression*>::iterator it = m_expressionList->begin()
+         ; it != m_expressionList->end()
+         ; it++) {
+        
+        Expression* expr = *it;
+        Object* result = expr->evaluate(self);
+        
+        if (expr->isReturningExpression())
+            return result;
+    }
+    
+    return self;
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
     : m_subject(subject)
     , m_methodParams(predicate->methodVars)
     , m_methodName(predicate->methodSignature)
-{
-
-}
+{ }
 
 Object* MessageSend::evaluate(Object* self) 
 {
