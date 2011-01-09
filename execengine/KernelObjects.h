@@ -18,13 +18,9 @@ namespace execengine {
     class Method;
     
     class Class;
-    class KernelClass;
-    class Routine;
     class Object;
     class Nil;
-
-    typedef Object* (*KernelMethod)(Object*, const vector<Object*>&);
-    typedef map<string, KernelMethod> KernelMethodsMap;
+    
     typedef map<string, Method*> MethodsMap;
     typedef map<string, Object*> VariablesMap;
 
@@ -41,49 +37,24 @@ namespace execengine {
     
     class Class : public Object {
     public:
-        Class(string className, Class* superClass) : m_className(className), m_superClass(superClass) { }
-        virtual Object* processObjectMessage(Object*, const string&, const vector<Object*>&) { }
+        Class(string, Class*, MethodsMap*, MethodsMap*, vector<string>* = NULL);
         string className() { return m_className; }
         ~Class() { }
-        virtual Class* objectClass() { }
+        static Class* ObjectClass();
+        virtual Class* objectClass() { return Class::ObjectClass(); }
         
+        Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
+        Object* processMessage(const string&, const vector<Object*>&);
+        
+        static Object* kernel_Class_new(Object*, const vector<Object*>&);
         static Object* kernel_Class_className(Object*, const vector<Object*>&);
         
     private:
         string m_className;
         Class* m_superClass;
-    };
-    
-    class DynamicClass : public Class {
-    public:
-        ~DynamicClass() { delete m_objectMethods; delete m_classMethods; delete m_classVariables; }
-        
-        DynamicClass(string, Class*, MethodsMap*, MethodsMap*, vector<string>*);
-        Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
-        Object* processMessage(const string&, const vector<Object*>&);
-        Class* objectClass();
-        
-    private:
         MethodsMap* m_classMethods;
         MethodsMap* m_objectMethods;
         vector<string>* m_classVariables;
-    };
-    
-    /**
-     *  KernelClass stores KernelObjects methods
-     */
-    class KernelClass : public Class {
-    public:
-        ~KernelClass() { delete m_kernelMethods; }
-        
-        KernelClass(string, Class*, KernelMethodsMap*);
-        Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
-        Class* objectClass();
-        
-        static Object* kernel_KernelClass_new(Object*, const vector<Object*>&);
-        
-    private:
-        KernelMethodsMap* m_kernelMethods;
     };
     
     class DynamicObject : public Object {
@@ -113,13 +84,12 @@ namespace execengine {
     class String : public Object {
     public:
         String(const std::string& str) : m_string(str) { }
-        ~String() { }
         
         static Class* ObjectClass();
         Class* objectClass() { return String::ObjectClass(); }
         
         static Object* kernel_String_concat(Object*, const vector<Object*>&);
-        static Object* kernel_String_print(Object*, const vector<Object*>&);
+        static Object* kernel_String_println(Object*, const vector<Object*>&);
         static Object* kernel_String_length(Object*, const vector<Object*>&);
         
     private:
@@ -129,7 +99,6 @@ namespace execengine {
     class Character : public Object {
     public:
         Character(unsigned int character) : m_character(character) { }
-        ~Character() { }
         
         static Class* ObjectClass();
         Class* objectClass() { return Character::ObjectClass(); }

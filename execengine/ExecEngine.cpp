@@ -62,10 +62,10 @@ void ExecEngine::initializeEngine(ast::AST* tree)
             MethodDeclaration* methodDecl = *methodIt;
             
             if (methodDecl->subject() == classVar) { // We have class method
-                classMethods->insert(pair<string, Method*>(methodDecl->name(), new Method(methodDecl)));
+                classMethods->insert(pair<string, Method*>(methodDecl->name(), new DynamicMethod(methodDecl)));
                 
             } else if (methodDecl->subject() == string("@self")) { // We have an object method
-                objectMethods->insert(pair<string, Method*>(methodDecl->name(), new Method(methodDecl)));
+                objectMethods->insert(pair<string, Method*>(methodDecl->name(), new DynamicMethod(methodDecl)));
                 
             } else {
                 execengineError("Unknown subject " + methodDecl->subject());
@@ -74,7 +74,7 @@ void ExecEngine::initializeEngine(ast::AST* tree)
          
         vector<string>* classVariables = classDecl->variablesList();
         
-        Class* newClass = new DynamicClass(className, Object::ObjectClass(), objectMethods, classMethods, classVariables);
+        Class* newClass = new Class(className, Object::ObjectClass(), objectMethods, classMethods, classVariables);
         
         // Store class as global var
         (*m_globalVars)[classVar] = newClass;
@@ -86,7 +86,8 @@ int ExecEngine::execute(const std::string& className, const std::string& method)
     Object* receiverClass = (*m_globalVars)["@" + className];
     if (receiverClass) {
         Object* result = receiverClass->processMessage(method, vector<Object*>());
-        return (result == Nil::nil());
+        cout << "--- Execution finished ---\n";
+        return 0;
     } else {
         execengineError("Class:" + className + " not found\n");
     }

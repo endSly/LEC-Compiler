@@ -16,11 +16,35 @@ namespace execengine {
     
     class Method {
     public:
-        Method(ast::MethodDeclaration* decl) : methodName(decl->name()), code(decl->methodCode()), parameters(decl->parametersList()) { }
-        Method(string name, CodeBlock* cb, vector<string>* params) : methodName(name), code(cb), parameters(params) { }
-        string methodName;
-        CodeBlock* code;
-        vector<string>* parameters;
+        virtual Object* run(Object* self, const vector<Object*>& param) { }
+    
+    protected:
+        Method(const string& name, vector<string>* params = NULL)  : m_name(name), m_parameters(params) { }
+        
+        string m_name;
+        vector<string>* m_parameters;
+    };
+    
+    class DynamicMethod : public Method {
+    public:
+        DynamicMethod(ast::MethodDeclaration* decl) : Method(decl->name(), decl->parametersList()), m_code(decl->methodCode()) { }
+        
+        Object* run(Object* self, const vector<Object*>&) { return m_code->evaluate(self); }
+    
+    private:
+        CodeBlock* m_code;
+    };
+    
+    typedef Object* (*KernelFunction)(Object*, const vector<Object*>&);
+    
+    class KernelMethod : public Method {
+    public:
+        KernelMethod(const string& name, KernelFunction function) : Method(name), m_function(function) { }
+    
+        Object* run(Object* self, const vector<Object*>& params) { return m_function(self, params); }
+        
+    private:
+        KernelFunction m_function;
     };
     
     class ExecEngine {

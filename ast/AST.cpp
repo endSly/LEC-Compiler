@@ -112,14 +112,13 @@ Object* MessageSend::evaluate(Object* self)
     Object* subject = m_subject->evaluate(self);
     vector<Object*> params;
 
-    for (vector<Expression*>::iterator param = m_methodParams->begin(); param != m_methodParams->end(); param++) 
+    for (vector<Expression*>::iterator param = m_methodParams->begin()
+         ; param != m_methodParams->end()
+         ; param++) {
         params.push_back((*param)->evaluate(self));
-    
-    Object* result = subject->processMessage(m_methodName, params);
-
-    delete subject;
-
-    return result;
+    }
+         
+    return subject->processMessage(m_methodName, params);
 }
 
 } // namespace ast 

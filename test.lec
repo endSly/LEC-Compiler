@@ -44,7 +44,8 @@ Class Test
     }
     
     @Test test {
-        "Hello world!" print;
+        ("Hello world! " println) println; 
+        (@String className)println;
     }
     
     

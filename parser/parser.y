@@ -118,9 +118,9 @@ messageSend         : singleExpression messagePred    { $$ = new ast::MessageSen
 codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
 
-expressionList      :                                               { $$ = new ast::CodeBlock(); }
-                    | messageSend T_SEMICOLON expressionList        { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); }
-| singleExpression T_SEMICOLON expressionList   { $1->setReturningExpression(true); $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); } /* This defines a Return Expresion */
+expressionList      :                                           { $$ = new ast::CodeBlock(); }
+                    | expressionList messageSend T_SEMICOLON    { $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
+                    | expressionList singleExpression T_SEMICOLON   { $$ = $1; $2->setReturningExpression(true); ((ast::CodeBlock*)$$)->addExpression($2); } /* This defines a Return Expresion */
                     ;
                     
 expression          : messageSend 

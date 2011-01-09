@@ -16,11 +16,84 @@ Object* Object::processMessage(const string& method, const vector<Object*>& para
 
 Class* Object::ObjectClass()
 {
-    static Class s_objectClass(string("Object"), NULL);
-    return &s_objectClass;
+        static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) {
+        MethodsMap* methodsMap = new MethodsMap();
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_objectClass = new Class(string("Object"), NULL, methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
 }
 
 /** Class */
+Class::Class(string className, Class* superClass, MethodsMap* objectMethods, MethodsMap* classMethods, vector<string>* vars) 
+    : m_className(className)
+    , m_superClass(superClass)
+    , m_classMethods(classMethods)
+    , m_objectMethods(objectMethods)
+    , m_classVariables(m_classVariables)
+{ }
+
+Class* Class::ObjectClass()
+{
+    static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) {
+        MethodsMap* methodsMap = new MethodsMap();
+        (*methodsMap)[string("className")] = new KernelMethod(string("className"), Class::kernel_Class_className);
+        
+        MethodsMap* classMethodsMap = new MethodsMap();
+        (*classMethodsMap)[string("className")] = new KernelMethod(string("className"), Class::kernel_Class_className);
+        
+        s_objectClass = new Class(string("Class"), Object::ObjectClass(), methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
+}
+
+Object* Class::processObjectMessage(Object* self, const string& method, const vector<Object*>& params)
+{
+    MethodsMap::iterator it = m_objectMethods->find(method);
+    if (it != m_objectMethods->end()) {
+        Method* method = it->second;
+        return method->run(self, params);
+    } 
+    
+    if (m_superClass)
+        return m_superClass->processObjectMessage(self, method, params);
+    
+    execengineWarning(string("Trying to access to undefined method. @nil returned. ") + this->className() + " " +  method);
+    return Nil::nil();
+}
+
+Object* Class::processMessage(const string& method, const vector<Object*>& params)
+{
+    MethodsMap::iterator it = m_classMethods->find(method);
+    if (it != m_classMethods->end()) {
+        Method* method = it->second;
+        return method->run(this, params);
+    } 
+    
+    if (m_superClass)
+        return m_superClass->processMessage(method, params);
+    
+    execengineWarning(string("Trying to access to undefined class method. @nil returned. ") + this->className() + " " +  method);
+    return Nil::nil();
+    
+}
+
+Object* kernel_Class_new(Object* self, const vector<Object*>& params)
+{
+    /*
+    
+    TODO!!!!
+    
+    */
+}
+
 Object* Class::kernel_Class_className(Object* self, const vector<Object*>& params)
 {
     Class* cl = dynamic_cast<Class*>(self);
@@ -29,103 +102,6 @@ Object* Class::kernel_Class_className(Object* self, const vector<Object*>& param
         return new String(cl->className());
         
     execengineError(string("Kernel class panic! ") + self->objectClass()->className());
-    return Nil::nil();
-    
-}
-
-/** DynamicClass */
-DynamicClass::DynamicClass(string className, Class* superClass, MethodsMap* objectMethods, MethodsMap* classMethods, vector<string>* vars) 
-    : Class(className, superClass)
-    , m_classMethods(classMethods)
-    , m_objectMethods(objectMethods)
-    , m_classVariables(m_classVariables)
-{ }
-
-Object* DynamicClass::processObjectMessage(Object* self, const string& method, const vector<Object*>& params)
-{
-    MethodsMap::iterator it = m_objectMethods->find(method);
-    if (it != m_objectMethods->end()) {
-        Method* method = it->second;
-        return method->code->evaluate(self);
-    } 
-    
-    execengineWarning("Trying to call to undefined object method. @nil returned. " + self->objectClass()->className() + " " +  method);
-    return Nil::nil();
-}
-
-Object* DynamicClass::processMessage(const string& method, const vector<Object*>& params)
-{
-    MethodsMap::iterator it = m_classMethods->find(method);
-    if (it != m_classMethods->end()) {
-        Method* method = it->second;
-        return method->code->evaluate(this);
-    } 
-    
-    execengineWarning("Trying to call to undefined class method. @nil returned. " + this->objectClass()->className() + " " +  method);
-    return Nil::nil();
-}
-
-Object* kernel_DynamicClass_new(Object* self, const vector<Object*>& params)
-{
-    DynamicClass* constructorClass = dynamic_cast<DynamicClass*>(self);
-    
-    if (constructorClass)
-        return new DynamicObject(constructorClass);
-        
-    execengineError("Kernel Class Panic! " + (self ? self->objectClass()->className() : string("NULL class")));
-    
-}
-
-Class* DynamicClass::objectClass()
-{
-    static KernelClass *s_objectClass = NULL;
-    
-    if (!s_objectClass) {
-        KernelMethodsMap* methodsMap = new KernelMethodsMap();
-        (*methodsMap)[string("className")] = Class::kernel_Class_className;
-        
-        s_objectClass = new KernelClass(string("Class"), Object::ObjectClass(), methodsMap);
-    }
-    
-    return s_objectClass;
-}
-
-/** KernelClass */
-KernelClass::KernelClass(string className, Class* superClass, KernelMethodsMap* methods) 
-    : Class(className, superClass)
-    , m_kernelMethods(methods) 
-{ }
-
-Object* KernelClass::processObjectMessage(Object* self, const string& method, const vector<Object*>& params)
-{
-    KernelMethodsMap::iterator it = m_kernelMethods->find(method);
-    if (it != m_kernelMethods->end()) {
-        KernelMethod method = it->second;
-        return (*method)(self, params);
-    }
-    
-    execengineWarning(string("Trying to call to undefined kernel method. @nil returned. "));// + self->objectClass()->className() + " " +  method);
-
-    return Nil::nil();
-}
-
-Class* KernelClass::objectClass()
-{
-    static KernelClass *s_objectClass = NULL;
-    
-    if (!s_objectClass) {
-        KernelMethodsMap* methodsMap = new KernelMethodsMap();
-        (*methodsMap)[string("className")] = Class::kernel_Class_className;
-        
-        s_objectClass = new KernelClass(string("Class"), Object::ObjectClass(), methodsMap);
-    }
-    
-    return s_objectClass;
-}
-
-
-static Object* kernel_KernelClass_new(Object*, const vector<Object*>&)
-{
     return Nil::nil();
 }
 
@@ -163,16 +139,18 @@ Object* DynamicObject::getVariable(const string& varName)
  */
 Class* String::ObjectClass()
 {
-    static KernelClass* s_stringClass = NULL;
+    static Class* s_stringClass = NULL;
     
     if (!s_stringClass) { /* We are going to make Class */
-        KernelMethodsMap* methodsMap = new KernelMethodsMap();
-        (*methodsMap)[string("+@")] = &String::kernel_String_concat;
-        (*methodsMap)[string("append:@")] = &String::kernel_String_concat;
-        (*methodsMap)[string("print")] = &String::kernel_String_print;
-        (*methodsMap)[string("length")] = &String::kernel_String_length;
+        MethodsMap* methodsMap = new MethodsMap();
+        (*methodsMap)[string("+@")] = new KernelMethod(string("+@"), String::kernel_String_concat);
+        (*methodsMap)[string("append:@")] = new KernelMethod(string("append:@"), String::kernel_String_concat);
+        (*methodsMap)[string("println")] = new KernelMethod(string("println"), String::kernel_String_println);
+        (*methodsMap)[string("length")] = new KernelMethod(string("length"), String::kernel_String_length);
         
-        s_stringClass = new KernelClass(string("String"), Object::ObjectClass(), methodsMap);
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_stringClass = new Class(string("String"), Object::ObjectClass(), methodsMap, classMethodsMap);
     }
     
     return s_stringClass;
@@ -191,12 +169,12 @@ Object* String::kernel_String_concat(Object* self, const vector<Object*>& params
     return self;
 }
 
-Object* String::kernel_String_print(Object* self, const vector<Object*>&)
+Object* String::kernel_String_println(Object* self, const vector<Object*>&)
 {
     String* str = dynamic_cast<String*>(self);
     
     if (str) 
-        cout << str->m_string;
+        cout << str->m_string << "\n";
     else
         execengineError(string("Incorrect parameter"));
         
