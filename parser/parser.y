@@ -79,7 +79,7 @@ classDeclList       : classDeclaration                  { $$ = new ast::AST(); $
 classDeclaration    : T_CLASS T_IDENTIFIER 
                         T_OP_PARENT classVarsDecl T_CL_PARENT 
                         T_OP_BRACE classMethsDecl T_CL_BRACE
-                    { $$ = new ast::ClassDeclaration(*$2, string(ast::ROOT_CLASS_NAME), $4, $7); }
+                    { $$ = new ast::ClassDeclaration(*$2, std::string(ast::ROOT_CLASS_NAME), $4, $7); }
                     
                     | T_CLASS T_IDENTIFIER T_INTERCALATE T_IDENTIFIER 
                         T_OP_PARENT classVarsDecl T_CL_PARENT 

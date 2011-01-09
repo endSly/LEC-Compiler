@@ -8,7 +8,6 @@
 
 namespace ast {
     class CodeBlock;
-    class Expression;
 }
 
 namespace execengine {
@@ -16,144 +15,126 @@ namespace execengine {
     using namespace std;
     using namespace ast;
     
+    class Method;
+    
     class Class;
     class KernelClass;
     class Routine;
     class Object;
     class Nil;
-    
-    typedef Object* (*NativeMethod)(const Object*, const vector<Object*>);
-    typedef map<string, NativeMethod*> KernelMethodsMap;
-    typedef map<string, CodeBlock*> MethodsMap;
+
+    typedef Object* (*KernelMethod)(Object*, const vector<Object*>&);
+    typedef map<string, KernelMethod> KernelMethodsMap;
+    typedef map<string, Method*> MethodsMap;
     typedef map<string, Object*> VariablesMap;
 
-    static VariablesMap* m_globalVariables;
-    
     class Object {
     public:
-        virtual Object* processMessage(const string&, const vector<Object*>&) { }
-        virtual Object* getVariable(const string& varName) { }
-
-        virtual ~Object() { }
- 
-    protected:
         Object() { }
-        VariablesMap* globalVariables() { return m_globalVariables; }
+        virtual Object* processMessage(const string&, const vector<Object*>&);
+        virtual Class* objectClass()  { return Object::objectClass(); }
+        virtual ~Object() { }
+        Object* getVariable(const string& varName) { return this; }
         
-    private:
-        unsigned int m_referencesCount;
-        
-        static VariablesMap* m_globalVariables;
+        static Class* ObjectClass();
     };
     
-    /**
-     *  Class is used to store dynamic class methods
-     */
     class Class : public Object {
     public:
-        Class(string, Class*, MethodsMap*, vector<string>*);
-    
-        Object* processMessage(const string&, const vector<Object*>&);
+        Class(string className, Class* superClass) : m_className(className), m_superClass(superClass) { }
+        virtual Object* processObjectMessage(Object*, const string&, const vector<Object*>&) { }
         string className() { return m_className; }
-        vector<string>* classVariables() { return m_classVars; }
-        MethodsMap* classMethods() { return m_classMethods; }
-        
         ~Class() { }
+        virtual Class* objectClass() { }
+        
+        static Object* kernel_Class_className(Object*, const vector<Object*>&);
+        
     private:
-        Class() { }
-        Class(const Class&) { }
-        
-        static KernelClass* m_classKernelMethods;
-        
-        MethodsMap* m_classMethods;
-        vector<string>* m_classVars;
-        
         string m_className;
         Class* m_superClass;
     };
     
-    class DynamicObject : public Object {
+    class DynamicClass : public Class {
     public:
-        DynamicObject(Class*);
-    
+        ~DynamicClass() { delete m_objectMethods; delete m_classMethods; delete m_classVariables; }
+        
+        DynamicClass(string, Class*, MethodsMap*, MethodsMap*, vector<string>*);
+        Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
         Object* processMessage(const string&, const vector<Object*>&);
-        Object* getVariable(const string& varName);
-
-        ~DynamicObject() { delete m_localVariables; }
+        Class* objectClass();
         
     private:
-        Class* m_class;
-        
-        VariablesMap* m_localVariables;
+        MethodsMap* m_classMethods;
+        MethodsMap* m_objectMethods;
+        vector<string>* m_classVariables;
     };
-    
     
     /**
      *  KernelClass stores KernelObjects methods
      */
-    class KernelClass : public Object {
+    class KernelClass : public Class {
     public:
-        KernelClass();
+        ~KernelClass() { delete m_kernelMethods; }
         
-        Object* processMessage(const string&, const vector<Object*>&);
-        Object* getVariable(const string&);
+        KernelClass(string, Class*, KernelMethodsMap*);
+        Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
+        Class* objectClass();
         
-        KernelMethodsMap* classMethods() { return m_kernelMethods; }
+        static Object* kernel_KernelClass_new(Object*, const vector<Object*>&);
         
-        ~KernelClass() { }
-
     private:
         KernelMethodsMap* m_kernelMethods;
+    };
+    
+    class DynamicObject : public Object {
+    public:
+        Class* objectClass() { return m_class; }
+        ~DynamicObject() { delete m_localVariables; }
+    
+        DynamicObject(Class*);
+        Object* getVariable(const string& varName);
+
+        static Object* kernel_DynamicClass_new(Object*, const vector<Object*>&);
+
+    private:
+        VariablesMap* m_localVariables;
+        
+        Class* m_class;
     };
     
     class Nil : public Object {    
     public:
         static Object* nil() { static Nil s_nil; return &s_nil; }
-        
         Object* processMessage(const string&, const vector<Object*>&) { return this; }
         Object* getVariable(const string& varName) { return this; }
-        
-    private:
-        Nil() { }
-        Nil(const Nil&) { }
+        Class* objectClass() { return Object::ObjectClass(); }
     };
-    
-    
 
-    class Routine : public Object {
-    public:
-        Routine(CodeBlock* code, Object* obj) : m_routineCode(code), m_runningObject(obj) { }
-        Object* processMessage(const string&, const vector<Object*>&);
-        ~Routine() { }
-        
-    private:
-        static KernelClass* m_class;
-
-        CodeBlock* m_routineCode;
-        Object* m_runningObject;
-    };
-    
     class String : public Object {
     public:
         String(const std::string& str) : m_string(str) { }
-        Object* processMessage(const string&, const vector<Object*>&);
         ~String() { }
         
+        static Class* ObjectClass();
+        Class* objectClass() { return String::ObjectClass(); }
+        
+        static Object* kernel_String_concat(Object*, const vector<Object*>&);
+        static Object* kernel_String_print(Object*, const vector<Object*>&);
+        static Object* kernel_String_length(Object*, const vector<Object*>&);
+        
     private:
-        static KernelClass* m_class;
-
         std::string m_string; 
     };
     
     class Character : public Object {
     public:
         Character(unsigned int character) : m_character(character) { }
-        Object* processMessage(const string&, const vector<Object*>&);
         ~Character() { }
         
+        static Class* ObjectClass();
+        Class* objectClass() { return Character::ObjectClass(); }
+        
     private:
-        static KernelClass* m_class;
-
         unsigned int m_character; 
     };
     
@@ -162,14 +143,13 @@ namespace execengine {
         static Boolean* True();
         static Boolean* False();
     
-        Object* processMessage(const string&, const vector<Object*>&);
+        static Class* ObjectClass();
+        Class* objectClass() { return Boolean::ObjectClass(); }
 
     private:
         Boolean() { }
         Boolean(const Boolean&) { }
         ~Boolean() { }
-    
-        static KernelClass* m_class;
         
         bool m_value;
         
@@ -180,28 +160,42 @@ namespace execengine {
     class Integer : public Object {
     public:
         Integer(long long value) : m_value(value) { }
-        Object* processMessage(const string&, const vector<Object*>&);
         ~Integer() { }
         
+        static Class* ObjectClass();
+        Class* objectClass() { return Integer::ObjectClass(); }
+        
     private:
-        static KernelClass* m_class;
-
         long long m_value;
     };
     
     class Decimal : public Object {
     public:
         Decimal(double value) : m_value(value) { }
-        Object* processMessage(const string&, const vector<Object*>&);
-
         ~Decimal() { }
         
-    private:
-        static KernelClass* m_class;
+        static Class* ObjectClass();
+        Class* objectClass() { return Decimal::ObjectClass(); }
         
+    private:
         double m_value;
     };
+
+
+    class Routine : public Object {
+    public:
+        Routine(CodeBlock* code, Object* obj) : m_routineCode(code), m_runningObject(obj) { }
+        ~Routine() { }
+        
+        static Class* ObjectClass();
+        Class* objectClass() { return Routine::ObjectClass(); }
+        
+    private:
+        CodeBlock* m_routineCode;
+        Object* m_runningObject;
+    };
     
+        
 }
 
 

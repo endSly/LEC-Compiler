@@ -43,5 +43,9 @@ Class Test
         @self;
     }
     
+    @Test test {
+        "Hello world!" print;
+    }
+    
     
 }

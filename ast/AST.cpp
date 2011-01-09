@@ -43,21 +43,23 @@ ClassDeclaration::ClassDeclaration(string className, string superName, vector<st
     : m_name(className)
     , m_superName(superName)
     , m_varsList(vars)
-{   
-    m_methodsMap = new map<string, MethodDeclaration*>();
-    for (vector<MethodDeclaration*>::iterator it = methods->begin()
-         ; it != methods->end()
-         ; it++) {
-        MethodDeclaration* methodDec = *it;
-        m_methodsMap->insert(std::pair<string, MethodDeclaration*>(methodDec->signature(), methodDec));      
-     }
-}
+    , m_methodsList(methods)
+{ }
 
 
 MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
-    : m_methodCode(code)
+    : m_name(methodSignature)
+    , m_subject(subjectObj)
+    , m_methodCode(code)
+    , m_paramsList(new vector<string>())
 {
-
+    for (vector<Expression*>::iterator it = paramsVars->begin()
+         ; it != paramsVars->end()
+         ; it++) {
+        
+        Variable* paramVar = dynamic_cast<Variable*>(*it);
+        m_paramsList->push_back(paramVar->name());
+     }
 }
 
 /*

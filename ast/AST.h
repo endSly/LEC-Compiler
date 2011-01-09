@@ -10,11 +10,10 @@
 #include <map>
 #include <string>
 #include "execengine/KernelObjects.h"
-
-using namespace std;
     
 namespace ast {
     
+    using namespace std;
     using namespace execengine;
     
     class ClassDeclaration;
@@ -40,12 +39,15 @@ namespace ast {
     class ClassDeclaration {
     public:
         ClassDeclaration(string, string, vector<string>*, vector<MethodDeclaration*>*);
+        
+        vector<string>* variablesList() { return m_varsList; }
+        vector<MethodDeclaration*>* methodsList() { return m_methodsList; }
     
         string name() { return m_name; }
     private:
         string m_name;
         string m_superName;
-        map<string, MethodDeclaration*>* m_methodsMap;
+        vector<MethodDeclaration*>* m_methodsList;
         vector<string>* m_varsList;
     };
     
@@ -53,9 +55,14 @@ namespace ast {
     public:
         MethodDeclaration(string, string, vector<Expression*>*, CodeBlock*);
      
-        string signature() { return m_name; }
+        string name() { return m_name; }
+        string subject() { return m_subject; }
+        vector<string>* parametersList() { return m_paramsList; } 
+        CodeBlock* methodCode() { return m_methodCode; }
+        
     private:
         string m_name;
+        string m_subject;
         vector<string>* m_paramsList; 
         CodeBlock*  m_methodCode;  
     };

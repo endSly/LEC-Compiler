@@ -2,25 +2,34 @@
 #define execengine_ExecEngine_h
 
 #include <string>
+#include <vector>
 #include <map>
 
-#include "KernelObjects.h"
-
-namespace ast {
-    class AST;
-}
+#include "ast/AST.h"
 
 namespace execengine {
     
     using namespace std;
     
+    void execengineWarning(const string& msg);
+    void execengineError(const string& msg);
+    
+    class Method {
+    public:
+        Method(ast::MethodDeclaration* decl) : methodName(decl->name()), code(decl->methodCode()), parameters(decl->parametersList()) { }
+        Method(string name, CodeBlock* cb, vector<string>* params) : methodName(name), code(cb), parameters(params) { }
+        string methodName;
+        CodeBlock* code;
+        vector<string>* parameters;
+    };
+    
     class ExecEngine {
     public:
-        ExecEngine(ast::AST*);
+        ExecEngine();
         
         ~ExecEngine();
         
-        void initializeEngine();
+        void initializeEngine(ast::AST*);
         
         int execute(const std::string&, const std::string&);
         

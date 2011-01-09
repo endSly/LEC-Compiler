@@ -33,14 +33,11 @@ int main(int argc, char** args)
     }
     
     /* Execute the AST */
-    execengine::ExecEngine* ee = new execengine::ExecEngine(syntaxTree);
+    execengine::ExecEngine ee;
     
-    ee->initializeEngine();
+    ee.initializeEngine(syntaxTree);
     
-    int retVal = ee->execute(std::string(args[2]), std::string(args[3]));
-    
-    delete ee;
-    
-    return retVal;
+    return ee.execute(std::string(args[2]), std::string(args[3]));
+
 }
 
