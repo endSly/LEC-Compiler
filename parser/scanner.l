@@ -1,5 +1,9 @@
 %{
-    
+
+#ifndef HAVE_UNISTD_H
+#define YY_NO_UNISTD_H
+#endif
+
 #include <string>
 #include "ast/AST.h"
 
@@ -8,8 +12,8 @@
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
-extern "C" {
-
+extern "C" 
+{
 	/*
 	This function is called whenever the lexer reaches EOF. Return 1 to indicate that
 	we have not reset "yyin" to point to a new file.
@@ -19,12 +23,17 @@ extern "C" {
 		return 1; 
 	}
 	
-	
 	char * yyget_text () 
 	{
 		return "@@ yyget_text: Not Yet Implemented";
 	}
 
+	extern int yylex();
+
+	int yytest()
+	{
+		return 0;
+	}
 }
 
 using namespace ast;
@@ -32,6 +41,7 @@ using namespace ast;
 %}
 
 %option yylineno
+%option never-interactive
 
 identifier          [^ \t\n\{\}\(\)\;\@]+
 varidentifier       \@[a-zA-Z0-9_]+

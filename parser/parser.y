@@ -1,4 +1,5 @@
 %{
+
     
 /*
  * (c) 2011 Endika Gutierrez Salas (endSly@gmail.com)
@@ -9,15 +10,23 @@
     #include <string>
     #include "ast/AST.h"
 
+extern "C"
+{
     extern int yylex();
-    extern int yylineno;
-    extern char* yyget_text();
+	extern int yyparse();
+    
+	int yylineno;
+    
+	extern char* yyget_text();
 	void yyerror(const char *s) { printf("Parser error (line %i): %s  Near: %s\n", yylineno, s, yyget_text()); exit(1); }
+}
 	
 	extern ast::AST* syntaxTree;
 	
 	#define DEBUG(msg) printf("DEBUG: %s  yytext:%s yylineno:%i\n",msg,yyget_text(),yylineno)
 %}
+
+
 
 %union {
 	ast::AST*                  ast;
