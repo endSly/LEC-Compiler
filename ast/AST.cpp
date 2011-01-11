@@ -5,6 +5,7 @@
 
 #include "AST.h"
 #include "execengine/KernelObjects.h"
+#include "execengine/ExecEngine.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -82,7 +83,13 @@ Object* Value::evaluate(Object* self)
 
 Object* Variable::evaluate(Object* self) 
 {
-    return self->getVariable(m_varName);
+    VariablesMap* globalVars = ExecEngine::execEngine()->globalVariables();
+    VariablesMap::iterator it = globalVars->find(m_varName);
+    
+    if (it != globalVars->end()) 
+        return it->second;
+    else
+        return self->getVariable(m_varName);
 }
 
 Object* CodeBlock::evaluate(Object* self) 

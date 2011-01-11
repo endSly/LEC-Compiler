@@ -30,9 +30,11 @@ namespace execengine {
         virtual Object* processMessage(const string&, const vector<Object*>&);
         virtual Class* objectClass()  { return Object::objectClass(); }
         virtual ~Object() { }
-        Object* getVariable(const string& varName) { return this; }
+        virtual Object* getVariable(const string& varName) { return this; }
         
         static Class* ObjectClass();
+        
+        static Object* kernel_Object_class(Object*, const vector<Object*>&);
     };
     
     class Class : public Object {

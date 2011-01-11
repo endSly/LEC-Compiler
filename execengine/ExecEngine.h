@@ -11,8 +11,8 @@ namespace execengine {
     
     using namespace std;
     
-    void execengineWarning(const string& msg);
-    void execengineError(const string& msg);
+    static void execengineWarning(const string& msg);
+    static void execengineError(const string& msg);
     
     class Method {
     public:
@@ -49,15 +49,21 @@ namespace execengine {
     
     class ExecEngine {
     public:
-        ExecEngine();
-        
-        ~ExecEngine();
+        static void execengineWarning(const string& msg);
+        static void execengineError(const string& msg);
+    
+        static ExecEngine* execEngine();
         
         void initializeEngine(ast::AST*);
-        
         int execute(const std::string&, const std::string&);
         
+        VariablesMap* globalVariables() { return m_globalVars; }
+        
+        
     private:
+        ExecEngine() : m_globalVars(new VariablesMap()) { }
+        ~ExecEngine() { delete m_globalVars; }
+    
         VariablesMap* m_globalVars;
     };
     

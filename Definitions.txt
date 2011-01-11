@@ -21,12 +21,26 @@ Object
 
 -- Referencia --
 
+Object
+    evaluate
+
+    class
+    superclass
+    isInstanceOf:@
+
+    new
+    copy
+
+
 Routine
     evaluate
 
 Class
     class
     superclass
+
+Mixin Magnitude
+    
 
 Integer
     +

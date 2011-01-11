@@ -43,9 +43,19 @@ Class Test
         @self;
     }
     
+    @Test do {
+        (@String className) println;
+        
+        (("Hola" class) className) println;
+    }
+    
     @Test test {
-        ("Hello world! " println) println; 
-        (@String className)println;
+        ("Hello world! " println) println;
+        ("Hola " + "mundo!") println;
+        
+        "Test" length;
+        
+        @Test do;
     }
     
     

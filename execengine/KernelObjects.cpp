@@ -11,21 +11,28 @@ namespace execengine {
 /** Object */
 Object* Object::processMessage(const string& method, const vector<Object*>& params) 
 { 
-    this->objectClass()->processObjectMessage(this, method, params); 
+    return this->objectClass()->processObjectMessage(this, method, params); 
 }
 
 Class* Object::ObjectClass()
 {
-        static Class* s_objectClass = NULL;
+    static Class* s_objectClass = NULL;
     
     if (!s_objectClass) {
         MethodsMap* methodsMap = new MethodsMap();
+        (*methodsMap)[string("class")] = new KernelMethod(string("class"), Class::kernel_Object_class);
+        
         MethodsMap* classMethodsMap = new MethodsMap();
         
         s_objectClass = new Class(string("Object"), NULL, methodsMap, classMethodsMap);
     }
     
     return s_objectClass;
+}
+
+Object* Object::kernel_Object_class(Object* self, const vector<Object*>& parms)
+{
+    return self->objectClass();
 }
 
 /** Class */
@@ -65,7 +72,8 @@ Object* Class::processObjectMessage(Object* self, const string& method, const ve
     if (m_superClass)
         return m_superClass->processObjectMessage(self, method, params);
     
-    execengineWarning(string("Trying to access to undefined method. @nil returned. ") + this->className() + " " +  method);
+
+    ExecEngine::execengineWarning(string("Trying to access to undefined method. @nil returned. ") + this->className() + " " +  method);
     return Nil::nil();
 }
 
@@ -77,11 +85,15 @@ Object* Class::processMessage(const string& method, const vector<Object*>& param
         return method->run(this, params);
     } 
     
+    return this->objectClass()->processObjectMessage(this, method, params); 
+    
+    /*
     if (m_superClass)
         return m_superClass->processMessage(method, params);
     
     execengineWarning(string("Trying to access to undefined class method. @nil returned. ") + this->className() + " " +  method);
     return Nil::nil();
+    */
     
 }
 
@@ -99,9 +111,9 @@ Object* Class::kernel_Class_className(Object* self, const vector<Object*>& param
     Class* cl = dynamic_cast<Class*>(self);
     
     if (cl)
-        return new String(cl->className());
+        return new String(cl->m_className);
         
-    execengineError(string("Kernel class panic! ") + self->objectClass()->className());
+    ExecEngine::execengineError(string("Kernel class panic! ") + self->objectClass()->className());
     return Nil::nil();
 }
 
@@ -127,7 +139,7 @@ Object* DynamicObject::getVariable(const string& varName)
     if (it != m_localVariables->end()) {
         result = it->second;
     } else {
-        execengineWarning(string("Trying to access to undefined variable. @nil returned. ") + this->m_class->className() + " " +  varName);
+        ExecEngine::execengineWarning(string("Trying to access to undefined variable. @nil returned. ") + this->m_class->className() + " " +  varName);
         result = Nil::nil();
     }
     return result;
@@ -149,6 +161,7 @@ Class* String::ObjectClass()
         (*methodsMap)[string("length")] = new KernelMethod(string("length"), String::kernel_String_length);
         
         MethodsMap* classMethodsMap = new MethodsMap();
+        (*methodsMap)[string("println")] = new KernelMethod(string("println"), String::kernel_String_println);
         
         s_stringClass = new Class(string("String"), Object::ObjectClass(), methodsMap, classMethodsMap);
     }
@@ -164,7 +177,7 @@ Object* String::kernel_String_concat(Object* self, const vector<Object*>& params
     if (str && param) 
         str->m_string.append(param->m_string);
     else
-        execengineError(string("Incorrect parameter"));
+        ExecEngine::execengineError(string("Incorrect parameter"));
     
     return self;
 }
@@ -176,7 +189,7 @@ Object* String::kernel_String_println(Object* self, const vector<Object*>&)
     if (str) 
         cout << str->m_string << "\n";
     else
-        execengineError(string("Incorrect parameter"));
+        ExecEngine::execengineError(string("Incorrect parameter"));
         
     return self;
 }
@@ -188,7 +201,7 @@ Object* String::kernel_String_length(Object* self, const vector<Object*>&)
     if (str) 
         return new Integer(str->m_string.length());
     else
-        execengineError(string("Incorrect parameter"));
+        ExecEngine::execengineError(string("Incorrect parameter"));
         
     return self;
 }

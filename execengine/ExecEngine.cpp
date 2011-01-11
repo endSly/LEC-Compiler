@@ -8,19 +8,24 @@
 
 namespace execengine {
 
-void execengineWarning(const string& msg) 
+void ExecEngine::execengineWarning(const string& msg) 
 {
     std::cout << "[ExecEngine Warning] " << msg << "\n";
 }
 
-void execengineError(const string& msg) 
+void ExecEngine::execengineError(const string& msg) 
 {
     std::cout << "[ExecEngine Error] " << msg << "\n";
     exit(1);
 }
 
-ExecEngine::ExecEngine()
-    : m_globalVars(new VariablesMap())
+ExecEngine* ExecEngine::execEngine()
+{
+    static ExecEngine s_ee;
+    return &s_ee;
+}
+        
+void ExecEngine::initializeEngine(ast::AST* tree)
 {
     // Insert all static Variables
     (*m_globalVars)[string("@nil")] = Nil::nil();
@@ -31,16 +36,9 @@ ExecEngine::ExecEngine()
     (*m_globalVars)[string("@Boolean")] = Boolean::ObjectClass();
     (*m_globalVars)[string("@Integer")] = Object::ObjectClass();
     (*m_globalVars)[string("@Decimal")] = Object::ObjectClass();
-    
-}
         
-ExecEngine::~ExecEngine()
-{
-    delete m_globalVars;
-}
         
-void ExecEngine::initializeEngine(ast::AST* tree)
-{
+    // Insert Classe from AST
     map<string, ClassDeclaration*>* classesDeclaration = tree->classesMap();
     
     for (map<string, ClassDeclaration*>::iterator it = classesDeclaration->begin()
@@ -85,7 +83,7 @@ int ExecEngine::execute(const std::string& className, const std::string& method)
 {
     Object* receiverClass = (*m_globalVars)["@" + className];
     if (receiverClass) {
-        Object* result = receiverClass->processMessage(method, vector<Object*>());
+        Object* result = receiverClass->processMessage(method, vector<Object*>(0));
         cout << "--- Execution finished ---\n";
         return 0;
     } else {
