@@ -9,7 +9,7 @@ Class Test
         
         (17 toString) println;
         
-        3; """ This is a return """
+        (@Boolean true); """ This is a return """
         
        "This should not be printed" println;
     }
@@ -17,7 +17,7 @@ Class Test
     @Test do {
         (@String className) println;
         
-        (("Hola" class) className) println;
+        ((1.2 class) className) println;
         
         "[Debug] calling to @Test doWithParam;" println;
         @Test doWithParam: "Test";

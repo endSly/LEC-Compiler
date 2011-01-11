@@ -38,6 +38,12 @@ SET(SOURCE_FILES
   parser/parser.cpp 
   execengine/ExecEngine.cpp 
   execengine/KernelObjects.cpp
+  execengine/kernelobjects/Object.cpp
+  execengine/kernelobjects/Class.cpp
+  execengine/kernelobjects/String.cpp
+  execengine/kernelobjects/Integer.cpp
+  execengine/kernelobjects/Decimal.cpp
+  execengine/kernelobjects/Boolean.cpp
   )
 
 ADD_EXECUTABLE(lecc main.cpp ${SOURCE_FILES})
