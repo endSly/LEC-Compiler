@@ -1,6 +1,7 @@
 
 
 #include <iostream>
+#include <cstdlib>
 #include "ast/AST.h"
 
 #include "ExecEngine.h"

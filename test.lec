@@ -4,51 +4,12 @@
 Class Test
 ( @value )
 {
-    @Test new {
-        @self = (@super new);
-        
-        (@self isNotNull) ? {
-            @lastNode = (@firstNode = @nil);
-        };
-        
-        (@test isNotNull) ? "4" : { @hola; };
-        
-        {
-            "test" length;
-            -12.2e-2 abs;
-            
-            3 + 2;
-        } eval;
-        
-
-        @self;
-        
-        (@self this:@s is:@e very:@j long:@k message:@self ?);
-    }
-    
-    @self size {
-        
-        (@self isNotNull) ? {
-            @size;
-        };
-        
-        0;
-    }
-    
-    @self , @secondList {
-        6 !;
-        
-        6 factorial;
-        
-        @self;
-    }
-    
     @Test doWithParam:@param {
         ((@param class) className) println;
         
         (17 toString) println;
         
-        3;
+        3; """ This is a return """
         
        "This should not be printed" println;
     }
