@@ -43,10 +43,16 @@ Class Test
         @self;
     }
     
+    @Test doWithParam:@param {
+        ((@param class) className) println;
+    }
+    
     @Test do {
         (@String className) println;
         
         (("Hola" class) className) println;
+        
+        (doWithParam: 4)
     }
     
     @Test test {

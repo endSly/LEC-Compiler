@@ -170,9 +170,9 @@ Object* DynamicObject::getVariable(const string& varName)
  */
 Class* String::ObjectClass()
 {
-    static Class* s_stringClass = NULL;
+    static Class* s_objectClass = NULL;
     
-    if (!s_stringClass) { /* We are going to make Class */
+    if (!s_objectClass) { /* We are going to make Class */
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("+@")] = new KernelMethod(string("+@"), String::kernel_String_concat);
         (*methodsMap)[string("append:@")] = new KernelMethod(string("append:@"), String::kernel_String_concat);
@@ -182,10 +182,10 @@ Class* String::ObjectClass()
         MethodsMap* classMethodsMap = new MethodsMap();
         (*methodsMap)[string("println")] = new KernelMethod(string("println"), String::kernel_String_println);
         
-        s_stringClass = new Class(string("String"), Object::ObjectClass(), methodsMap, classMethodsMap);
+        s_objectClass = new Class(string("String"), Object::ObjectClass(), methodsMap, classMethodsMap);
     }
     
-    return s_stringClass;
+    return s_objectClass;
 }
 
 Object* String::kernel_String_concat(Object* self, const vector<Object*>& params)
@@ -230,7 +230,16 @@ Object* String::kernel_String_length(Object* self, const vector<Object*>&)
  */ 
 Class* Character::ObjectClass()
 {
-    return NULL;
+    static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) { /* We are going to make Class */
+        MethodsMap* methodsMap = new MethodsMap();
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_objectClass = new Class(string("Character"), Object::ObjectClass(), methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
 }
 
 /*
@@ -238,7 +247,16 @@ Class* Character::ObjectClass()
  */ 
 Class* Boolean::ObjectClass()
 {
-    return NULL;
+    static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) { /* We are going to make Class */
+        MethodsMap* methodsMap = new MethodsMap();
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_objectClass = new Class(string("Boolean"), Object::ObjectClass(), methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
 }
 
 /*
@@ -246,7 +264,16 @@ Class* Boolean::ObjectClass()
  */ 
 Class* Integer::ObjectClass()
 {
-    return NULL;
+    static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) { /* We are going to make Class */
+        MethodsMap* methodsMap = new MethodsMap();
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_objectClass = new Class(string("Integer"), Object::ObjectClass(), methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
 }
 
 /*
@@ -254,7 +281,16 @@ Class* Integer::ObjectClass()
  */
 Class* Decimal::ObjectClass()
 {
-    return NULL;
+    static Class* s_objectClass = NULL;
+    
+    if (!s_objectClass) { /* We are going to make Class */
+        MethodsMap* methodsMap = new MethodsMap();
+        MethodsMap* classMethodsMap = new MethodsMap();
+        
+        s_objectClass = new Class(string("Decimal"), Object::ObjectClass(), methodsMap, classMethodsMap);
+    }
+    
+    return s_objectClass;
 }
      
 } // namespace execengine
