@@ -18,6 +18,12 @@ extern "C" {
 	{ 
 		return 1; 
 	}
+	
+	
+	char * yyget_text () 
+	{
+		return "@@ yyget_text: Not Yet Implemented";
+	}
 
 }
 
