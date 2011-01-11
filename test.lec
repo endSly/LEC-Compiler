@@ -45,6 +45,12 @@ Class Test
     
     @Test doWithParam:@param {
         ((@param class) className) println;
+        
+        (17 toString) println;
+        
+        3;
+        
+       "This should not be printed" println;
     }
     
     @Test do {
@@ -54,16 +60,21 @@ Class Test
         
         "[Debug] calling to @Test doWithParam;" println;
         @Test doWithParam: "Test";
+        
+        "[Debug] returned from @Test doWithParam;" println;
     }
     
     @Test test {
         ("Hello world! " println) println;
         ("Hola " + "mundo!") println;
         
-        "Test" length;
-        
         "[Debug] calling to @Test do;" println;
         @Test do;
+        "[Debug] returning from @Test do;" println;
+        
+        ("'Test' length:" + (("Test" length) toString)) println;
+        
+        
     }
     
     

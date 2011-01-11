@@ -23,6 +23,8 @@ namespace execengine {
     
     typedef map<string, Method*> MethodsMap;
     typedef map<string, Object*> VariablesMap;
+    
+    bool checkMethodParams(const vector<Object*>&, ...);
 
     class Object {
     public:
@@ -141,6 +143,8 @@ namespace execengine {
         
         static Class* ObjectClass();
         Class* objectClass() { return Integer::ObjectClass(); }
+        
+        static Object* kernel_Integer_toString(Object*, const vector<Object*>&);
         
     private:
         long long m_value;

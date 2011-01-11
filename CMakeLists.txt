@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT(lecc)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/ast/
@@ -30,4 +32,12 @@ ADD_CUSTOM_COMMAND(
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.hpp
   )
 
-ADD_EXECUTABLE(lecc main.cpp ast/AST.cpp parser/scanner.cpp parser/parser.cpp execengine/ExecEngine.cpp execengine/KernelObjects.cpp)
+SET(SOURCE_FILES
+  ast/AST.cpp 
+  parser/scanner.cpp 
+  parser/parser.cpp 
+  execengine/ExecEngine.cpp 
+  execengine/KernelObjects.cpp
+  )
+
+ADD_EXECUTABLE(lecc main.cpp ${SOURCE_FILES})

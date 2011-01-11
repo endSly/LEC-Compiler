@@ -1,12 +1,35 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cstdarg>
 #include "KernelObjects.h"
 #include "ExecEngine.h"
 
 #include "ast/AST.h"
 
 namespace execengine {
+
+bool checkMethodParams(const vector<Object*>& params, ...)
+{
+    va_list args;
+    va_start(args, params);
+    
+    int i = 0;
+    const int lastParam = params.size();
+
+    for (Class* type; (type = (Class*)va_arg(args, void*)); i++) {
+        if (i > lastParam)
+            return false; // Not enought params
+        
+        if (type != params[i]->objectClass()) // Just pointer comparison
+            return false;
+    }
+
+    if (i != lastParam)
+        return false;
+    
+    return true;
+}
 
 /** Object */
 Object* Object::processMessage(const string& method, const vector<Object*>& params) 
@@ -75,7 +98,6 @@ Class* Class::ObjectClass()
         (*methodsMap)[string("className")] = new KernelMethod(string("className"), Class::kernel_Class_className);
         
         MethodsMap* classMethodsMap = new MethodsMap();
-        (*classMethodsMap)[string("className")] = new KernelMethod(string("className"), Class::kernel_Class_className);
         
         s_objectClass = new Class(string("Class"), Object::ObjectClass(), methodsMap, classMethodsMap);
     }
@@ -190,35 +212,28 @@ Class* String::ObjectClass()
 
 Object* String::kernel_String_concat(Object* self, const vector<Object*>& params)
 {
-    String* str = dynamic_cast<String*>(self);
-    String* param = dynamic_cast<String*>(params[0]);
-    
-    if (str && param) 
-        str->m_string.append(param->m_string);
+    if (checkMethodParams(params, String::ObjectClass(), NULL))
+        ((String*) self)->m_string.append(((String*) params[0])->m_string);
     else
         ExecEngine::execengineError(string("Incorrect parameter"));
     
     return self;
 }
 
-Object* String::kernel_String_println(Object* self, const vector<Object*>&)
+Object* String::kernel_String_println(Object* self, const vector<Object*>& params)
 {
-    String* str = dynamic_cast<String*>(self);
-    
-    if (str) 
-        cout << str->m_string << "\n";
+    if (checkMethodParams(params, NULL))
+        cout << ((String*) self)->m_string << "\n";
     else
         ExecEngine::execengineError(string("Incorrect parameter"));
         
     return self;
 }
 
-Object* String::kernel_String_length(Object* self, const vector<Object*>&)
+Object* String::kernel_String_length(Object* self, const vector<Object*>& params)
 {
-    String* str = dynamic_cast<String*>(self);
-    
-    if (str) 
-        return new Integer(str->m_string.length());
+    if (checkMethodParams(params, NULL))
+        return new Integer(((String*) self)->m_string.length());
     else
         ExecEngine::execengineError(string("Incorrect parameter"));
         
@@ -268,12 +283,26 @@ Class* Integer::ObjectClass()
     
     if (!s_objectClass) { /* We are going to make Class */
         MethodsMap* methodsMap = new MethodsMap();
+        (*methodsMap)[string("toString")] = new KernelMethod(string("toString"), Integer::kernel_Integer_toString);
+        
         MethodsMap* classMethodsMap = new MethodsMap();
         
         s_objectClass = new Class(string("Integer"), Object::ObjectClass(), methodsMap, classMethodsMap);
     }
     
     return s_objectClass;
+}
+
+Object* Integer::kernel_Integer_toString(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(params, NULL)) {
+        char str[24];
+        sprintf(str, "%lld", ((Integer*) self)->m_value);
+        return new String(string(str));
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+    
+    return self;
 }
 
 /*
