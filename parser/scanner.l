@@ -9,8 +9,16 @@
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
 extern "C" {
-    int yywrap() { }
-    
+
+	/*
+	This function is called whenever the lexer reaches EOF. Return 1 to indicate that
+	we have not reset "yyin" to point to a new file.
+	*/
+    int yywrap() 
+	{ 
+		return 1; 
+	}
+
 }
 
 using namespace ast;
