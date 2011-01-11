@@ -13,21 +13,21 @@ INCLUDE_DIRECTORIES(
 SET(BISON_EXECUTABLE bison)
 ADD_CUSTOM_COMMAND (
   SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.y
-  ARGS -o${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.cpp
-       -d
+  COMMAND ${BISON_EXECUTABLE}
+  ARGS -d -o ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.y
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.cpp 
          ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.hpp
-  COMMAND ${BISON_EXECUTABLE}
   )
 
 # Add Flex command
 SET(FLEX_EXECUTABLE lex)
 ADD_CUSTOM_COMMAND(
   SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/parser/scanner.l
-  ARGS -o${CMAKE_CURRENT_SOURCE_DIR}/parser/scanner.cpp
+  COMMAND ${FLEX_EXECUTABLE} 
+  ARGS -o ${CMAKE_CURRENT_SOURCE_DIR}/parser/scanner.cpp
        ${CMAKE_CURRENT_SOURCE_DIR}/parser/scanner.l
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser/scanner.cpp
-  COMMAND ${FLEX_EXECUTABLE} 
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser/parser.hpp
   )
 
 ADD_EXECUTABLE(lecc main.cpp ast/AST.cpp parser/scanner.cpp parser/parser.cpp execengine/ExecEngine.cpp execengine/KernelObjects.cpp)
