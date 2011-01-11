@@ -52,7 +52,8 @@ Class Test
         
         (("Hola" class) className) println;
         
-        (doWithParam: 4)
+        "[Debug] calling to @Test doWithParam;" println;
+        @Test doWithParam: "Test";
     }
     
     @Test test {
@@ -61,6 +62,7 @@ Class Test
         
         "Test" length;
         
+        "[Debug] calling to @Test do;" println;
         @Test do;
     }
     
