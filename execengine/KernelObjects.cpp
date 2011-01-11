@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdarg>
+#include <cstdio>
 #include "KernelObjects.h"
 #include "ExecEngine.h"
 
@@ -18,11 +19,10 @@ bool checkMethodParams(const vector<Object*>& params, ...)
     const int lastParam = params.size();
 
     for (Class* type; (type = (Class*)va_arg(args, void*)); i++) {
-        if (i > lastParam)
-            return false; // Not enought params
-        
-        if (type != params[i]->objectClass()) // Just pointer comparison
-            return false;
+        if ((i > lastParam) // Not enought params
+            || (type != params[i]->objectClass())) { // Just pointer comparison
+            return false; 
+        }
     }
 
     if (i != lastParam)

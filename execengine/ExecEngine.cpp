@@ -85,14 +85,10 @@ int ExecEngine::execute(const std::string& className, const std::string& method)
     Object* receiverClass = (*m_globalVars)["@" + className];
     if (receiverClass) {
         Object* result = receiverClass->processMessage(method, vector<Object*>(0));
-        cout << "--- Execution finished ---\n";
         return 0;
     } else {
         execengineError("Class:" + className + " not found\n");
     }
-    
-    
-    
 }
 
 } // namespace execengine
