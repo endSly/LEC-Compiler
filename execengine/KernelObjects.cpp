@@ -35,14 +35,36 @@ Object* Object::kernel_Object_class(Object* self, const vector<Object*>& parms)
     return self->objectClass();
 }
 
+bool Object::isInstanceOf(Class* otherClass)
+{
+    Class* selfClass = this->objectClass();
+    
+    // Check if is same class
+    if (selfClass == otherClass)
+        return true;
+        
+    // Check if is subclass
+    while ((selfClass = selfClass->superClass())) {
+        if (selfClass == otherClass)
+            return true;
+    }
+    return false;
+}
+
 /** Class */
 Class::Class(string className, Class* superClass, MethodsMap* objectMethods, MethodsMap* classMethods, vector<string>* vars) 
     : m_className(className)
     , m_superClass(superClass)
     , m_classMethods(classMethods)
     , m_objectMethods(objectMethods)
-    , m_classVariables(m_classVariables)
+    , m_classVariables(vars)
 { }
+
+Class::~Class() {
+    delete m_classMethods;
+    delete m_objectMethods;
+    delete m_classVariables;
+}
 
 Class* Class::ObjectClass()
 {
@@ -122,13 +144,10 @@ DynamicObject::DynamicObject(Class* objClass)
     : m_class(objClass)
     , m_localVariables(new VariablesMap())
 {
-    /*
-     * TODO!!!
-     *
     vector<string>* vars = objClass->classVariables();
     for (vector<string>::iterator var = vars->begin(); var != vars->end(); var++) {
+        (*m_localVariables)[*var] = Nil::nil();
     }
-    */
     
 }
 

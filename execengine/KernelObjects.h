@@ -32,6 +32,8 @@ namespace execengine {
         virtual ~Object() { }
         virtual Object* getVariable(const string& varName) { return this; }
         
+        bool isInstanceOf(Class*);
+        
         static Class* ObjectClass();
         
         static Object* kernel_Object_class(Object*, const vector<Object*>&);
@@ -40,11 +42,15 @@ namespace execengine {
     class Class : public Object {
     public:
         Class(string, Class*, MethodsMap*, MethodsMap*, vector<string>* = NULL);
-        string className() { return m_className; }
-        ~Class() { }
-        static Class* ObjectClass();
-        virtual Class* objectClass() { return Class::ObjectClass(); }
+        ~Class();
         
+        inline string className() { return m_className; }
+        inline Class* superClass() { return m_superClass; }
+        inline vector<string>* classVariables() { return m_classVariables; }
+        
+        Class* objectClass() { return Class::ObjectClass(); }
+
+        static Class* ObjectClass();
         Object* processObjectMessage(Object*, const string&, const vector<Object*>&);
         Object* processMessage(const string&, const vector<Object*>&);
         
