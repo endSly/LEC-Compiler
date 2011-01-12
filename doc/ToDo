@@ -1,0 +1,8 @@
++ Los parametros no se envian al llamar a una funcion no-nativa
++ La variable @super no esta definida.
++ Faltan la mayoria de metodos nativos.
++ Hay que crear @Object new como constructor. El resto de las clases llamaran a @super new.
++ Permitir que los Objetos Routine tengan parametros.
++ Hacer que el parser reconozca los operadores binarios como expresiones simples.
++ El operador ',' crea Objectos List
+- Usar el ExecEngine de LLVM 
