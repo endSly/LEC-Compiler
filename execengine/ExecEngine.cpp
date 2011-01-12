@@ -70,10 +70,9 @@ void ExecEngine::initializeEngine(ast::AST* tree)
                 execengineError("Unknown subject " + methodDecl->subject());
             }
          }
-         
-        vector<string>* classVariables = classDecl->variablesList();
         
-        Class* newClass = new Class(className, Object::ObjectClass(), objectMethods, classMethods, classVariables);
+        Class* newClass = new Class(className, Object::ObjectClass(), 
+            objectMethods, classMethods, classDecl->variablesList());
         
         // Store class as global var
         (*m_globalVars)[classVar] = newClass;

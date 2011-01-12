@@ -35,9 +35,22 @@ Class Test
         
         ("'Test' length:" + (("Test" length) toString)) println;
         
-        (({ 
-            "Hola Routine" println;
-        } class) className) println;
+        """ Routine Tests """
+        "[Debug] Routine Tests" println;
+        (({ "Hola Routine" println; } class) className) println;
+        { "Hola Routine" println; } evaluate;
+        
+        """ Boolean Tests """
+        "[Debug] Boolean Tests" println;
+
+        (@Boolean true) ifTrue: {
+        	"ifTrue: Works!" println;
+        };
+        
+        ((@Boolean true) not) ifFalse: {
+        	"ifFalse: Works!" println;
+        };
+        
     }
     
     

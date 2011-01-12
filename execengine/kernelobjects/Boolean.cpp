@@ -5,18 +5,6 @@
 
 namespace execengine {
 
-Boolean* Boolean::True()
-{
-    static Boolean s_true(true);
-    return &s_true;
-}
-
-Boolean* Boolean::False()
-{
-    static Boolean s_false(false);
-    return &s_false;
-}
-
 Class* Boolean::ObjectClass()
 {
     static Class* s_objectClass = NULL;
@@ -25,7 +13,7 @@ Class* Boolean::ObjectClass()
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("ifTrue:@")] = new KernelMethod(string("ifTrue:@"), Boolean::kernel_Boolean_ifTrue);
         (*methodsMap)[string("ifFalse:@")] = new KernelMethod(string("ifFalse:@"), Boolean::kernel_Boolean_ifFalse);
-        (*methodsMap)[string("!")] = new KernelMethod(string("!"), Boolean::kernel_Boolean_not);
+        (*methodsMap)[string("not")] = new KernelMethod(string("not"), Boolean::kernel_Boolean_not);
         (*methodsMap)[string("and@")] = new KernelMethod(string("and@"), Boolean::kernel_Boolean_and);
         (*methodsMap)[string("or@")] = new KernelMethod(string("or@"), Boolean::kernel_Boolean_or);
         (*methodsMap)[string("nand@")] = new KernelMethod(string("nand@"), Boolean::kernel_Boolean_nand);
@@ -59,14 +47,22 @@ Object* Boolean::kernel_Boolean_false(Object*, const vector<Object*>& params)
         ExecEngine::execengineError(string("Incorrect parameter"));
 }
         
-Object* Boolean::kernel_Boolean_ifTrue(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_ifTrue(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Object::ObjectClass(), NULL)) {
+        if (((Boolean*) self)->m_value) 
+            return params[0]->processMessage(string("evaluate"), params);
+            
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_ifFalse(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_ifFalse(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Object::ObjectClass(), NULL)) {
+        if (!((Boolean*) self)->m_value) 
+            return params[0]->processMessage(string("evaluate"), params);
+    }
 }
         
 Object* Boolean::kernel_Boolean_not(Object* self, const vector<Object*>& params)

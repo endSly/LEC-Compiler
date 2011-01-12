@@ -45,6 +45,7 @@ SET(SOURCE_FILES
   execengine/kernelobjects/Integer.cpp
   execengine/kernelobjects/Decimal.cpp
   execengine/kernelobjects/Boolean.cpp
+  execengine/kernelobjects/Routine.cpp
   )
 
 ADD_EXECUTABLE(lecc main.cpp ${SOURCE_FILES})

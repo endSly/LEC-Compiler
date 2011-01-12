@@ -13,15 +13,12 @@
 #include "kernelobjects/Integer.h"
 #include "kernelobjects/Decimal.h"
 #include "kernelobjects/Boolean.h"
+#include "kernelobjects/Routine.h"
 
-namespace ast {
-    class CodeBlock;
-}
 
 namespace execengine {
     
     using namespace std;
-    using namespace ast;
     
     bool checkMethodParams(const vector<Object*>&, ...);
     
@@ -47,21 +44,6 @@ namespace execengine {
         Object* processMessage(const string&, const vector<Object*>&) { return this; }
         Object* getVariable(const string& varName) { return this; }
         Class* objectClass() { return Object::ObjectClass(); }
-    };
-    
-    
-    
-    class Routine : public Object {
-    public:
-        Routine(CodeBlock* code, Object* obj) : m_routineCode(code), m_runningObject(obj) { }
-        ~Routine() { }
-        
-        static Class* ObjectClass();
-        Class* objectClass() { return Routine::ObjectClass(); }
-        
-    private:
-        CodeBlock* m_routineCode;
-        Object* m_runningObject;
     };
     
         

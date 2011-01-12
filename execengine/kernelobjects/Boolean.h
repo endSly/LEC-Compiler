@@ -7,9 +7,11 @@ namespace execengine {
     
     class Boolean : public Object {
     public:
-        static Boolean* True();
-        static Boolean* False();
-    
+        inline static Boolean* True() { static Boolean s_true(true); return &s_true; }
+        inline static Boolean* False() { static Boolean s_false(false); return &s_false; };
+        
+        inline static Boolean* boolean(bool b) { b ? Boolean::True() : Boolean::False(); }
+        
         static Class* ObjectClass();
         Class* objectClass() { return Boolean::ObjectClass(); }
 

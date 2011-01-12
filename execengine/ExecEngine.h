@@ -10,6 +10,7 @@
 namespace execengine {
     
     using namespace std;
+    using namespace ast;
     
     static void execengineWarning(const string& msg);
     static void execengineError(const string& msg);

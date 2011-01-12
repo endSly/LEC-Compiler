@@ -17,12 +17,26 @@ bool checkMethodParams(const vector<Object*>& params, ...)
     
     int i = 0;
     const int lastParam = params.size();
-
+    
+    // For each arg
     for (Class* type; (type = (Class*)va_arg(args, void*)); i++) {
-        if ((i > lastParam) // Not enought params
-            || (type != params[i]->objectClass())) { // Just pointer comparison
+        if (i > lastParam) // Not enought params
             return false; 
+        
+        bool isInstance = false;
+        
+        // Check if is instance or subclass
+        for (Class* objectClass = (Class*) params[i]->objectClass()
+             ; objectClass
+             ; objectClass = objectClass->superClass()) {
+            if (type == objectClass) { // Just pointer comparison 
+                isInstance = true;
+                break;
+            }
         }
+        
+        if (!isInstance)
+            return false;
     }
 
     if (i != lastParam)
@@ -54,22 +68,6 @@ Object* DynamicObject::getVariable(const string& varName)
         result = Nil::nil();
     }
     return result;
-}
-
-/* Routine */
-Class* Routine::ObjectClass()
-{
-    static Class* s_objectClass = NULL;
-    
-    if (!s_objectClass) { /* We are going to make Class */
-        MethodsMap* methodsMap = new MethodsMap();
-        
-        MethodsMap* classMethodsMap = new MethodsMap();
-        
-        s_objectClass = new Class(string("Routine"), Object::ObjectClass(), methodsMap, classMethodsMap);
-    }
-    
-    return s_objectClass;
 }
 
 } // namespace execengine

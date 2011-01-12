@@ -47,5 +47,17 @@ Object* Object::kernel_Object_class(Object* self, const vector<Object*>& parms)
     return self->objectClass();
 }
 
+Object* Object::kernel_Object_superClass(Object* self, const vector<Object*>& params)
+{
+    /*
+     * TODO!!!
+     */
+}
+
+Object* Object::kernel_Object_evaluate(Object* self, const vector<Object*>& params)
+{
+    return self;
+}
+
 } // namespace execengine
 

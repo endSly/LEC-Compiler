@@ -23,6 +23,8 @@ namespace execengine {
         static Class* ObjectClass();
         
         static Object* kernel_Object_class(Object*, const vector<Object*>&);
+        static Object* kernel_Object_superClass(Object*, const vector<Object*>&);
+        static Object* kernel_Object_evaluate(Object*, const vector<Object*>&);
     };
     
 } // namespace execengine
