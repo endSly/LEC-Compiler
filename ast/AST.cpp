@@ -87,9 +87,9 @@ Object* Variable::evaluate(Object* self)
     VariablesMap::iterator it = globalVars->find(m_varName);
     
     if (it != globalVars->end()) 
-        return it->second;
+        return it->second; // Return global variable
     else
-        return self->getVariable(m_varName);
+        return self->getVariable(m_varName);    // Return local variable (if found)
 }
 
 Object* CodeBlock::evaluate(Object* self) 

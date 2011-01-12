@@ -9,6 +9,7 @@
 #include "kernelobjects/Object.h"
 #include "kernelobjects/Class.h"
 #include "kernelobjects/String.h"
+#include "kernelobjects/Character.h"
 #include "kernelobjects/Integer.h"
 #include "kernelobjects/Decimal.h"
 #include "kernelobjects/Boolean.h"
@@ -48,16 +49,7 @@ namespace execengine {
         Class* objectClass() { return Object::ObjectClass(); }
     };
     
-    class Character : public Object {
-    public:
-        Character(unsigned int character) : m_character(character) { }
-        
-        static Class* ObjectClass();
-        Class* objectClass() { return Character::ObjectClass(); }
-        
-    private:
-        unsigned int m_character; 
-    };
+    
     
     class Routine : public Object {
     public:

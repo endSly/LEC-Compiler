@@ -41,6 +41,7 @@ SET(SOURCE_FILES
   execengine/kernelobjects/Object.cpp
   execengine/kernelobjects/Class.cpp
   execengine/kernelobjects/String.cpp
+  execengine/kernelobjects/Character.cpp
   execengine/kernelobjects/Integer.cpp
   execengine/kernelobjects/Decimal.cpp
   execengine/kernelobjects/Boolean.cpp
