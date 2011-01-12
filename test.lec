@@ -51,6 +51,10 @@ Class Test
         	"ifFalse: Works!" println;
         };
         
+        ((@Boolean true) and (@Boolean false)) ifFalse: {
+            "and Works!" println;
+        };
+        
     }
     
     

@@ -73,29 +73,44 @@ Object* Boolean::kernel_Boolean_not(Object* self, const vector<Object*>& params)
         ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_and(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_and(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Boolean::ObjectClass(), NULL))
+        return Boolean::boolean(((Boolean*) self)->m_value && ((Boolean*) params[0])->m_value);
+    else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_or(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_or(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Boolean::ObjectClass(), NULL))
+        return Boolean::boolean(((Boolean*) self)->m_value || ((Boolean*) params[0])->m_value);
+    else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_nand(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_nand(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Boolean::ObjectClass(), NULL))
+        return Boolean::boolean(!(((Boolean*) self)->m_value || ((Boolean*) params[0])->m_value));
+    else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_nor(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_nor(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Boolean::ObjectClass(), NULL))
+        return Boolean::boolean(!(((Boolean*) self)->m_value || ((Boolean*) params[0])->m_value));
+    else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
-Object* Boolean::kernel_Boolean_xor(Object*, const vector<Object*>&)
+Object* Boolean::kernel_Boolean_xor(Object* self, const vector<Object*>& params)
 {
-    
+    if (checkMethodParams(params, Boolean::ObjectClass(), NULL))
+        return Boolean::boolean(((Boolean*) self)->m_value ^ ((Boolean*) params[0])->m_value);
+    else
+        ExecEngine::execengineError(string("Incorrect parameter"));
 }
 
 } // namespace execengine
