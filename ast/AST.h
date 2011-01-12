@@ -99,7 +99,10 @@ namespace ast {
 
         void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
         string toString() { return string("CodeBlock"); }
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
+        
+        Object* run(Object*, const vector<Object*>&);
+        
         
         ~CodeBlock() { delete m_expressionList; }
         
@@ -116,7 +119,7 @@ namespace ast {
         ~MessageSend() { }
         
         string toString() { return string("MsgSend"); }
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
 
     private:
         string m_methodName;
@@ -134,7 +137,7 @@ namespace ast {
         string toString() { return string("Value[") + m_value + "]"; }
         string value() { return m_value; }
         
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
         
     private:
         ValueType m_type;
@@ -149,7 +152,7 @@ namespace ast {
         string toString() { return m_varName; }
         string name() { return m_varName; }
         
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
         
     private:
         string m_varName;

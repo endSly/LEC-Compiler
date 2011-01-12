@@ -94,6 +94,11 @@ Object* Variable::evaluate(Object* self)
 
 Object* CodeBlock::evaluate(Object* self) 
 {
+    return new Routine(this, self);
+}
+
+Object* CodeBlock::run(Object* self, const vector<Object*>& params)
+{
     for (vector<Expression*>::iterator it = m_expressionList->begin()
          ; it != m_expressionList->end()
          ; it++) {

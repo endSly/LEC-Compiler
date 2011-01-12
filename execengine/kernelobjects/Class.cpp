@@ -46,7 +46,8 @@ Object* Class::processObjectMessage(Object* self, const string& method, const ve
         return m_superClass->processObjectMessage(self, method, params);
     
 
-    ExecEngine::execengineWarning(string("Trying to access to undefined method. @nil returned. ") + self->className() + " " +  method);
+    ExecEngine::execengineWarning(string("Trying to access to undefined method. @nil returned. ") 
+        + self->objectClass()->m_className + " " +  method);
     return Nil::nil();
 }
 
@@ -70,9 +71,9 @@ Object* Class::processMessage(const string& method, const vector<Object*>& param
     
 }
 
-Object* kernel_Class_new(Object* self, const vector<Object*>& params)
+Object* Class::kernel_Class_new(Object* self, const vector<Object*>& params)
 {
-    if (checkParams(params, NULL))
+    if (checkMethodParams(params, NULL))
         return new DynamicObject((Class*) self);
     
     ExecEngine::execengineError(string("Incorrect Parameters!"));

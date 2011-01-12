@@ -35,9 +35,9 @@ void ExecEngine::initializeEngine(ast::AST* tree)
     (*m_globalVars)[string("@String")] = String::ObjectClass();
     (*m_globalVars)[string("@Character")] = Character::ObjectClass();
     (*m_globalVars)[string("@Boolean")] = Boolean::ObjectClass();
-    (*m_globalVars)[string("@Integer")] = Object::ObjectClass();
-    (*m_globalVars)[string("@Decimal")] = Object::ObjectClass();
-        
+    (*m_globalVars)[string("@Integer")] = Integer::ObjectClass();
+    (*m_globalVars)[string("@Decimal")] = Decimal::ObjectClass();
+    (*m_globalVars)[string("@Routine")] = Routine::ObjectClass();
         
     // Insert Classe from AST
     map<string, ClassDeclaration*>* classesDeclaration = tree->classesMap();

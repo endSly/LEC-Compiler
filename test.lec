@@ -35,7 +35,9 @@ Class Test
         
         ("'Test' length:" + (("Test" length) toString)) println;
         
-        
+        (({ 
+            "Hola Routine" println;
+        } class) className) println;
     }
     
     
