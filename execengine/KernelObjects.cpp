@@ -126,6 +126,8 @@ Object* kernel_Class_new(Object* self, const vector<Object*>& params)
     TODO!!!!
     
     */
+
+	return 0;
 }
 
 Object* Class::kernel_Class_className(Object* self, const vector<Object*>& params)

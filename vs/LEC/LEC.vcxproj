@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/../../;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/../../;$(IncludePath);$(SolutionDir)/../dummy/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -79,6 +79,7 @@
     <ClInclude Include="..\..\execengine\ExecEngine.h" />
     <ClInclude Include="..\..\execengine\KernelObjects.h" />
     <ClInclude Include="..\..\parser\parser.hpp" />
+    <ClInclude Include="..\dummy\unistd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ast\AST.cpp" />
@@ -86,7 +87,9 @@
     <ClCompile Include="..\..\execengine\KernelObjects.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\parser\parser.cpp" />
-    <ClCompile Include="..\..\parser\scanner.cpp" />
+    <ClCompile Include="..\..\parser\scanner.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\parser\parser.y" />

@@ -16,7 +16,7 @@ namespace execengine {
     
     class Method {
     public:
-        virtual Object* run(Object* self, const vector<Object*>& param) { }
+        virtual Object* run(Object* self, const vector<Object*>& param) { return 0; }
     
     protected:
         Method(const string& name, vector<string>* params = NULL)  : m_name(name), m_parameters(params) { }

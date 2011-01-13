@@ -7,8 +7,15 @@
 #include "execengine/ExecEngine.h"
 #include "parser/parser.hpp"
 
-extern int yyparse();
-extern FILE* yyin;
+
+extern "C"
+{
+	extern int yyparse();
+	extern int yylex();
+}
+
+extern FILE * yyin;
+
 
 extern ast::AST* syntaxTree;
 
@@ -25,8 +32,7 @@ int main(int argc, char** args)
     
     /* Parse */
     if (yyin = fopen(args[1], "r")) {
-        yyparse();
-        
+		yyparse();
         fclose(yyin);
     } else {
         showHelp(args[0]);
@@ -38,6 +44,5 @@ int main(int argc, char** args)
     ee->initializeEngine(syntaxTree);
     
     return ee->execute(std::string(args[2]), std::string(args[3]));
-
 }
 
