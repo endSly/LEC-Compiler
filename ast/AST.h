@@ -53,26 +53,26 @@ namespace ast {
     
     class MethodDeclaration {
     public:
-        MethodDeclaration(string, string, vector<Expression*>*, CodeBlock*);
+        MethodDeclaration(string, string, vector<Expression*>&, CodeBlock*);
      
         string name() { return m_name; }
         string subject() { return m_subject; }
-        vector<string>* parametersList() { return m_paramsList; } 
+        vector<string>* parametersList() { return &m_paramsList; } 
         CodeBlock* methodCode() { return m_methodCode; }
         
     private:
         string m_name;
         string m_subject;
-        vector<string>* m_paramsList; 
+        vector<string> m_paramsList; 
         CodeBlock*  m_methodCode;  
     };
     
     struct MessagePredicate {
     public:
-        MessagePredicate(const string& signature) : methodSignature(signature), methodVars(new vector<Expression*>()) { }
+        MessagePredicate(const string& signature) : methodSignature(signature) { }
         
         string methodSignature;
-        vector<Expression*>* methodVars;
+        vector<Expression*> methodVars;
     };
     
     /*
@@ -123,7 +123,7 @@ namespace ast {
 
     private:
         string m_methodName;
-        vector<Expression*>* m_methodParams;
+        vector<Expression*> m_methodParams;
         Expression* m_subject;
     };
     

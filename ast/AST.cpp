@@ -48,18 +48,17 @@ ClassDeclaration::ClassDeclaration(string className, string superName, vector<st
 { }
 
 
-MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, vector<Expression*>* paramsVars, CodeBlock* code)
+MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, vector<Expression*>& paramsVars, CodeBlock* code)
     : m_name(methodSignature)
     , m_subject(subjectObj)
     , m_methodCode(code)
-    , m_paramsList(new vector<string>())
 {
-    for (vector<Expression*>::iterator it = paramsVars->begin()
-         ; it != paramsVars->end()
+    for (vector<Expression*>::iterator it = paramsVars.begin()
+         ; it != paramsVars.end()
          ; it++) {
         
         Variable* paramVar = dynamic_cast<Variable*>(*it);
-        m_paramsList->push_back(paramVar->name());
+        m_paramsList.push_back(paramVar->name());
      }
 }
 
@@ -124,8 +123,8 @@ Object* MessageSend::evaluate(Object* self)
     Object* subject = m_subject->evaluate(self);
     vector<Object*> params;
 
-    for (vector<Expression*>::iterator param = m_methodParams->begin()
-         ; param != m_methodParams->end()
+    for (vector<Expression*>::iterator param = m_methodParams.begin()
+         ; param != m_methodParams.end()
          ; param++) {
         params.push_back((*param)->evaluate(self));
     }

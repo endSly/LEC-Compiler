@@ -1460,12 +1460,12 @@ yyreduce:
 
   case 13:
 #line 102 "/Users/endika/LEC-Compiler/parser/parser.y"
-    { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars->push_back(new ast::Variable(*(yyvsp[(2) - (2)].string))); ;}
+    { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (2)].string))); ;}
     break;
 
   case 14:
 #line 103 "/Users/endika/LEC-Compiler/parser/parser.y"
-    { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.append(*(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars->push_back(new ast::Variable(*(yyvsp[(2) - (3)].string))); ;}
+    { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (3)].string))); ;}
     break;
 
   case 15:
@@ -1480,12 +1480,12 @@ yyreduce:
 
   case 17:
 #line 112 "/Users/endika/LEC-Compiler/parser/parser.y"
-    { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars->push_back((yyvsp[(2) - (2)].expression)); ;}
+    { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (2)].expression)); ;}
     break;
 
   case 18:
 #line 113 "/Users/endika/LEC-Compiler/parser/parser.y"
-    { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.append(*(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars->push_back((yyvsp[(2) - (3)].expression)); ;}
+    { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (3)].expression)); ;}
     break;
 
   case 19:
