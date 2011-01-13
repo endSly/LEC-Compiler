@@ -19,6 +19,7 @@ namespace execengine {
         static Object* kernel_Boolean_false(Object*, const vector<Object*>&);
         
         static Object* kernel_Boolean_ifTrue(Object*, const vector<Object*>&);
+        static Object* kernel_Boolean_ifTrue_else(Object*, const vector<Object*>&);
         static Object* kernel_Boolean_ifFalse(Object*, const vector<Object*>&);
         
         static Object* kernel_Boolean_not(Object*, const vector<Object*>&);

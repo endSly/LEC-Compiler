@@ -100,7 +100,7 @@ classDeclaration    : T_CLASS T_IDENTIFIER
                     
       argMethodDecl :T_IDENTIFIER                 { $$ = new ast::MessagePredicate(*$1); }
                     | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate(*$1 + "@"); $$->methodVars->push_back(new ast::Variable(*$2)); }
-                    | T_IDENTIFIER T_VARIDENTIFIER argMethodDecl   { $$ = $3; $$->methodSignature.append(*$1 + "@"); $$->methodVars->push_back(new ast::Variable(*$2)); }
+                    | T_IDENTIFIER T_VARIDENTIFIER argMethodDecl   { $$ = $3; $$->methodSignature.insert(0, *$1 + "@"); $$->methodVars->push_back(new ast::Variable(*$2)); }
                     
                     ;
                     
@@ -110,7 +110,7 @@ messageSend         : singleExpression messagePred    { $$ = new ast::MessageSen
                 
   messagePred       : T_IDENTIFIER                                { $$ = new ast::MessagePredicate(*$1); }
                     | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate(*$1 + "@"); $$->methodVars->push_back($2); }
-                    | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature.append(*$1 + "@"); $$->methodVars->push_back($2); }
+                    | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature.insert(0, *$1 + "@"); $$->methodVars->push_back($2); }
                     ;
 
 

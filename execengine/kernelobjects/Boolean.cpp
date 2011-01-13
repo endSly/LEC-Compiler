@@ -12,7 +12,9 @@ Class* Boolean::ObjectClass()
     if (!s_objectClass) { /* We are going to make Class */
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("ifTrue:@")] = new KernelMethod(string("ifTrue:@"), Boolean::kernel_Boolean_ifTrue);
-        (*methodsMap)[string("ifFalse:@")] = new KernelMethod(string("ifFalse:@"), Boolean::kernel_Boolean_ifFalse);
+        (*methodsMap)[string("ifTrue:@else:@")] = new KernelMethod(string("ifTrue:@else:@"), Boolean::kernel_Boolean_ifTrue_else);
+        (*methodsMap)[string("?@:@")] = new KernelMethod(string("ifTrue:@else:@"), Boolean::kernel_Boolean_ifTrue_else);
+        (*methodsMap)[string("ifFalse:@")] = new KernelMethod(string("?@:@"), Boolean::kernel_Boolean_ifFalse);
         (*methodsMap)[string("not")] = new KernelMethod(string("not"), Boolean::kernel_Boolean_not);
         (*methodsMap)[string("and@")] = new KernelMethod(string("and@"), Boolean::kernel_Boolean_and);
         (*methodsMap)[string("or@")] = new KernelMethod(string("or@"), Boolean::kernel_Boolean_or);
@@ -56,6 +58,19 @@ Object* Boolean::kernel_Boolean_ifTrue(Object* self, const vector<Object*>& para
     } else
         ExecEngine::execengineError(string("Incorrect parameter"));
 }
+
+Object* Boolean::kernel_Boolean_ifTrue_else(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(params, Object::ObjectClass(), Object::ObjectClass(), NULL)) {
+        if (((Boolean*) self)->m_value) 
+            return params[0]->processMessage(string("evaluate"), params);
+        else
+            return params[1]->processMessage(string("evaluate"), params);
+            
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+}
+
 
 Object* Boolean::kernel_Boolean_ifFalse(Object* self, const vector<Object*>& params)
 {
