@@ -7,12 +7,16 @@
 #include <string>
 #include "ast/AST.h"
 
-#include "parser.hpp"
+#ifdef _WIN32
+ #include "win_parser.hpp"
+#else
+ #include "parser.hpp"
+#endif 
 
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
-extern "C" 
+extern "C"
 {
 	/*
 	This function is called whenever the lexer reaches EOF. Return 1 to indicate that

@@ -78,7 +78,7 @@
     <ClInclude Include="..\..\ast\AST.h" />
     <ClInclude Include="..\..\execengine\ExecEngine.h" />
     <ClInclude Include="..\..\execengine\KernelObjects.h" />
-    <ClInclude Include="..\..\parser\parser.hpp" />
+    <ClInclude Include="..\..\parser\win_parser.hpp" />
     <ClInclude Include="..\dummy\unistd.h" />
   </ItemGroup>
   <ItemGroup>
@@ -86,10 +86,8 @@
     <ClCompile Include="..\..\execengine\ExecEngine.cpp" />
     <ClCompile Include="..\..\execengine\KernelObjects.cpp" />
     <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\parser\parser.cpp" />
-    <ClCompile Include="..\..\parser\scanner.cpp">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
-    </ClCompile>
+    <ClCompile Include="..\..\parser\win_parser.cpp" />
+    <ClCompile Include="..\..\parser\win_scanner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\parser\parser.y" />

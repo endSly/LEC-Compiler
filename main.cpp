@@ -5,8 +5,12 @@
 #include <stdio.h>
 #include "ast/AST.h"
 #include "execengine/ExecEngine.h"
-#include "parser/parser.hpp"
 
+#ifdef _WIN32
+  #include "parser/win_parser.hpp"
+#else
+  #include "parser/parser.hpp"
+#endif
 
 extern "C"
 {

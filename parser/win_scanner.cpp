@@ -454,12 +454,16 @@ char *yytext;
 #include <string>
 #include "ast/AST.h"
 
-#include "parser.hpp"
+#ifdef _WIN32
+ #include "win_parser.hpp"
+#else
+ #include "parser.hpp"
+#endif 
 
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
-extern "C" 
+extern "C"
 {
 	/*
 	This function is called whenever the lexer reaches EOF. Return 1 to indicate that
@@ -486,7 +490,7 @@ extern "C"
 using namespace ast;
 
 #define YY_NEVER_INTERACTIVE 1
-#line 490 "win_scanner.cpp"
+#line 494 "win_scanner.cpp"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -637,10 +641,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 55 "scanner.l"
+#line 59 "scanner.l"
 
 
-#line 644 "win_scanner.cpp"
+#line 648 "win_scanner.cpp"
 
 	if ( yy_init )
 		{
@@ -733,95 +737,95 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 61 "scanner.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 62 "scanner.l"
 { }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 60 "scanner.l"
+#line 64 "scanner.l"
 { return T_IMPORT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 61 "scanner.l"
+#line 65 "scanner.l"
 { return T_CLASS; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 63 "scanner.l"
+#line 67 "scanner.l"
 { return T_INTERCALATE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 64 "scanner.l"
+#line 68 "scanner.l"
 { return T_SEMICOLON; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 66 "scanner.l"
+#line 70 "scanner.l"
 { return T_OP_BRACE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 67 "scanner.l"
+#line 71 "scanner.l"
 { return T_CL_BRACE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 68 "scanner.l"
+#line 72 "scanner.l"
 { return T_OP_PARENT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 69 "scanner.l"
+#line 73 "scanner.l"
 { return T_CL_PARENT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 72 "scanner.l"
+#line 76 "scanner.l"
 { SAVE_TOKEN; return T_INTEGER; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 73 "scanner.l"
+#line 77 "scanner.l"
 { SAVE_TOKEN; return T_DECIMAL; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 74 "scanner.l"
+#line 78 "scanner.l"
 { SAVE_TOKEN; return T_STRING; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 75 "scanner.l"
+#line 79 "scanner.l"
 { SAVE_TOKEN; return T_CHARACTER; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 77 "scanner.l"
+#line 81 "scanner.l"
 { SAVE_TOKEN; return T_VARIDENTIFIER; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 78 "scanner.l"
+#line 82 "scanner.l"
 { SAVE_TOKEN; return T_IDENTIFIER; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 80 "scanner.l"
+#line 84 "scanner.l"
 printf("Sintax error at line:%i!\n", yylineno); yyterminate(); exit(1);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 82 "scanner.l"
+#line 86 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 825 "win_scanner.cpp"
+#line 829 "win_scanner.cpp"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1705,5 +1709,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 82 "scanner.l"
+#line 86 "scanner.l"
 
