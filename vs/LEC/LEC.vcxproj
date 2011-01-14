@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/../../;$(IncludePath);$(SolutionDir)/../dummy/</IncludePath>
+    <IncludePath>$(SolutionDir)/../../;$(IncludePath);$(SolutionDir)/../dummy/;$(SolutionDir)/../../ExecEngine/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -78,6 +78,14 @@
     <ClInclude Include="..\..\ast\AST.h" />
     <ClInclude Include="..\..\execengine\ExecEngine.h" />
     <ClInclude Include="..\..\execengine\KernelObjects.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Boolean.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Character.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Class.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Decimal.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Integer.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Object.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\Routine.h" />
+    <ClInclude Include="..\..\execengine\kernelobjects\String.h" />
     <ClInclude Include="..\..\parser\win_parser.hpp" />
     <ClInclude Include="..\dummy\unistd.h" />
   </ItemGroup>
@@ -85,6 +93,14 @@
     <ClCompile Include="..\..\ast\AST.cpp" />
     <ClCompile Include="..\..\execengine\ExecEngine.cpp" />
     <ClCompile Include="..\..\execengine\KernelObjects.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Boolean.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Character.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Class.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Decimal.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Integer.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Object.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\Routine.cpp" />
+    <ClCompile Include="..\..\execengine\kernelobjects\String.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\parser\win_parser.cpp" />
     <ClCompile Include="..\..\parser\win_scanner.cpp" />

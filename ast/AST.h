@@ -53,26 +53,26 @@ namespace ast {
     
     class MethodDeclaration {
     public:
-        MethodDeclaration(string, string, vector<Expression*>*, CodeBlock*);
+        MethodDeclaration(string, string, vector<Expression*>&, CodeBlock*);
      
         string name() { return m_name; }
         string subject() { return m_subject; }
-        vector<string>* parametersList() { return m_paramsList; } 
+        vector<string>* parametersList() { return &m_paramsList; } 
         CodeBlock* methodCode() { return m_methodCode; }
         
     private:
         string m_name;
         string m_subject;
-        vector<string>* m_paramsList; 
+        vector<string> m_paramsList; 
         CodeBlock*  m_methodCode;  
     };
     
     struct MessagePredicate {
     public:
-        MessagePredicate(const string& signature) : methodSignature(signature), methodVars(new vector<Expression*>()) { }
+        MessagePredicate(const string& signature) : methodSignature(signature) { }
         
         string methodSignature;
-        vector<Expression*>* methodVars;
+        vector<Expression*> methodVars;
     };
     
     /*
@@ -99,7 +99,10 @@ namespace ast {
 
         void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
         string toString() { return string("CodeBlock"); }
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
+        
+        Object* run(Object*, const vector<Object*>&);
+        
         
         ~CodeBlock() { delete m_expressionList; }
         
@@ -116,11 +119,11 @@ namespace ast {
         ~MessageSend() { }
         
         string toString() { return string("MsgSend"); }
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
 
     private:
         string m_methodName;
-        vector<Expression*>* m_methodParams;
+        vector<Expression*> m_methodParams;
         Expression* m_subject;
     };
     
@@ -134,7 +137,7 @@ namespace ast {
         string toString() { return string("Value[") + m_value + "]"; }
         string value() { return m_value; }
         
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
         
     private:
         ValueType m_type;
@@ -149,7 +152,7 @@ namespace ast {
         string toString() { return m_varName; }
         string name() { return m_varName; }
         
-        execengine::Object* evaluate(execengine::Object*);
+        Object* evaluate(Object*);
         
     private:
         string m_varName;

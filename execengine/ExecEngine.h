@@ -10,6 +10,7 @@
 namespace execengine {
     
     using namespace std;
+    using namespace ast;
     
     static void execengineWarning(const string& msg);
     static void execengineError(const string& msg);
@@ -29,7 +30,7 @@ namespace execengine {
     public:
         DynamicMethod(ast::MethodDeclaration* decl) : Method(decl->name(), decl->parametersList()), m_code(decl->methodCode()) { }
         
-        Object* run(Object* self, const vector<Object*>&) { return m_code->evaluate(self); }
+        Object* run(Object* self, const vector<Object*>& params) { return m_code->run(self, params); }
     
     private:
         CodeBlock* m_code;

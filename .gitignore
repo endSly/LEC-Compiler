@@ -1,4 +1,2 @@
 *.o
-parser.*pp
-scanner.cpp
 build/*

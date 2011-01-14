@@ -1,6 +1,7 @@
 
 
 #include <iostream>
+#include <cstdlib>
 #include "ast/AST.h"
 
 #include "ExecEngine.h"
@@ -34,9 +35,9 @@ void ExecEngine::initializeEngine(ast::AST* tree)
     (*m_globalVars)[string("@String")] = String::ObjectClass();
     (*m_globalVars)[string("@Character")] = Character::ObjectClass();
     (*m_globalVars)[string("@Boolean")] = Boolean::ObjectClass();
-    (*m_globalVars)[string("@Integer")] = Object::ObjectClass();
-    (*m_globalVars)[string("@Decimal")] = Object::ObjectClass();
-        
+    (*m_globalVars)[string("@Integer")] = Integer::ObjectClass();
+    (*m_globalVars)[string("@Decimal")] = Decimal::ObjectClass();
+    (*m_globalVars)[string("@Routine")] = Routine::ObjectClass();
         
     // Insert Classe from AST
     map<string, ClassDeclaration*>* classesDeclaration = tree->classesMap();
@@ -69,10 +70,9 @@ void ExecEngine::initializeEngine(ast::AST* tree)
                 execengineError("Unknown subject " + methodDecl->subject());
             }
          }
-         
-        vector<string>* classVariables = classDecl->variablesList();
         
-        Class* newClass = new Class(className, Object::ObjectClass(), objectMethods, classMethods, classVariables);
+        Class* newClass = new Class(className, Object::ObjectClass(), 
+            objectMethods, classMethods, classDecl->variablesList());
         
         // Store class as global var
         (*m_globalVars)[classVar] = newClass;
@@ -84,14 +84,10 @@ int ExecEngine::execute(const std::string& className, const std::string& method)
     Object* receiverClass = (*m_globalVars)["@" + className];
     if (receiverClass) {
         Object* result = receiverClass->processMessage(method, vector<Object*>(0));
-        cout << "--- Execution finished ---\n";
         return 0;
     } else {
         execengineError("Class:" + className + " not found\n");
     }
-    
-    
-    
 }
 
 } // namespace execengine
