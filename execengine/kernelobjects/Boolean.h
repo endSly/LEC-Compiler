@@ -10,7 +10,7 @@ namespace execengine {
         inline static Boolean* True() { static Boolean s_true(true); return &s_true; }
         inline static Boolean* False() { static Boolean s_false(false); return &s_false; };
         
-        inline static Boolean* boolean(bool b) { b ? Boolean::True() : Boolean::False(); }
+        inline static Boolean* boolean(bool b) { return (b ? Boolean::True() : Boolean::False()); }
         
         static Class* ObjectClass();
         Class* objectClass() { return Boolean::ObjectClass(); }
