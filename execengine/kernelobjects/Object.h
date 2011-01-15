@@ -29,7 +29,7 @@ namespace execengine {
 
 		//! Returns the Class this object belongs to.
 		//! A Class is also an object.
-        virtual Class* objectClass()  { return Object::objectClass(); }
+        virtual Class* objectClass()  { return Object::ObjectClass(); }
 
 		//! Destroys the object.
 		//!
