@@ -76,7 +76,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 22 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 39 "/Users/endika/LEC-Compiler/parser/parser.y"
 {
 	ast::AST*                  ast;
 	ast::ClassDeclaration*     classDeclaration;

@@ -10,20 +10,28 @@
     #include <string>
     #include "ast/AST.h"
 
+
+#ifdef _WIN32
 extern "C"
 {
     extern int yylex();
 	extern int yyparse();
-    
 	int yylineno;
-    
-	extern char* yyget_text();
+	char* yyget_text();
 	void yyerror(const char *s) { printf("Parser error (line %i): %s  Near: %s\n", yylineno, s, yyget_text()); exit(1); }
 }
 	
+#else 
+    extern int yylex();
+    extern int yyparse();
+    extern int yylineno;
+    extern char* yyget_text();
+	void yyerror(const char *s) { printf("Parser error (line %i): %s  Near: %s\n", yylineno, s, yyget_text()); exit(1); }
+
+#endif // _WIN32
+
 	extern ast::AST* syntaxTree;
 	
-	#define DEBUG(msg) printf("DEBUG: %s  yytext:%s yylineno:%i\n",msg,yyget_text(),yylineno)
 %}
 
 

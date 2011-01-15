@@ -16,29 +16,28 @@
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
+#ifdef _WIN32
 extern "C"
 {
-	/*
+    extern int yylex();
+    
+    /*
 	This function is called whenever the lexer reaches EOF. Return 1 to indicate that
 	we have not reset "yyin" to point to a new file.
 	*/
-    int yywrap() 
-	{ 
-		return 1; 
-	}
-	
-	char * yyget_text () 
-	{
-		return "@@ yyget_text: Not Yet Implemented";
-	}
+    int yywrap()  { return 1; }
 
-	extern int yylex();
+	char* yyget_text() { return yytext; }
 
-	int yytest()
-	{
-		return 0;
-	}
+	int yytest() { return 0; }
 }
+
+#else
+extern "C" {
+    int yywrap() { return 1; }
+    
+}
+#endif // _WIN32
 
 using namespace ast;
 

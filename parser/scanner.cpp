@@ -528,23 +528,49 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "/Users/endika/LEC-Compiler/parser/scanner.l"
 #line 2 "/Users/endika/LEC-Compiler/parser/scanner.l"
-    
+
+#ifndef HAVE_UNISTD_H
+#define YY_NO_UNISTD_H
+#endif
+
 #include <string>
 #include "ast/AST.h"
 
-#include "parser.hpp"
+#ifdef _WIN32
+ #include "win_parser.hpp"
+#else
+ #include "parser.hpp"
+#endif 
 
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
+#ifdef _WIN32
+extern "C"
+{
+    extern int yylex();
+    
+    /*
+	This function is called whenever the lexer reaches EOF. Return 1 to indicate that
+	we have not reset "yyin" to point to a new file.
+	*/
+    int yywrap()  { return 1; }
+
+	char* yyget_text() { return yytext; }
+
+	int yytest() { return 0; }
+}
+
+#else
 extern "C" {
-    int yywrap() { }
+    int yywrap() { return 1; }
     
 }
+#endif // _WIN32
 
 using namespace ast;
 
-#line 548 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 574 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 
 #define INITIAL 0
 
@@ -726,10 +752,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 31 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 58 "/Users/endika/LEC-Compiler/parser/scanner.l"
 
 
-#line 733 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 759 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -788,16 +814,12 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 182 );
+		while ( yy_current_state != 57 );
+		yy_cp = (yy_last_accepting_cpos);
+		yy_current_state = (yy_last_accepting_state);
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
-		if ( yy_act == 0 )
-			{ /* have to back up */
-			yy_cp = (yy_last_accepting_cpos);
-			yy_current_state = (yy_last_accepting_state);
-			yy_act = yy_accept[yy_current_state];
-			}
 
 		YY_DO_BEFORE_ACTION;
 
@@ -825,96 +847,96 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 33 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 60 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 34 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 61 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 36 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 63 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_IMPORT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 37 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 64 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CLASS; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 39 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 66 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_INTERCALATE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 67 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_SEMICOLON; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 42 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 69 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_OP_BRACE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 43 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 70 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CL_BRACE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 44 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 71 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_OP_PARENT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 45 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 72 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CL_PARENT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 48 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 75 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_INTEGER; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 49 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 76 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_DECIMAL; }
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 50 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 77 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_STRING; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 51 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 78 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_CHARACTER; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 53 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 80 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_VARIDENTIFIER; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 54 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 81 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_IDENTIFIER; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 56 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 83 "/Users/endika/LEC-Compiler/parser/scanner.l"
 printf("Sintax error at line:%i!\n", yylineno); yyterminate(); exit(1);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 58 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 85 "/Users/endika/LEC-Compiler/parser/scanner.l"
 ECHO;
 	YY_BREAK
-#line 918 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 940 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -981,7 +1003,8 @@ case YY_STATE_EOF(INITIAL):
 
 			else
 				{
-				yy_cp = (yy_c_buf_p);
+				yy_cp = (yy_last_accepting_cpos);
+				yy_current_state = (yy_last_accepting_state);
 				goto yy_find_action;
 				}
 			}
@@ -1473,10 +1496,6 @@ static void yy_load_buffer_state  (void)
 	yyfree((void *) b  );
 }
 
-#ifndef __cplusplus
-extern int isatty (int );
-#endif /* __cplusplus */
-    
 /* Initializes or reinitializes a buffer.
  * This function is sometimes called more than once on the same buffer,
  * such as during a yyrestart() or at EOF.
@@ -1500,7 +1519,7 @@ extern int isatty (int );
         b->yy_bs_column = 0;
     }
 
-        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+        b->yy_is_interactive = 0;
     
 	errno = oerrno;
 }
@@ -1923,7 +1942,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 58 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 85 "/Users/endika/LEC-Compiler/parser/scanner.l"
 
 
 

@@ -6,20 +6,18 @@
 #include "ast/AST.h"
 #include "execengine/ExecEngine.h"
 
-#ifdef _WIN32
-  #include "parser/win_parser.hpp"
-#else
-  #include "parser/parser.hpp"
-#endif
 
+#ifdef _WIN32
 extern "C"
 {
+#endif
 	extern int yyparse();
 	extern int yylex();
+#ifdef _WIN32
 }
+#endif
 
-extern FILE * yyin;
-
+extern FILE* yyin;
 
 extern ast::AST* syntaxTree;
 
