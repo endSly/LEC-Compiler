@@ -16,7 +16,7 @@ void ExecEngine::execengineWarning(const string& msg)
 
 void ExecEngine::execengineError(const string& msg) 
 {
-    std::cout << "[ExecEngine Error] " << msg << "\n";
+    std::cerr << "[ExecEngine Error] " << msg << "\n";
     exit(1);
 }
 

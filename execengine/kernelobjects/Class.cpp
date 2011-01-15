@@ -36,6 +36,16 @@ Class* Class::ObjectClass()
 
 Object* Class::processObjectMessage(Object* self, const string& method, const vector<Object*>& params)
 {
+#ifdef VERBOSE_DEBUG
+	if(self && self->objectClass()) {
+		Class * cl = self->objectClass();
+		std::string str = cl->className();
+		printf("[Calling method %s in an object of type %s]\n", method.c_str(), str.c_str());
+	} else {
+		printf("[Failed to call method]\n");
+	}
+#endif
+
     MethodsMap::iterator it = m_objectMethods->find(method);
     if (it != m_objectMethods->end()) {
         Method* method = it->second;

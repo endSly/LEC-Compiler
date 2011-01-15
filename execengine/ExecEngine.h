@@ -50,20 +50,41 @@ namespace execengine {
     
     class ExecEngine {
     public:
-        static void execengineWarning(const string& msg);
-        static void execengineError(const string& msg);
+        
+
+		//! Prints a warning to console and continues
+		//! execution.
+		//!
+		//! @param msg Warning message
+		static void execengineWarning(const string& msg);
+        
+		//! Prints an error to the error stream and aborts the program.
+		//! 
+		//! @param msg Error message
+		//! @return Never returns
+		static void execengineError(const string& msg);
     
         static ExecEngine* execEngine();
         
         void initializeEngine(ast::AST*);
-        int execute(const std::string&, const std::string&);
+
+		//! Runs the specified method. (The method takes no arguments).
+		//!
+		//! @param className Name of the class the method belongs to.
+		//! @param method Name of the method to run.
+        int execute(const std::string& className, const std::string& method);
         
+
+		//! Returns the map of global variables.
+		//! 
         VariablesMap* globalVariables() { return m_globalVars; }
         
         
     private:
+
         ExecEngine() : m_globalVars(new VariablesMap()) { }
-        ~ExecEngine() { delete m_globalVars; }
+        
+		~ExecEngine() { delete m_globalVars; }
     
         VariablesMap* m_globalVars;
     };

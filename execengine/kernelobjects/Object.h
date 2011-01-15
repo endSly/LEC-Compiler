@@ -12,8 +12,11 @@ namespace execengine {
     
     class Object {
     public:
+
         Object() { }
+
         virtual Object* processMessage(const string&, const vector<Object*>&);
+
         virtual Class* objectClass()  { return Object::objectClass(); }
         virtual ~Object() { }
         virtual Object* getVariable(const string& varName) { return this; }

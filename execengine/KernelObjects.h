@@ -20,6 +20,22 @@ namespace execengine {
     
     using namespace std;
     
+
+	//! Verifies that the parameters passed to a given method are of the
+	//! type that is expected.
+	//!
+	//! @param params Pointer to vector containing the parameters to verify.
+	//! Might not be null. It's only a pointer (instead of a reference)
+	//! due to vararg function contraints.
+	//!
+	//! @param varargs Variadic Arguments. Pointers to the expected types of the
+	//! previous parameters. The last argument passed must be NULL. The number
+	//! of arguments must hence be equal to the previous vector's size plus
+	//! one, for the terminating NULL argument.
+	//!
+	//! @return True if every parameter is of the expected type ( either
+	//! the exact same type or a subclass ).
+	//!	False otherwise, or if an error occurs.
     bool checkMethodParams(const vector<Object*> * const, ...);
     
     class DynamicObject : public Object {
