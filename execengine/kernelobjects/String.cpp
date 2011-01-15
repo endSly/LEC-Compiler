@@ -27,7 +27,7 @@ Class* String::ObjectClass()
 
 Object* String::kernel_String_concat(Object* self, const vector<Object*>& params)
 {
-    if (checkMethodParams(params, String::ObjectClass(), NULL))
+    if (checkMethodParams(&params, String::ObjectClass(), NULL))
         ((String*) self)->m_string.append(((String*) params[0])->m_string);
     else
         ExecEngine::execengineError(string("Incorrect parameter"));
@@ -37,7 +37,7 @@ Object* String::kernel_String_concat(Object* self, const vector<Object*>& params
 
 Object* String::kernel_String_println(Object* self, const vector<Object*>& params)
 {
-    if (checkMethodParams(params, NULL))
+    if (checkMethodParams(&params, NULL))
         cout << ((String*) self)->m_string << "\n";
     else
         ExecEngine::execengineError(string("Incorrect parameter"));
@@ -47,7 +47,7 @@ Object* String::kernel_String_println(Object* self, const vector<Object*>& param
 
 Object* String::kernel_String_length(Object* self, const vector<Object*>& params)
 {
-    if (checkMethodParams(params, NULL))
+    if (checkMethodParams(&params, NULL))
         return new Integer(((String*) self)->m_string.length());
     else
         ExecEngine::execengineError(string("Incorrect parameter"));

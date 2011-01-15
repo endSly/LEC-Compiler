@@ -24,7 +24,7 @@ Class* Integer::ObjectClass()
 
 Object* Integer::kernel_Integer_toString(Object* self, const vector<Object*>& params)
 {
-    if (checkMethodParams(params, NULL)) {
+    if (checkMethodParams(&params, NULL)) {
         char str[24];
         sprintf(str, "%lld", ((Integer*) self)->m_value);
         return new String(string(str));

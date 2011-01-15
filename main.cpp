@@ -39,6 +39,7 @@ int main(int argc, char** args)
 		yyparse();
         fclose(yyin);
     } else {
+		std::cerr << "Could not open the file: " << args[1] << std::endl;
         showHelp(args[0]);
     }
     

@@ -20,7 +20,7 @@ namespace execengine {
     
     using namespace std;
     
-    bool checkMethodParams(const vector<Object*>&, ...);
+    bool checkMethodParams(const vector<Object*> * const, ...);
     
     class DynamicObject : public Object {
     public:

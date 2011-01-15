@@ -73,7 +73,7 @@ Object* Class::processMessage(const string& method, const vector<Object*>& param
 
 Object* Class::kernel_Class_new(Object* self, const vector<Object*>& params)
 {
-    if (checkMethodParams(params, NULL))
+    if (checkMethodParams(&params, NULL))
         return new DynamicObject((Class*) self);
     
     ExecEngine::execengineError(string("Incorrect Parameters!"));
