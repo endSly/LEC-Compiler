@@ -10,6 +10,8 @@ namespace execengine {
         Decimal(double value) : m_value(value) { }
         ~Decimal() { }
         
+        inline double value() { return m_value; }
+        
         static Class* ObjectClass();
         Class* objectClass() { return Decimal::ObjectClass(); }
         
