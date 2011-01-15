@@ -9,6 +9,7 @@ Class* String::ObjectClass()
 {
     static Class* s_objectClass = NULL;
     
+	// Load the string class on-demand.
     if (!s_objectClass) { /* We are going to make Class */
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("+@")] = new KernelMethod(string("+@"), String::kernel_String_concat);

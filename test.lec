@@ -27,7 +27,7 @@ Class Test
     }
     
     @Test test {
-        ("Hello world2! " println) println;
+        ("Hello world! " println) println;
         ("Hola " + "mundo!") println;
         
         "[Debug] calling to @Test do;" println;

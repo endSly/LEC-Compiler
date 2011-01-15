@@ -10,6 +10,7 @@ Class* Routine::ObjectClass()
 {
     static Class* s_objectClass = NULL;
     
+	// Load the Routine class on-demand
     if (!s_objectClass) { /* We are going to make Class */
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("evaluate")] = new KernelMethod(string("evaluate"), Routine::kernel_Routine_evaluate);

@@ -42,7 +42,7 @@ bool Object::isInstanceOf(Class* otherClass)
     return false;
 }
 
-Object* Object::kernel_Object_class(Object* self, const vector<Object*>& parms)
+Object* Object::kernel_Object_class(Object* self, const vector<Object*>& params)
 {
     return self->objectClass();
 }
