@@ -49,10 +49,11 @@ using namespace ast;
 %option yylineno
 %option never-interactive
 
-identifier          [^ \t\n\{\}\(\)\;\@]+
+identifierLimit     [^ \t\n\{\}\(\)\;\@\"\'0-9]
+identifier          {identifierLimit}([^ \t\n\{\}\(\)\;\@]*{identifierLimit})?
 varidentifier       \@[a-zA-Z0-9_]+
 integer             ([\-\+])?[0-9]+
-decimal             ([\-\+])?[0-9]*"."[0-9]+("e"([\-\+])?{integer}+)?
+decimal             ([\-\+])?[0-9]*"."[0-9]+("e"{integer})?
 string              \"[^\"]*\"
 character           \'.\'
 commentIdent        \"\"\"

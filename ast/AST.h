@@ -99,7 +99,7 @@ namespace ast {
     public:
         CodeBlock() : m_expressionList(new vector<Expression*>()), m_blockVars(new vector<string>()) { }
 
-        void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
+        void addExpression(Expression* expression) { m_expressionList->insert(m_expressionList->begin(), expression); }
         string toString() { return string("CodeBlock"); }
         Object* evaluate(ExecContext*);
         

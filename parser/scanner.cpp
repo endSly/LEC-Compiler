@@ -382,15 +382,15 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[64] =
+static yyconst flex_int16_t yy_accept[62] =
     {   0,
-        0,    0,   20,   17,    1,    1,   17,   17,   10,   11,
+        0,    0,   20,   17,    1,    1,   18,   18,   10,   11,
        17,   17,   12,    7,   18,   17,   17,   17,    6,    8,
-        9,   17,   17,    0,   14,   17,    0,   17,   12,   13,
-       16,   17,   17,   17,   14,   14,   17,   15,   15,   17,
-       17,   17,   17,   17,    0,   17,   17,   13,   17,   17,
-       17,    0,   17,   17,    5,   17,   17,    0,    2,    4,
-        3,    2,    0
+        9,   17,    0,    0,   14,    0,   17,   12,   13,    0,
+       12,   16,   17,   17,   17,   14,    0,   15,   17,   13,
+       17,   17,   17,    0,    0,   17,   13,    0,   17,   17,
+       17,    0,    0,   13,    5,   17,   17,    2,    4,    3,
+        0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -432,84 +432,82 @@ static yyconst flex_int32_t yy_meta[31] =
         4,    4,    4,    4,    4,    4,    4,    4,    2,    2
     } ;
 
-static yyconst flex_int16_t yy_base[71] =
+static yyconst flex_int16_t yy_base[67] =
     {   0,
-        0,    0,   95,    0,  200,  200,   29,   58,  200,  200,
-       28,   82,   33,  200,    0,   66,   64,   65,    0,  200,
-      200,    0,   87,   79,   78,   76,   75,   69,   35,   29,
-        0,   60,   53,   49,    0,  200,  116,    0,  200,   39,
-       49,   51,   45,  145,   68,   67,   42,   43,   42,   42,
-       41,   59,   58,   51,    0,   30,   34,   51,   50,    0,
-        0,   42,  200,  175,  179,  183,   30,  187,  191,  195
+        0,    0,  116,   27,  188,  188,  107,    0,  188,  188,
+       29,   31,   33,  188,    0,   40,   42,   49,   51,  188,
+      188,   60,   62,  105,   97,   94,   69,   71,   73,   87,
+       39,    0,   80,   83,   90,  188,   92,  188,   98,   52,
+      100,  108,  110,   82,   78,  117,  119,   81,  129,  131,
+      138,   65,   48,   47,  140,  142,  149,   47,  156,  160,
+      188,  171,  175,  179,   36,  183
     } ;
 
-static yyconst flex_int16_t yy_def[71] =
+static yyconst flex_int16_t yy_def[67] =
     {   0,
-       63,    1,   63,   64,   63,   63,   65,   66,   63,   63,
-       64,   64,   64,   63,   67,   64,   64,   64,   64,   63,
-       63,   64,   65,   68,   64,   64,   63,   64,   64,   64,
-       67,   64,   64,   64,   64,   63,   69,   64,   63,   64,
-       64,   64,   64,   69,   70,   44,   64,   64,   64,   64,
-       64,   70,   44,   64,   64,   64,   64,   70,   44,   64,
-       64,   70,    0,   63,   63,   63,   63,   63,   63,   63
+       61,    1,   61,   62,   61,   61,   63,   64,   61,   61,
+       62,   62,   61,   61,   65,   62,   62,   62,   62,   61,
+       61,   62,   62,   63,   61,   61,   62,   62,   62,   61,
+       61,   65,   62,   62,   62,   61,   66,   61,   62,   61,
+       62,   62,   62,   66,   66,   62,   62,   61,   62,   62,
+       62,   66,   61,   61,   62,   62,   62,   66,   62,   62,
+        0,   61,   61,   61,   61,   61
     } ;
 
-static yyconst flex_int16_t yy_nxt[231] =
+static yyconst flex_int16_t yy_nxt[219] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
        14,   15,    4,   16,   17,   18,   19,    4,    4,    4,
         4,    4,    4,    4,    4,    4,    4,    4,   20,   21,
-       24,   24,   25,   31,   24,   24,   28,   29,   30,   24,
-       24,   28,   29,   28,   29,   62,   47,   40,   48,   54,
-       54,   48,   48,   59,   62,   61,   60,   24,   24,   27,
-       48,   59,   58,   27,   27,   57,   56,   55,   27,   27,
-       53,   52,   51,   50,   49,   43,   42,   41,   30,   39,
-       38,   37,   36,   34,   33,   32,   27,   27,   24,   24,
-       35,   30,   24,   24,   63,   63,   63,   24,   24,   63,
+       23,   23,   23,   23,   23,   23,   23,   27,   28,   32,
+       29,   30,   31,   23,   23,   23,   23,   30,   31,   23,
+       58,   23,   23,   23,   23,   23,   54,   54,   23,   33,
+       23,   40,   34,   23,   23,   23,   23,   35,   58,   23,
+       48,   23,   23,   23,   23,   23,   23,   23,   29,   27,
+       28,   52,   29,   23,   23,   45,   23,   23,   53,   23,
+       54,   39,   23,   23,   23,   45,   40,   41,   38,   23,
 
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   63,   24,   24,   45,   63,   46,
-       63,   45,   45,   63,   63,   63,   45,   45,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   45,   45,   45,   63,   46,   63,
-       45,   45,   63,   63,   63,   45,   45,   63,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   45,   45,   22,   63,   63,   22,   23,
-       23,   23,   23,   26,   26,   63,   26,   24,   24,   24,
-       24,   44,   44,   63,   44,   45,   45,   63,   45,    3,
+       37,   23,   23,   23,   23,   46,   42,   47,   36,   23,
+       25,   23,   23,   23,   23,   61,   43,   23,   61,   23,
+       23,   23,   23,   23,   61,   49,   47,   61,   47,   61,
+       50,   61,   23,   23,   23,   23,   61,   51,   23,   61,
+       23,   23,   23,   23,   23,   23,   23,   23,   61,   23,
+       61,   23,   23,   23,   55,   56,   61,   61,   23,   23,
+       23,   61,   57,   23,   23,   23,   61,   61,   59,   23,
+       60,   22,   61,   61,   22,   24,   24,   24,   24,   26,
+       26,   61,   26,   44,   44,   61,   44,    3,   61,   61,
+       61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
 
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63
+       61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
+       61,   61,   61,   61,   61,   61,   61,   61
     } ;
 
-static yyconst flex_int16_t yy_chk[231] =
+static yyconst flex_int16_t yy_chk[219] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        7,    7,    7,   67,    7,    7,   11,   11,   30,    7,
-        7,   13,   13,   29,   29,   62,   40,   30,   40,   47,
-       48,   47,   48,   59,   58,   57,   56,    7,    7,    8,
-       54,   53,   52,    8,    8,   51,   50,   49,    8,    8,
-       46,   45,   43,   42,   41,   34,   33,   32,   28,   27,
-       26,   25,   24,   18,   17,   16,    8,    8,   23,   23,
-       23,   12,   23,   23,    3,    0,    0,   23,   23,    0,
+        4,    4,   11,   11,   12,   12,    4,   11,   11,   65,
+       12,   13,   13,   16,   16,   17,   17,   31,   31,   16,
+       58,   17,   18,   18,   19,   19,   54,   53,   18,   16,
+       19,   40,   17,   22,   22,   23,   23,   18,   52,   22,
+       40,   23,   27,   27,   28,   28,   29,   29,   27,   28,
+       28,   45,   29,   33,   33,   44,   34,   34,   48,   33,
+       48,   29,   34,   35,   35,   37,   30,   33,   26,   35,
 
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,   23,   23,   37,    0,   37,
-        0,   37,   37,    0,    0,    0,   37,   37,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,   37,   37,   44,    0,   44,    0,
-       44,   44,    0,    0,    0,   44,   44,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,   44,   44,   64,    0,    0,   64,   65,
-       65,   65,   65,   66,   66,    0,   66,   68,   68,   68,
-       68,   69,   69,    0,   69,   70,   70,    0,   70,   63,
+       25,   39,   39,   41,   41,   39,   34,   39,   24,   41,
+        7,   42,   42,   43,   43,    3,   35,   42,    0,   43,
+       46,   46,   47,   47,    0,   41,   46,    0,   47,    0,
+       42,    0,   49,   49,   50,   50,    0,   43,   49,    0,
+       50,   51,   51,   55,   55,   56,   56,   51,    0,   55,
+        0,   56,   57,   57,   49,   50,    0,    0,   57,   59,
+       59,    0,   51,   60,   60,   59,    0,    0,   56,   60,
+       57,   62,    0,    0,   62,   63,   63,   63,   63,   64,
+       64,    0,   64,   66,   66,    0,   66,   61,   61,   61,
+       61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
 
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-       63,   63,   63,   63,   63,   63,   63,   63,   63,   63
+       61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
+       61,   61,   61,   61,   61,   61,   61,   61
     } ;
 
 /* Table of booleans, true if rule could match eol. */
@@ -579,7 +577,7 @@ extern "C"
 
 using namespace ast;
 
-#line 583 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 581 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 
 #define INITIAL 0
 
@@ -761,10 +759,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 61 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 62 "/Users/endika/LEC-Compiler/parser/scanner.l"
 
 
-#line 768 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 766 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -817,13 +815,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 64 )
+				if ( yy_current_state >= 62 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_current_state != 63 );
+		while ( yy_current_state != 61 );
 		yy_cp = (yy_last_accepting_cpos);
 		yy_current_state = (yy_last_accepting_state);
 
@@ -856,101 +854,101 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 63 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 64 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 64 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 65 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 66 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 67 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_RETURN; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 67 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 68 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_IMPORT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 68 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 69 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CLASS; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 70 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 71 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_INTERCALATE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 71 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 72 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_SEMICOLON; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 73 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 74 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_OP_BRACE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 74 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 75 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CL_BRACE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 75 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 76 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_OP_PARENT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 76 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 77 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { return T_CL_PARENT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 79 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 80 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_INTEGER; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 80 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 81 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_DECIMAL; }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 81 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 82 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_STRING; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 82 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 83 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_CHARACTER; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 84 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 85 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_VARIDENTIFIER; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 85 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 86 "/Users/endika/LEC-Compiler/parser/scanner.l"
 { SAVE_TOKEN; return T_IDENTIFIER; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 87 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 88 "/Users/endika/LEC-Compiler/parser/scanner.l"
 printf("Syntax error at line:%i!\n", yylineno); yyterminate(); exit(1);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 89 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 90 "/Users/endika/LEC-Compiler/parser/scanner.l"
 ECHO;
 	YY_BREAK
-#line 954 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 952 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1243,7 +1241,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 64 )
+			if ( yy_current_state >= 62 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1271,11 +1269,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 64 )
+		if ( yy_current_state >= 62 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 63);
+	yy_is_jam = (yy_current_state == 61);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1956,7 +1954,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 90 "/Users/endika/LEC-Compiler/parser/scanner.l"
 
 
 

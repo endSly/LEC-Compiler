@@ -22,7 +22,7 @@ Class Test
     
     @Test test {
 		
-		((@Test factorial: 12) toString) println;
+		((@Test factorial:16) toString) println;
 
     }
     

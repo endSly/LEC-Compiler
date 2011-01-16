@@ -137,13 +137,13 @@ codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
 
 expressionList      :                                           { $$ = new ast::CodeBlock(); }
-					| expressionList T_RETURN T_SEMICOLON       { $$ = $1; ((ast::CodeBlock*)$$)->addExpression(new ast::ReturnStatement()); /*printf("%s\n", "[Return Found]");*/ }
-                    | expressionList messageSend T_SEMICOLON    { $$ = $1; ((ast::CodeBlock*)$$)->addExpression($2); }
-                    | expressionList singleExpression T_SEMICOLON   { $$ = $1; $2->setReturningExpression(true); ((ast::CodeBlock*)$$)->addExpression($2); } /* This defines a Return Expresion */
+                    | expression                                { $$ = new ast::CodeBlock(); ((ast::CodeBlock*)$$)->addExpression($1) }
+                    | expression T_SEMICOLON expressionList     { $$ = $3; ((ast::CodeBlock*)$$)->addExpression($1); }
                     ;
                     
 expression          : messageSend 
-                    | singleExpression    { $$ = $1; }
+                    | singleExpression 
+                    | T_RETURN      { $$ = new ast::ReturnStatement(); }
                     ;
 
 singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::TypeInteger); }
