@@ -40,6 +40,7 @@ extern "C"
 	ast::AST*                  ast;
 	ast::ClassDeclaration*     classDeclaration;
 	ast::MethodDeclaration*    methodDeclaration;
+	ast::ReturnStatement*      returnStatement;
 	ast::Expression*           expression;
 	ast::MessageSend*          messegeSend;
 	ast::MessagePredicate*     messagePredicate;
@@ -151,6 +152,7 @@ singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::TypeInteger)
                     | T_VARIDENTIFIER { $$ = new ast::Variable(*$1); }
                     | codeBlock
                     | T_OP_PARENT expression T_CL_PARENT { $$ = $2; }
+					| T_RETURN { printf("%s\n", "[Return Found]"); }
                     ;
 
 %%
