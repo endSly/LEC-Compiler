@@ -10,7 +10,6 @@ namespace execengine {
     
     class Class;
     
-	
 	//! Represents an Object in the language. Classes, variables, routines, etc all derive
 	//! from this Object class.
 	//! Methods might be called on an Object, and they provide some additional
@@ -36,6 +35,7 @@ namespace execengine {
         virtual ~Object() { }
        
 		virtual Object* getObjectVariable(const string&) { return NULL; }
+		virtual bool setObjectVariable(const string&, Object*) { return false; }
         
 		//! Checks whether the "this" object is an instance of the
 		//! specified Class (or if that Class is among its base classes
@@ -59,8 +59,8 @@ namespace execengine {
 	
         static Object* kernel_Object_evaluate(Object*, const vector<Object*>&);
     
-        inline int retainObject() { m_refsCount++; }
-        inline int releaseObject() { if(!(--m_refsCount)) delete this; }
+        inline Object* retainObject() { m_refsCount++; return this; }
+        inline void releaseObject() { if(!(--m_refsCount)) delete this; }
         
     private:
         unsigned int m_refsCount;

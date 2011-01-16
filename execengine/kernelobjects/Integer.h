@@ -1,9 +1,11 @@
 #ifndef execengine_kernelobjects_Integer_h
 #define execengine_kernelobjects_Integer_h
 
-#include "kernelobjects/Object.h"
+#include "Object.h"
 
 namespace execengine {
+    
+    class Class;
     
     class Integer : public Object {
     public:

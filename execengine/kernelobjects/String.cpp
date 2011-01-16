@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include "ExecEngine.h"
+#include "KernelObjects.h"
+#include "Class.h"
 #include "String.h"
 
 namespace execengine {

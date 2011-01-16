@@ -66,7 +66,7 @@ MethodDeclaration::MethodDeclaration(string subjectObj, string methodSignature, 
  *  Code Expressions
  */
 
-Object* Value::evaluate(Object* self) 
+Object* Value::evaluate(ExecContext* context) 
 {
     switch (m_type) {
     case TypeInteger:
@@ -80,36 +80,28 @@ Object* Value::evaluate(Object* self)
     }
 }
 
-Object* Variable::evaluate(Object* self) 
+Object* Variable::evaluate(ExecContext* context) 
 {
-    VariablesMap* globalVars = ExecEngine::execEngine()->globalVariables();
-    VariablesMap::iterator it = globalVars->find(m_varName);
-    
-    if (it != globalVars->end()) 
-        return it->second; // Return global variable
-    else
-        return self->getObjectVariable(m_varName);    // Return local variable (if found)
+    return context->getVariable(m_varName);
 }
 
-Object* CodeBlock::evaluate(Object* self) 
+Object* CodeBlock::evaluate(ExecContext* context) 
 {
-    return new Routine(this, self);
+    return new Routine(this, context);
 }
 
-Object* CodeBlock::run(Object* self, const vector<Object*>& params)
+Object* CodeBlock::run(ExecContext* context)
 {
+    Object* result = Nil::nil();
     for (vector<Expression*>::iterator it = m_expressionList->begin()
          ; it != m_expressionList->end()
          ; it++) {
         
         Expression* expr = *it;
-        Object* result = expr->evaluate(self);
-        
-        if (expr->isReturningExpression())
-            return result;
+        result = expr->evaluate(context);
     }
     
-    return self;
+    return result;
 }
 
 MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
@@ -118,15 +110,15 @@ MessageSend::MessageSend(Expression* subject, MessagePredicate* predicate)
     , m_methodName(predicate->methodSignature)
 { }
 
-Object* MessageSend::evaluate(Object* self) 
+Object* MessageSend::evaluate(ExecContext* context) 
 {
-    Object* subject = m_subject->evaluate(self);
+    Object* subject = m_subject->evaluate(context);
     vector<Object*> params;
 
     for (vector<Expression*>::iterator param = m_methodParams.begin()
          ; param != m_methodParams.end()
          ; param++) {
-        params.push_back((*param)->evaluate(self));
+        params.push_back((*param)->evaluate(context));
     }
          
     return subject->processMessage(m_methodName, params);

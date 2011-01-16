@@ -109,4 +109,16 @@ Object* DynamicObject::getObjectVariable(const string& varName)
     return NULL;
 }
 
+bool DynamicObject::setObjectVariable(const string& varName, Object* value)
+{
+    VariablesMap::iterator it = m_localVariables->find(varName);
+    if (it != m_localVariables->end()) {
+        it->second->releaseObject();
+        it->second = value->retainObject();
+        return true;
+    }
+
+    return false;
+}
+
 } // namespace execengine

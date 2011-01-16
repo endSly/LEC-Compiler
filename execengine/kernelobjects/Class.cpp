@@ -1,6 +1,7 @@
 
-#include "ExecEngine.h"
 #include "kernelobjects/Class.h"
+#include "ExecEngine.h"
+#include "KernelObjects.h"
 
 namespace execengine {
 

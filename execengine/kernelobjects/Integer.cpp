@@ -1,9 +1,10 @@
 
 #include <cstdio>
-#include "kernelobjects/Integer.h"
-#include "kernelobjects/Decimal.h"
-#include "kernelobjects/Boolean.h"
-#include "kernelobjects/Class.h"
+#include "Integer.h"
+#include "Decimal.h"
+#include "Boolean.h"
+#include "Class.h"
+#include "KernelObjects.h"
 #include "ExecEngine.h"
 
 namespace execengine {

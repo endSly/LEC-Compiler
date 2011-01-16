@@ -1,6 +1,7 @@
 #ifndef execengine_kernelobjects_Routine_h
 #define execengine_kernelobjects_Routine_h
 
+#include "ExecEngine.h"
 #include "Object.h"
 
 namespace ast {
@@ -13,7 +14,8 @@ namespace execengine {
     
     class Routine : public Object {
     public:
-        Routine(ast::CodeBlock* code, Object* obj) : m_routineCode(code), m_runningObject(obj) { }
+        Routine(ast::CodeBlock* code, ExecContext* context) 
+            : m_routineCode(code), m_runningContext(context) { }
         ~Routine() { }
         
         static Class* ObjectClass();
@@ -23,7 +25,7 @@ namespace execengine {
         
     private:
         ast::CodeBlock* m_routineCode;
-        Object* m_runningObject;
+        ExecContext* m_runningContext;
     };
     
 } // namespace execengine
