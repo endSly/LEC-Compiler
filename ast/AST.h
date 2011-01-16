@@ -165,7 +165,7 @@ namespace ast {
 
 		string toString() { return "<<return>>"; }
 		
-		Object* evaluate(Object* self);
+		Object* evaluate(ExecContext* context);
 	};
     
 

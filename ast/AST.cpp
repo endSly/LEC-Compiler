@@ -103,6 +103,9 @@ Object* CodeBlock::run(ExecContext* context)
         
         Expression* expr = *it;
         result = expr->evaluate(context);
+
+		if(expr->isReturningExpression())
+			return result;
     }
     
     return result;
