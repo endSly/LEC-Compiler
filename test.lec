@@ -24,7 +24,22 @@ Class Test
         @Test doWithParam: "Test";
         
         "[Debug] returned from @Test doWithParam;" println;
+		
+		@Test retTest;
     }
+	
+	@Test retTest {
+		(@Test explicitRet) className;
+		"[Explicit return executed]" println;
+	}
+	
+	@Test explicitRet {
+	    "[Executing explicit return]" println;
+		
+		Return; """ This should return NIL straightaway """
+		
+		"[This should never be executed]" println;
+	}
     
     @Test test {
         ("Hello world! " println) println;

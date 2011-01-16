@@ -91,6 +91,12 @@ Object* Variable::evaluate(Object* self)
         return self->getVariable(m_varName);    // Return local variable (if found)
 }
 
+Object* ReturnStatement::evaluate(Object* self)
+{
+	//printf("%s\n", "[On ReturnStatement::evaluate]");
+	return Nil::nil();
+}
+
 Object* CodeBlock::evaluate(Object* self) 
 {
     return new Routine(this, self);

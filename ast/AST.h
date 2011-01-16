@@ -21,6 +21,7 @@ namespace ast {
     class CodeBlock;
     class MessageSend;
     class Expression;
+	class ReturnStatement;
     
     extern const char* ROOT_CLASS_NAME;
     
@@ -66,6 +67,7 @@ namespace ast {
         vector<string> m_paramsList; 
         CodeBlock*  m_methodCode;  
     };
+
     
     struct MessagePredicate {
     public:
@@ -157,6 +159,16 @@ namespace ast {
     private:
         string m_varName;
     };
+
+	class ReturnStatement : public Expression {
+	public:
+		ReturnStatement() { setReturningExpression(true); }
+
+		string toString() { return "<<return>>"; }
+		
+		Object* evaluate(Object* self);
+	};
+    
 
 } // namespace ast
 
