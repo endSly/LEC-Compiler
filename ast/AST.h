@@ -162,7 +162,7 @@ namespace ast {
 
 	class ReturnStatement : public Expression {
 	public:
-		ReturnStatement() {}
+		ReturnStatement() { setReturningExpression(true); }
 
 		string toString() { return "<<return>>"; }
 		

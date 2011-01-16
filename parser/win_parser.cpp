@@ -1553,7 +1553,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 140 "parser.y"
-    { (yyval.expression) = (yyvsp[(1) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression(new ast::ReturnStatement()); printf("%s\n", "[Return Found]"); ;}
+    { (yyval.expression) = (yyvsp[(1) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression(new ast::ReturnStatement()); /*printf("%s\n", "[Return Found]");*/ ;}
     break;
 
   case 22:

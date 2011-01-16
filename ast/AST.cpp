@@ -93,8 +93,8 @@ Object* Variable::evaluate(Object* self)
 
 Object* ReturnStatement::evaluate(Object* self)
 {
-	printf("%s\n", "[On ReturnStatement::evaluate]");
-	return self;
+	//printf("%s\n", "[On ReturnStatement::evaluate]");
+	return Nil::nil();
 }
 
 Object* CodeBlock::evaluate(Object* self) 
