@@ -62,6 +62,7 @@ extern "C"
 /* Reserved Words */
 %token T_CLASS
 %token T_IMPORT
+%token T_RETURN
 %token T_INTERCALATE
 
 %token T_SEMICOLON
