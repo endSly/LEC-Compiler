@@ -64,6 +64,7 @@ comment             {commentIdent}.*{commentIdent}
 [ \t\n]             { }
 {comment}           { }
 
+Return				{ return T_RETURN; }
 Import              { return T_IMPORT; }
 Class               { return T_CLASS; }
 
@@ -84,6 +85,6 @@ Class               { return T_CLASS; }
 {varidentifier}     { SAVE_TOKEN; return T_VARIDENTIFIER; }
 {identifier}        { SAVE_TOKEN; return T_IDENTIFIER; }
 
-.                   printf("Sintax error at line:%i!\n", yylineno); yyterminate(); exit(1);
+.                   printf("Syntax error at line:%i!\n", yylineno); yyterminate(); exit(1);
 
 %%

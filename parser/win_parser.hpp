@@ -47,12 +47,13 @@
      T_DECIMAL = 263,
      T_CLASS = 264,
      T_IMPORT = 265,
-     T_INTERCALATE = 266,
-     T_SEMICOLON = 267,
-     T_OP_BRACE = 268,
-     T_CL_BRACE = 269,
-     T_OP_PARENT = 270,
-     T_CL_PARENT = 271
+     T_RETURN = 266,
+     T_INTERCALATE = 267,
+     T_SEMICOLON = 268,
+     T_OP_BRACE = 269,
+     T_CL_BRACE = 270,
+     T_OP_PARENT = 271,
+     T_CL_PARENT = 272
    };
 #endif
 
@@ -63,11 +64,12 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 31 "parser.y"
+#line 39 "parser.y"
 
 	ast::AST*                  ast;
 	ast::ClassDeclaration*     classDeclaration;
 	ast::MethodDeclaration*    methodDeclaration;
+	ast::ReturnStatement*      returnStatement;
 	ast::Expression*           expression;
 	ast::MessageSend*          messegeSend;
 	ast::MessagePredicate*     messagePredicate;
@@ -78,7 +80,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 82 "win_parser.hpp"
+#line 84 "win_parser.hpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

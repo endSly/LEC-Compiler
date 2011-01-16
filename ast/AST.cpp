@@ -85,8 +85,12 @@ Object* Variable::evaluate(ExecContext* context)
     return context->getVariable(m_varName);
 }
 
-Object* CodeBlock::evaluate(ExecContext* context) 
+Object* ReturnStatement::evaluate(ExecContext* context)
 {
+	//printf("%s\n", "[On ReturnStatement::evaluate]");
+	return Nil::nil();
+}
+Object* CodeBlock::evaluate(ExecContext* context){
     return new Routine(this, context);
 }
 
@@ -99,6 +103,9 @@ Object* CodeBlock::run(ExecContext* context)
         
         Expression* expr = *it;
         result = expr->evaluate(context);
+
+		if(expr->isReturningExpression())
+			return result;
     }
     
     return result;
