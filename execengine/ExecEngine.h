@@ -12,9 +12,6 @@ namespace execengine {
     using namespace std;
     using namespace ast;
     
-    static void execengineWarning(const string& msg);
-    static void execengineError(const string& msg);
-    
     class Method {
     public:
         virtual Object* run(Object* self, const vector<Object*>& param) { return 0; }
@@ -50,8 +47,6 @@ namespace execengine {
     
     class ExecEngine {
     public:
-        
-
 		//! Prints a warning to console and continues
 		//! execution.
 		//!
@@ -79,14 +74,29 @@ namespace execengine {
 		//! 
         VariablesMap* globalVariables() { return m_globalVars; }
         
-        
     private:
-
         ExecEngine() : m_globalVars(new VariablesMap()) { }
-        
 		~ExecEngine() { delete m_globalVars; }
     
         VariablesMap* m_globalVars;
+    };
+    
+    class ExecContext {
+        friend class ExecEngine;
+    public:
+        ExecContext(Object* self) : m_self(self) { }
+        
+        inline Object* self() { return m_self; }
+        
+        inline VariablesMap* globalVariables() { static VariablesMap* s_gv = new VariablesMap(); return s_gv; }
+        
+        Object* getVariable(const string&);
+        
+        
+    
+    private:
+        Object* m_self;
+        VariablesMap m_contextVariables;
     };
     
 } // namespace execengine

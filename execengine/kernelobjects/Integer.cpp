@@ -27,6 +27,10 @@ Class* Integer::ObjectClass()
         (*methodsMap)[string("<@")] = new KernelMethod(string("<@"), Integer::kernel_Integer_lower);
         (*methodsMap)[string(">=@")] = new KernelMethod(string(">=@"), Integer::kernel_Integer_greaterEq);
         (*methodsMap)[string("<=@")] = new KernelMethod(string("<=@"), Integer::kernel_Integer_lowerEq);
+        (*methodsMap)[string("++")] = new KernelMethod(string("++"), Integer::kernel_Integer_increment);
+        (*methodsMap)[string("--")] = new KernelMethod(string("--"), Integer::kernel_Integer_decrement);
+        (*methodsMap)[string("+=@")] = new KernelMethod(string("+=@"), Integer::kernel_Integer_plusAssign);
+        (*methodsMap)[string("-=@")] = new KernelMethod(string("-=@"), Integer::kernel_Integer_minusAssign);
         
         MethodsMap* classMethodsMap = new MethodsMap();
         
@@ -162,6 +166,44 @@ Object* Integer::kernel_Integer_lowerEq(Object* self, const vector<Object*>& par
 {
     if (checkMethodParams(&params, Integer::ObjectClass(), NULL)) {
         return Boolean::boolean(((Integer*) self)->m_value <= ((Integer*) params[0])->m_value);
+        
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+}
+    
+Object* Integer::kernel_Integer_increment(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(&params, NULL)) {
+        ((Integer*) self)->m_value++;
+        return self;
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+}
+
+Object* Integer::kernel_Integer_decrement(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(&params, NULL)) {
+        ((Integer*) self)->m_value--;
+        return self;
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+}
+    
+Object* Integer::kernel_Integer_plusAssign(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(&params, Integer::ObjectClass(), NULL)) {
+        ((Integer*) self)->m_value += ((Integer*) params[0])->m_value;
+        return self;
+        
+    } else
+        ExecEngine::execengineError(string("Incorrect parameter"));
+}
+
+Object* Integer::kernel_Integer_minusAssign(Object* self, const vector<Object*>& params)
+{
+    if (checkMethodParams(&params, Integer::ObjectClass(), NULL)) {
+        ((Integer*) self)->m_value += ((Integer*) params[0])->m_value;
+        return self;
         
     } else
         ExecEngine::execengineError(string("Incorrect parameter"));

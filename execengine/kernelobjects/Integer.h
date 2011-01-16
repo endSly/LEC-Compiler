@@ -29,6 +29,12 @@ namespace execengine {
         static Object* kernel_Integer_greaterEq(Object*, const vector<Object*>&);
         static Object* kernel_Integer_lowerEq(Object*, const vector<Object*>&);
         
+        static Object* kernel_Integer_increment(Object*, const vector<Object*>&);
+        static Object* kernel_Integer_decrement(Object*, const vector<Object*>&);
+        
+        static Object* kernel_Integer_plusAssign(Object*, const vector<Object*>&);
+        static Object* kernel_Integer_minusAssign(Object*, const vector<Object*>&);
+        
     private:
         long long m_value;
     };

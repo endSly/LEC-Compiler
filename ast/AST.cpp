@@ -88,7 +88,7 @@ Object* Variable::evaluate(Object* self)
     if (it != globalVars->end()) 
         return it->second; // Return global variable
     else
-        return self->getVariable(m_varName);    // Return local variable (if found)
+        return self->getObjectVariable(m_varName);    // Return local variable (if found)
 }
 
 Object* CodeBlock::evaluate(Object* self) 

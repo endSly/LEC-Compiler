@@ -19,7 +19,7 @@ namespace execengine {
     public:
 
 		//! Constructs an Object.
-        Object() { }
+        Object() : m_refsCount(1) { }
 
 		//! Calls a method on the object.
 		//!
@@ -35,7 +35,7 @@ namespace execengine {
 		//!
         virtual ~Object() { }
        
-		Object* getVariable(const string& varName) { return this; }
+		virtual Object* getObjectVariable(const string&) { return NULL; }
         
 		//! Checks whether the "this" object is an instance of the
 		//! specified Class (or if that Class is among its base classes
@@ -58,6 +58,12 @@ namespace execengine {
 
 	
         static Object* kernel_Object_evaluate(Object*, const vector<Object*>&);
+    
+        inline int retainObject() { m_refsCount++; }
+        inline int releaseObject() { if(!(--m_refsCount)) delete this; }
+        
+    private:
+        unsigned int m_refsCount;
     };
     
 } // namespace execengine

@@ -90,5 +90,26 @@ int ExecEngine::execute(const std::string& className, const std::string& method)
     }
 }
 
+Object* ExecContext::getVariable(const string& varName) 
+{
+    // Find in context variable
+    VariablesMap::iterator it = m_contextVariables.find(varName);
+    if (it != m_contextVariables.end())
+        return it->second;
+    
+    // Find in Object
+    Object* variable = m_self->getObjectVariable(varName);
+    if (variable)
+        return variable;
+    
+    // Find in global variables
+    it = globalVariables()->find(varName);
+    if (it != globalVariables()->end())
+        return it->second;
+    
+    // Undefined variable
+    ExecEngine::execengineError("Trying to access to undefined variable: " + varName);
+}
+
 } // namespace execengine
 
