@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "kernelobjects/Object.h"
 #include "kernelobjects/Class.h"
 #include "ExecEngine.h"
@@ -17,7 +18,7 @@ Class* Object::ObjectClass()
     if (!s_objectClass) {
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("class")] = new KernelMethod(string("class"), Class::kernel_Object_class);
-        (*methodsMap)[string("evaluate")] = new KernelMethod(string("evaluate"), Class::kernel_Object_class);
+        (*methodsMap)[string("evaluate")] = new KernelMethod(string("evaluate"), Class::kernel_Object_evaluate);
         
         MethodsMap* classMethodsMap = new MethodsMap();
         

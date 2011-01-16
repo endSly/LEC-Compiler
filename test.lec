@@ -5,60 +5,25 @@ Class Test
 ( @value )
 {
 
+	@Test factorial:@n {
+		(@n > 1) 
+		? { @n * (@Test factorial:(@n - 1)); }
+		: 1;
+	}
+
     @Test doWithParam:@param {
-        ((@param class) className) println;
+        @param println;
         
         (17 toString) println;
         
-        (@Boolean true); """ This is a return """
-	
-       "This should not be printed" println;
+        (@Boolean true); 
     }
     
-    @Test do {
-        (@String className) println;
-        
-        ((1.2 class) className) println;
-        
-        "[Debug] calling to @Test doWithParam;" println;
-        @Test doWithParam: "Test";
-        
-        "[Debug] returned from @Test doWithParam;" println;
-    }
+
     
     @Test test {
-        ("Hello world! " println) println;
-        ("Hola " + "mundo!") println;
-        
-        "[Debug] calling to @Test do;" println;
-        @Test do;
-        "[Debug] returning from @Test do;" println;
-        
-        ("'Test' length + 5:" + ((("Test" length) + 5) toString)) println;
-        
-        """ Routine Tests """
-        "[Debug] Routine Tests" println;
-        (({ "Hola Routine" println; } class) className) println;
-        { "Hola Routine" println; } evaluate;
-        
-        """ Boolean Tests """
-        "[Debug] Boolean Tests" println;
-
-        (@Boolean true) ifTrue: {
-        	"ifTrue: Works!" println;
-        };
-        
-        ((@Boolean true) not) ifTrue: {
-        	"ifFalse: doesn't Works!" println;
-        } else: {
-        	"else: Works!" println;
-        };
-
-        ((@Boolean false) ? "!!!Hola" : "!!!Adios" ) println;
-        
-        ((@Boolean true) and (@Boolean false)) ifFalse: {
-            "and Works!" println;
-        };
+		
+		((@Test factorial: 12) toString) println;
 
     }
     

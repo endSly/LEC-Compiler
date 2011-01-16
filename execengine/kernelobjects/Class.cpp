@@ -39,8 +39,7 @@ Object* Class::processObjectMessage(Object* self, const string& method, const ve
 {
 #ifdef VERBOSE_DEBUG
 	if(self && self->objectClass()) {
-		Class * cl = self->objectClass();
-		std::string str = cl->className();
+		std::string str = this->className();
 		printf("[Calling method %s in an object of type %s]\n", method.c_str(), str.c_str());
 	} else {
 		printf("[Failed to call method]\n");
