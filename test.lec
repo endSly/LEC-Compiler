@@ -49,7 +49,7 @@ Class Test
         @Test do;
         "[Debug] returning from @Test do;" println;
         
-        ("'Test' length:" + (("Test" length) toString)) println;
+        ("'Test' length + 5:" + ((("Test" length) + 5) toString)) println;
         
         """ Routine Tests """
         "[Debug] Routine Tests" println;
@@ -69,7 +69,7 @@ Class Test
         	"else: Works!" println;
         };
 
-        ((@Boolean false) ? { "!!!Hola"; } : { "!!!Adios"; }) println;
+        ((@Boolean false) ? "!!!Hola" : "!!!Adios" ) println;
         
         ((@Boolean true) and (@Boolean false)) ifFalse: {
             "and Works!" println;

@@ -100,17 +100,25 @@ DynamicObject::DynamicObject(Class* objClass)
     
 }
 
-Object* DynamicObject::getVariable(const string& varName)
+Object* DynamicObject::getObjectVariable(const string& varName)
 {
-    Object* result;
+    VariablesMap::iterator it = m_localVariables->find(varName);
+    if (it != m_localVariables->end()) 
+        return it->second;
+
+    return NULL;
+}
+
+bool DynamicObject::setObjectVariable(const string& varName, Object* value)
+{
     VariablesMap::iterator it = m_localVariables->find(varName);
     if (it != m_localVariables->end()) {
-        result = it->second;
-    } else {
-        ExecEngine::execengineWarning(string("Trying to access to undefined variable. @nil returned. ") + this->m_class->className() + " " +  varName);
-        result = Nil::nil();
+        it->second->releaseObject();
+        it->second = value->retainObject();
+        return true;
     }
-    return result;
+
+    return false;
 }
 
 } // namespace execengine

@@ -53,7 +53,7 @@ Object* Boolean::kernel_Boolean_ifTrue(Object* self, const vector<Object*>& para
 {
     if (checkMethodParams(&params, Object::ObjectClass(), NULL)) {
         if (((Boolean*) self)->m_value) 
-            return params[0]->processMessage(string("evaluate"), params);
+            return params[0]->processMessage(string("evaluate"), vector<Object*>(0));
             
     } else
         ExecEngine::execengineError(string("Incorrect parameter"));
@@ -63,9 +63,9 @@ Object* Boolean::kernel_Boolean_ifTrue_else(Object* self, const vector<Object*>&
 {
     if (checkMethodParams(&params, Object::ObjectClass(), Object::ObjectClass(), NULL)) {
         if (((Boolean*) self)->m_value) 
-            return params[0]->processMessage(string("evaluate"), params);
+            return params[0]->processMessage(string("evaluate"), vector<Object*>(0));
         else
-            return params[1]->processMessage(string("evaluate"), params);
+            return params[1]->processMessage(string("evaluate"), vector<Object*>(0));
             
     } else
         ExecEngine::execengineError(string("Incorrect parameter"));
@@ -76,7 +76,7 @@ Object* Boolean::kernel_Boolean_ifFalse(Object* self, const vector<Object*>& par
 {
     if (checkMethodParams(&params, Object::ObjectClass(), NULL)) {
         if (!((Boolean*) self)->m_value) 
-            return params[0]->processMessage(string("evaluate"), params);
+            return params[0]->processMessage(string("evaluate"), vector<Object*>(0));
     }
 }
         

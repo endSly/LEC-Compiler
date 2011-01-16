@@ -88,7 +88,7 @@ namespace ast {
         virtual string toString() { return string("Abstract Expression"); }
         virtual ~Expression() { }
         
-        virtual Object* evaluate(Object*) { return execengine::Nil::nil(); }
+        virtual Object* evaluate(ExecContext*) { return NULL; }
         
     protected:
         Expression() : m_returningExpression(false) { }
@@ -101,10 +101,9 @@ namespace ast {
 
         void addExpression(Expression* expression) { m_expressionList->push_back(expression); }
         string toString() { return string("CodeBlock"); }
-        Object* evaluate(Object*);
+        Object* evaluate(ExecContext*);
         
-        Object* run(Object*, const vector<Object*>&);
-        
+        Object* run(ExecContext*);
         
         ~CodeBlock() { delete m_expressionList; }
         
@@ -121,7 +120,7 @@ namespace ast {
         ~MessageSend() { }
         
         string toString() { return string("MsgSend"); }
-        Object* evaluate(Object*);
+        Object* evaluate(ExecContext*);
 
     private:
         string m_methodName;
@@ -139,7 +138,7 @@ namespace ast {
         string toString() { return string("Value[") + m_value + "]"; }
         string value() { return m_value; }
         
-        Object* evaluate(Object*);
+        Object* evaluate(ExecContext*);
         
     private:
         ValueType m_type;
@@ -154,7 +153,7 @@ namespace ast {
         string toString() { return m_varName; }
         string name() { return m_varName; }
         
-        Object* evaluate(Object*);
+        Object* evaluate(ExecContext*);
         
     private:
         string m_varName;

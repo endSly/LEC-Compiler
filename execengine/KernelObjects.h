@@ -44,7 +44,8 @@ namespace execengine {
         ~DynamicObject() { delete m_localVariables; }
     
         DynamicObject(Class*);
-        Object* getVariable(const string& varName);
+        Object* getObjectVariable(const string&);
+        bool setObjectVariable(const string&, Object*);
 
         static Object* kernel_DynamicClass_new(Object*, const vector<Object*>&);
 

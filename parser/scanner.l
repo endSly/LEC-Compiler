@@ -16,6 +16,7 @@
 #define TOKEN(t) (yylval.token = t)
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 
+
 #ifdef _WIN32
 extern "C"
 {
@@ -32,11 +33,14 @@ extern "C"
 	int yytest() { return 0; }
 }
 
+
 #else
-extern "C" {
+ 
+
     int yywrap() { return 1; }
     
-}
+
+
 #endif // _WIN32
 
 using namespace ast;

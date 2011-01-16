@@ -25,7 +25,7 @@ Class* Routine::ObjectClass()
 
 Object* Routine::kernel_Routine_evaluate(Object* self, const vector<Object*>& params)
 {
-    ((Routine*) self)->m_routineCode->run(((Routine*) self)->m_runningObject, params);
+    ((Routine*) self)->m_routineCode->run(((Routine*) self)->m_runningContext);
 	return self;
 }
 

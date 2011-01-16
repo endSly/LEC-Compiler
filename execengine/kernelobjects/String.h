@@ -5,6 +5,8 @@
 #include "Object.h"
 
 namespace execengine {
+
+    class Class;
     
     class String : public Object {
     public:

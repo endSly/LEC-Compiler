@@ -5,32 +5,35 @@
 #include <vector>
 #include <map>
 
-#include "ast/AST.h"
+namespace ast {
+    class AST;
+    class MethodDeclaration;
+    class CodeBlock;
+}
 
 namespace execengine {
     
     using namespace std;
     using namespace ast;
     
-    static void execengineWarning(const string& msg);
-    static void execengineError(const string& msg);
+    class Object;
     
     class Method {
     public:
         virtual Object* run(Object* self, const vector<Object*>& param) { return 0; }
     
     protected:
-        Method(const string& name, vector<string>* params = NULL)  : m_name(name), m_parameters(params) { }
+        Method(const string& name, vector<string>* params = NULL)  : m_name(name), m_parametersName(params) { }
         
         string m_name;
-        vector<string>* m_parameters;
+        vector<string>* m_parametersName;
     };
     
     class DynamicMethod : public Method {
     public:
-        DynamicMethod(ast::MethodDeclaration* decl) : Method(decl->name(), decl->parametersList()), m_code(decl->methodCode()) { }
+        DynamicMethod(ast::MethodDeclaration* decl);
         
-        Object* run(Object* self, const vector<Object*>& params) { return m_code->run(self, params); }
+        Object* run(Object* self, const vector<Object*>& params);
     
     private:
         CodeBlock* m_code;
@@ -48,10 +51,11 @@ namespace execengine {
         KernelFunction m_function;
     };
     
+    typedef map<string, Method*> MethodsMap;
+    typedef map<string, Object*> VariablesMap;
+    
     class ExecEngine {
     public:
-        
-
 		//! Prints a warning to console and continues
 		//! execution.
 		//!
@@ -74,19 +78,25 @@ namespace execengine {
 		//! @param method Name of the method to run.
         int execute(const std::string& className, const std::string& method);
         
-
-		//! Returns the map of global variables.
-		//! 
-        VariablesMap* globalVariables() { return m_globalVars; }
-        
-        
     private:
-
-        ExecEngine() : m_globalVars(new VariablesMap()) { }
-        
-		~ExecEngine() { delete m_globalVars; }
+        ExecEngine() { }
+    };
     
-        VariablesMap* m_globalVars;
+    class ExecContext {
+        friend class ExecEngine;
+    public:
+        ExecContext(Object* self) : m_self(self) { }
+        
+        inline Object* self() { return m_self; }
+        static inline VariablesMap* globalVariables() { static VariablesMap* s_gv = new VariablesMap(); return s_gv; }
+        inline VariablesMap* contextVariables() { return &m_contextVariables; }
+        
+        Object* getVariable(const string&);
+        void setVariable(const string&, Object*);
+    
+    private:
+        Object* m_self;
+        VariablesMap m_contextVariables;
     };
     
 } // namespace execengine
