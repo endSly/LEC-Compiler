@@ -1,23 +1,24 @@
-
-/* A Bison parser, made by GNU Bison 2.4.1.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
 /* Skeleton interface for Bison's Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
    Free Software Foundation, Inc.
-   
-   This program is free software: you can redistribute it and/or modify
+
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -28,10 +29,9 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-   
+
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
-
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -56,36 +56,48 @@
      T_CL_PARENT = 272
    };
 #endif
+/* Tokens.  */
+#define T_VARIDENTIFIER 258
+#define T_IDENTIFIER 259
+#define T_STRING 260
+#define T_CHARACTER 261
+#define T_INTEGER 262
+#define T_DECIMAL 263
+#define T_CLASS 264
+#define T_IMPORT 265
+#define T_RETURN 266
+#define T_INTERCALATE 267
+#define T_SEMICOLON 268
+#define T_OP_BRACE 269
+#define T_CL_BRACE 270
+#define T_OP_PARENT 271
+#define T_CL_PARENT 272
+
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
+#line 39 "/Users/endika/LEC-Compiler/parser/parser.y"
 {
-
-/* Line 1676 of yacc.c  */
-#line 39 "parser.y"
-
 	ast::AST*                  ast;
 	ast::ClassDeclaration*     classDeclaration;
 	ast::MethodDeclaration*    methodDeclaration;
+	ast::ReturnStatement*      returnStatement;
 	ast::Expression*           expression;
 	ast::MessageSend*          messegeSend;
 	ast::MessagePredicate*     messagePredicate;
 	std::string*               string;
 	std::vector<std::string>* stringList;
 	std::vector<ast::MethodDeclaration*>*      methodsList;
-
-
-
-/* Line 1676 of yacc.c  */
-#line 83 "parser.hpp"
-} YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 1529 of yacc.c.  */
+#line 96 "/Users/endika/LEC-Compiler/parser/parser.hpp"
+	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
 
 extern YYSTYPE yylval;
-
 

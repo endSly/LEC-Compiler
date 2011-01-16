@@ -1,23 +1,24 @@
-
-/* A Bison parser, made by GNU Bison 2.4.1.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
 /* Skeleton implementation for Bison's Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
    Free Software Foundation, Inc.
-   
-   This program is free software: you can redistribute it and/or modify
+
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -28,7 +29,7 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-   
+
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
@@ -46,7 +47,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "2.4.1"
+#define YYBISON_VERSION "2.3"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -54,21 +55,56 @@
 /* Pure parsers.  */
 #define YYPURE 0
 
-/* Push parsers.  */
-#define YYPUSH 0
-
-/* Pull parsers.  */
-#define YYPULL 1
-
 /* Using locations.  */
 #define YYLSP_NEEDED 0
 
 
 
-/* Copy the first part of user declarations.  */
+/* Tokens.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     T_VARIDENTIFIER = 258,
+     T_IDENTIFIER = 259,
+     T_STRING = 260,
+     T_CHARACTER = 261,
+     T_INTEGER = 262,
+     T_DECIMAL = 263,
+     T_CLASS = 264,
+     T_IMPORT = 265,
+     T_RETURN = 266,
+     T_INTERCALATE = 267,
+     T_SEMICOLON = 268,
+     T_OP_BRACE = 269,
+     T_CL_BRACE = 270,
+     T_OP_PARENT = 271,
+     T_CL_PARENT = 272
+   };
+#endif
+/* Tokens.  */
+#define T_VARIDENTIFIER 258
+#define T_IDENTIFIER 259
+#define T_STRING 260
+#define T_CHARACTER 261
+#define T_INTEGER 262
+#define T_DECIMAL 263
+#define T_CLASS 264
+#define T_IMPORT 265
+#define T_RETURN 266
+#define T_INTERCALATE 267
+#define T_SEMICOLON 268
+#define T_OP_BRACE 269
+#define T_CL_BRACE 270
+#define T_OP_PARENT 271
+#define T_CL_PARENT 272
 
-/* Line 189 of yacc.c  */
-#line 1 "parser.y"
+
+
+
+/* Copy the first part of user declarations.  */
+#line 1 "/Users/endika/LEC-Compiler/parser/parser.y"
 
 
     
@@ -105,9 +141,6 @@ extern "C"
 	
 
 
-/* Line 189 of yacc.c  */
-#line 110 "parser.cpp"
-
 /* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -126,66 +159,36 @@ extern "C"
 # define YYTOKEN_TABLE 0
 #endif
 
-
-/* Tokens.  */
-#ifndef YYTOKENTYPE
-# define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     T_VARIDENTIFIER = 258,
-     T_IDENTIFIER = 259,
-     T_STRING = 260,
-     T_CHARACTER = 261,
-     T_INTEGER = 262,
-     T_DECIMAL = 263,
-     T_CLASS = 264,
-     T_IMPORT = 265,
-     T_RETURN = 266,
-     T_INTERCALATE = 267,
-     T_SEMICOLON = 268,
-     T_OP_BRACE = 269,
-     T_CL_BRACE = 270,
-     T_OP_PARENT = 271,
-     T_CL_PARENT = 272
-   };
-#endif
-
-
-
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
+#line 39 "/Users/endika/LEC-Compiler/parser/parser.y"
 {
-
-/* Line 214 of yacc.c  */
-#line 39 "parser.y"
-
 	ast::AST*                  ast;
 	ast::ClassDeclaration*     classDeclaration;
 	ast::MethodDeclaration*    methodDeclaration;
+	ast::ReturnStatement*      returnStatement;
 	ast::Expression*           expression;
 	ast::MessageSend*          messegeSend;
 	ast::MessagePredicate*     messagePredicate;
 	std::string*               string;
 	std::vector<std::string>* stringList;
 	std::vector<ast::MethodDeclaration*>*      methodsList;
-
-
-
-/* Line 214 of yacc.c  */
-#line 177 "parser.cpp"
-} YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 193 of yacc.c.  */
+#line 179 "/Users/endika/LEC-Compiler/parser/parser.cpp"
+	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
+
 
 
 /* Copy the second part of user declarations.  */
 
 
-/* Line 264 of yacc.c  */
-#line 189 "parser.cpp"
+/* Line 216 of yacc.c.  */
+#line 192 "/Users/endika/LEC-Compiler/parser/parser.cpp"
 
 #ifdef short
 # undef short
@@ -235,7 +238,7 @@ typedef short int yytype_int16;
 #define YYSIZE_MAXIMUM ((YYSIZE_T) -1)
 
 #ifndef YY_
-# if YYENABLE_NLS
+# if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
 #   include <libintl.h> /* INFRINGES ON USER NAME SPACE */
 #   define YY_(msgid) dgettext ("bison-runtime", msgid)
@@ -260,14 +263,14 @@ typedef short int yytype_int16;
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static int
-YYID (int yyi)
+YYID (int i)
 #else
 static int
-YYID (yyi)
-    int yyi;
+YYID (i)
+    int i;
 #endif
 {
-  return yyi;
+  return i;
 }
 #endif
 
@@ -348,9 +351,9 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
 {
-  yytype_int16 yyss_alloc;
-  YYSTYPE yyvs_alloc;
-};
+  yytype_int16 yyss;
+  YYSTYPE yyvs;
+  };
 
 /* The size of the maximum gap between one aligned stack and the next.  */
 # define YYSTACK_GAP_MAXIMUM (sizeof (union yyalloc) - 1)
@@ -384,12 +387,12 @@ union yyalloc
    elements in the stack, and YYPTR gives the new location of the
    stack.  Advance YYPTR to a properly aligned location for the next
    stack.  */
-# define YYSTACK_RELOCATE(Stack_alloc, Stack)				\
+# define YYSTACK_RELOCATE(Stack)					\
     do									\
       {									\
 	YYSIZE_T yynewbytes;						\
-	YYCOPY (&yyptr->Stack_alloc, Stack, yysize);			\
-	Stack = &yyptr->Stack_alloc;					\
+	YYCOPY (&yyptr->Stack, Stack, yysize);				\
+	Stack = &yyptr->Stack;						\
 	yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
 	yyptr += yynewbytes / sizeof (*yyptr);				\
       }									\
@@ -400,16 +403,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   54
+#define YYLAST   55
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  18
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  14
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  31
+#define YYNRULES  32
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  54
+#define YYNSTATES  56
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -458,8 +461,8 @@ static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     5,     7,    10,    19,    30,    31,    34,
       35,    38,    42,    44,    47,    51,    54,    56,    59,    63,
-      67,    68,    72,    76,    78,    80,    82,    84,    86,    88,
-      90,    92
+      67,    68,    72,    76,    80,    82,    84,    86,    88,    90,
+      92,    94,    96
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -471,19 +474,19 @@ static const yytype_int8 yyrhs[] =
       -1,     3,    22,    -1,    -1,    24,    23,    -1,     3,    25,
       28,    -1,     4,    -1,     4,     3,    -1,     4,     3,    25,
       -1,    31,    27,    -1,     4,    -1,     4,    31,    -1,     4,
-      31,    27,    -1,    14,    29,    15,    -1,    -1,    29,    26,
-      13,    -1,    29,    31,    13,    -1,    26,    -1,    31,    -1,
-       7,    -1,     8,    -1,     6,    -1,     5,    -1,     3,    -1,
-      28,    -1,    16,    30,    17,    -1
+      31,    27,    -1,    14,    29,    15,    -1,    -1,    29,    11,
+      13,    -1,    29,    26,    13,    -1,    29,    31,    13,    -1,
+      26,    -1,    31,    -1,     7,    -1,     8,    -1,     6,    -1,
+       5,    -1,     3,    -1,    28,    -1,    16,    30,    17,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    89,    89,    92,    93,    97,   102,   108,   109,   112,
-     113,   116,   119,   120,   121,   126,   129,   130,   131,   135,
-     138,   139,   140,   143,   144,   147,   148,   149,   150,   151,
-     152,   153
+       0,    90,    90,    93,    94,    98,   103,   109,   110,   113,
+     114,   117,   120,   121,   122,   127,   130,   131,   132,   136,
+     139,   140,   141,   142,   145,   146,   149,   150,   151,   152,
+     153,   154,   155
 };
 #endif
 
@@ -517,8 +520,8 @@ static const yytype_uint8 yyr1[] =
 {
        0,    18,    19,    20,    20,    21,    21,    22,    22,    23,
       23,    24,    25,    25,    25,    26,    27,    27,    27,    28,
-      29,    29,    29,    30,    30,    31,    31,    31,    31,    31,
-      31,    31
+      29,    29,    29,    29,    30,    30,    31,    31,    31,    31,
+      31,    31,    31
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -526,8 +529,8 @@ static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     1,     2,     8,    10,     0,     2,     0,
        2,     3,     1,     2,     3,     2,     1,     2,     3,     3,
-       0,     3,     3,     1,     1,     1,     1,     1,     1,     1,
-       1,     3
+       0,     3,     3,     3,     1,     1,     1,     1,     1,     1,
+       1,     1,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -538,36 +541,36 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     2,     3,     0,     1,     4,     0,     7,
        0,     7,     0,     7,     8,     0,     0,     9,     0,     0,
        0,     9,     9,    12,     0,     5,    10,     0,    13,    20,
-      11,     6,    14,     0,    29,    28,    27,    25,    26,    19,
-       0,     0,    30,     0,    23,     0,    24,    21,    16,    22,
-      15,    31,    17,    18
+      11,     6,    14,     0,    30,    29,    28,    26,    27,     0,
+      19,     0,     0,    31,     0,    21,    24,     0,    25,    22,
+      16,    23,    15,    32,    17,    18
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     4,    12,    20,    21,    24,    41,    50,
-      42,    33,    45,    43
+      -1,     2,     3,     4,    12,    20,    21,    24,    42,    52,
+      43,    33,    47,    44
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -40
+#define YYPACT_NINF -41
 static const yytype_int8 yypact[] =
 {
-       1,    18,    26,     1,   -40,     8,   -40,   -40,    24,    27,
-      13,    27,    14,    27,   -40,    19,    15,    31,    21,    32,
-      22,    31,    31,    35,    25,   -40,   -40,    28,    32,   -40,
-     -40,   -40,   -40,    -3,   -40,   -40,   -40,   -40,   -40,   -40,
-      11,    29,   -40,     2,   -40,    23,    37,   -40,    11,   -40,
-     -40,   -40,    37,   -40
+      14,    22,    28,    14,   -41,     8,   -41,   -41,    25,    27,
+      15,    27,    16,    27,   -41,    18,    17,    32,    23,    34,
+      21,    32,    32,    36,    26,   -41,   -41,    29,    34,   -41,
+     -41,   -41,   -41,    -3,   -41,   -41,   -41,   -41,   -41,    30,
+     -41,    11,    33,   -41,     2,   -41,   -41,    24,    38,   -41,
+      11,   -41,   -41,   -41,    38,   -41
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -40,   -40,   -40,    41,    10,   -14,   -40,    17,     6,    -5,
-      30,   -40,   -40,   -39
+     -41,   -41,   -41,    42,    -4,     0,   -41,    19,     7,    -5,
+      31,   -41,   -41,   -40
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -577,22 +580,22 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      34,    46,    35,    36,    37,    38,    48,    26,    27,    52,
-       1,    29,    39,    40,    34,    49,    35,    36,    37,    38,
-       8,    14,     5,    16,     9,    29,     6,    40,    10,    13,
-      11,    15,    18,    17,    19,    22,    23,    25,    28,    29,
-      51,    48,    47,    31,     7,    32,    44,    53,     0,     0,
-       0,     0,     0,     0,    30
+      34,    48,    35,    36,    37,    38,    50,    14,    39,    16,
+      54,    29,    40,    41,    34,    51,    35,    36,    37,    38,
+       8,    26,    27,     1,     9,    29,     5,    41,     6,    10,
+      11,    13,    17,    15,    18,    19,    25,    22,    23,    28,
+      29,    53,    50,    45,    31,     7,    49,    32,    46,    55,
+       0,     0,     0,     0,     0,    30
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,    40,     5,     6,     7,     8,     4,    21,    22,    48,
-       9,    14,    15,    16,     3,    13,     5,     6,     7,     8,
-      12,    11,     4,    13,    16,    14,     0,    16,     4,    16,
-       3,    17,    17,    14,     3,    14,     4,    15,     3,    14,
-      17,     4,    13,    15,     3,    28,    40,    52,    -1,    -1,
-      -1,    -1,    -1,    -1,    24
+       3,    41,     5,     6,     7,     8,     4,    11,    11,    13,
+      50,    14,    15,    16,     3,    13,     5,     6,     7,     8,
+      12,    21,    22,     9,    16,    14,     4,    16,     0,     4,
+       3,    16,    14,    17,    17,     3,    15,    14,     4,     3,
+      14,    17,     4,    13,    15,     3,    13,    28,    41,    54,
+      -1,    -1,    -1,    -1,    -1,    24
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -602,9 +605,9 @@ static const yytype_uint8 yystos[] =
        0,     9,    19,    20,    21,     4,     0,    21,    12,    16,
        4,     3,    22,    16,    22,    17,    22,    14,    17,     3,
       23,    24,    14,     4,    25,    15,    23,    23,     3,    14,
-      28,    15,    25,    29,     3,     5,     6,     7,     8,    15,
-      16,    26,    28,    31,    26,    30,    31,    13,     4,    13,
-      27,    17,    31,    27
+      28,    15,    25,    29,     3,     5,     6,     7,     8,    11,
+      15,    16,    26,    28,    31,    13,    26,    30,    31,    13,
+       4,    13,    27,    17,    31,    27
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -678,7 +681,7 @@ while (YYID (0))
    we won't break user code: when these are the locations we know.  */
 
 #ifndef YY_LOCATION_PRINT
-# if YYLTYPE_IS_TRIVIAL
+# if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
 #  define YY_LOCATION_PRINT(File, Loc)			\
      fprintf (File, "%d.%d-%d.%d",			\
 	      (Loc).first_line, (Loc).first_column,	\
@@ -789,20 +792,17 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_stack_print (yytype_int16 *yybottom, yytype_int16 *yytop)
+yy_stack_print (yytype_int16 *bottom, yytype_int16 *top)
 #else
 static void
-yy_stack_print (yybottom, yytop)
-    yytype_int16 *yybottom;
-    yytype_int16 *yytop;
+yy_stack_print (bottom, top)
+    yytype_int16 *bottom;
+    yytype_int16 *top;
 #endif
 {
   YYFPRINTF (stderr, "Stack now");
-  for (; yybottom <= yytop; yybottom++)
-    {
-      int yybot = *yybottom;
-      YYFPRINTF (stderr, " %d", yybot);
-    }
+  for (; bottom <= top; ++bottom)
+    YYFPRINTF (stderr, " %d", *bottom);
   YYFPRINTF (stderr, "\n");
 }
 
@@ -836,11 +836,11 @@ yy_reduce_print (yyvsp, yyrule)
   /* The symbols being reduced.  */
   for (yyi = 0; yyi < yynrhs; yyi++)
     {
-      YYFPRINTF (stderr, "   $%d = ", yyi + 1);
+      fprintf (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
 		       &(yyvsp[(yyi + 1) - (yynrhs)])
 		       		       );
-      YYFPRINTF (stderr, "\n");
+      fprintf (stderr, "\n");
     }
 }
 
@@ -1120,8 +1120,10 @@ yydestruct (yymsg, yytype, yyvaluep)
 	break;
     }
 }
+
 
 /* Prevent warnings from -Wmissing-prototypes.  */
+
 #ifdef YYPARSE_PARAM
 #if defined __STDC__ || defined __cplusplus
 int yyparse (void *YYPARSE_PARAM);
@@ -1137,10 +1139,11 @@ int yyparse ();
 #endif /* ! YYPARSE_PARAM */
 
 
-/* The lookahead symbol.  */
+
+/* The look-ahead symbol.  */
 int yychar;
 
-/* The semantic value of the lookahead symbol.  */
+/* The semantic value of the look-ahead symbol.  */
 YYSTYPE yylval;
 
 /* Number of syntax errors so far.  */
@@ -1148,9 +1151,9 @@ int yynerrs;
 
 
 
-/*-------------------------.
-| yyparse or yypush_parse.  |
-`-------------------------*/
+/*----------.
+| yyparse.  |
+`----------*/
 
 #ifdef YYPARSE_PARAM
 #if (defined __STDC__ || defined __C99__FUNC__ \
@@ -1174,39 +1177,14 @@ yyparse ()
 #endif
 #endif
 {
-
-
-    int yystate;
-    /* Number of tokens to shift before error messages enabled.  */
-    int yyerrstatus;
-
-    /* The stacks and their tools:
-       `yyss': related to states.
-       `yyvs': related to semantic values.
-
-       Refer to the stacks thru separate pointers, to allow yyoverflow
-       to reallocate them elsewhere.  */
-
-    /* The state stack.  */
-    yytype_int16 yyssa[YYINITDEPTH];
-    yytype_int16 *yyss;
-    yytype_int16 *yyssp;
-
-    /* The semantic value stack.  */
-    YYSTYPE yyvsa[YYINITDEPTH];
-    YYSTYPE *yyvs;
-    YYSTYPE *yyvsp;
-
-    YYSIZE_T yystacksize;
-
+  
+  int yystate;
   int yyn;
   int yyresult;
-  /* Lookahead token as an internal (translated) token number.  */
-  int yytoken;
-  /* The variables used to return semantic value and location from the
-     action routines.  */
-  YYSTYPE yyval;
-
+  /* Number of tokens to shift before error messages enabled.  */
+  int yyerrstatus;
+  /* Look-ahead token as an internal (translated) token number.  */
+  int yytoken = 0;
 #if YYERROR_VERBOSE
   /* Buffer for error messages, and its allocated size.  */
   char yymsgbuf[128];
@@ -1214,28 +1192,51 @@ yyparse ()
   YYSIZE_T yymsg_alloc = sizeof yymsgbuf;
 #endif
 
+  /* Three stacks and their tools:
+     `yyss': related to states,
+     `yyvs': related to semantic values,
+     `yyls': related to locations.
+
+     Refer to the stacks thru separate pointers, to allow yyoverflow
+     to reallocate them elsewhere.  */
+
+  /* The state stack.  */
+  yytype_int16 yyssa[YYINITDEPTH];
+  yytype_int16 *yyss = yyssa;
+  yytype_int16 *yyssp;
+
+  /* The semantic value stack.  */
+  YYSTYPE yyvsa[YYINITDEPTH];
+  YYSTYPE *yyvs = yyvsa;
+  YYSTYPE *yyvsp;
+
+
+
 #define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
+
+  YYSIZE_T yystacksize = YYINITDEPTH;
+
+  /* The variables used to return semantic value and location from the
+     action routines.  */
+  YYSTYPE yyval;
+
 
   /* The number of symbols on the RHS of the reduced rule.
      Keep to zero when no symbol should be popped.  */
   int yylen = 0;
-
-  yytoken = 0;
-  yyss = yyssa;
-  yyvs = yyvsa;
-  yystacksize = YYINITDEPTH;
 
   YYDPRINTF ((stderr, "Starting parse\n"));
 
   yystate = 0;
   yyerrstatus = 0;
   yynerrs = 0;
-  yychar = YYEMPTY; /* Cause a token to be read.  */
+  yychar = YYEMPTY;		/* Cause a token to be read.  */
 
   /* Initialize stack pointers.
      Waste one element of value and location stack
      so that they stay on the same level as the state stack.
      The wasted elements are never initialized.  */
+
   yyssp = yyss;
   yyvsp = yyvs;
 
@@ -1265,6 +1266,7 @@ yyparse ()
 	YYSTYPE *yyvs1 = yyvs;
 	yytype_int16 *yyss1 = yyss;
 
+
 	/* Each stack pointer address is followed by the size of the
 	   data in use in that stack, in bytes.  This used to be a
 	   conditional around just the two extra args, but that might
@@ -1272,6 +1274,7 @@ yyparse ()
 	yyoverflow (YY_("memory exhausted"),
 		    &yyss1, yysize * sizeof (*yyssp),
 		    &yyvs1, yysize * sizeof (*yyvsp),
+
 		    &yystacksize);
 
 	yyss = yyss1;
@@ -1294,8 +1297,9 @@ yyparse ()
 	  (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
 	if (! yyptr)
 	  goto yyexhaustedlab;
-	YYSTACK_RELOCATE (yyss_alloc, yyss);
-	YYSTACK_RELOCATE (yyvs_alloc, yyvs);
+	YYSTACK_RELOCATE (yyss);
+	YYSTACK_RELOCATE (yyvs);
+
 #  undef YYSTACK_RELOCATE
 	if (yyss1 != yyssa)
 	  YYSTACK_FREE (yyss1);
@@ -1306,6 +1310,7 @@ yyparse ()
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
 
+
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
 		  (unsigned long int) yystacksize));
 
@@ -1315,9 +1320,6 @@ yyparse ()
 
   YYDPRINTF ((stderr, "Entering state %d\n", yystate));
 
-  if (yystate == YYFINAL)
-    YYACCEPT;
-
   goto yybackup;
 
 /*-----------.
@@ -1326,16 +1328,16 @@ yyparse ()
 yybackup:
 
   /* Do appropriate processing given the current state.  Read a
-     lookahead token if we need one and don't already have one.  */
+     look-ahead token if we need one and don't already have one.  */
 
-  /* First try to decide what to do without reference to lookahead token.  */
+  /* First try to decide what to do without reference to look-ahead token.  */
   yyn = yypact[yystate];
   if (yyn == YYPACT_NINF)
     goto yydefault;
 
-  /* Not known => get a lookahead token if don't already have one.  */
+  /* Not known => get a look-ahead token if don't already have one.  */
 
-  /* YYCHAR is either YYEMPTY or YYEOF or a valid lookahead symbol.  */
+  /* YYCHAR is either YYEMPTY or YYEOF or a valid look-ahead symbol.  */
   if (yychar == YYEMPTY)
     {
       YYDPRINTF ((stderr, "Reading a token: "));
@@ -1367,16 +1369,20 @@ yybackup:
       goto yyreduce;
     }
 
+  if (yyn == YYFINAL)
+    YYACCEPT;
+
   /* Count tokens shifted since error; after three, turn off error
      status.  */
   if (yyerrstatus)
     yyerrstatus--;
 
-  /* Shift the lookahead token.  */
+  /* Shift the look-ahead token.  */
   YY_SYMBOL_PRINT ("Shifting", yytoken, &yylval, &yylloc);
 
-  /* Discard the shifted token.  */
-  yychar = YYEMPTY;
+  /* Discard the shifted token unless it is eof.  */
+  if (yychar != YYEOF)
+    yychar = YYEMPTY;
 
   yystate = yyn;
   *++yyvsp = yylval;
@@ -1416,205 +1422,153 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-
-/* Line 1455 of yacc.c  */
-#line 89 "parser.y"
+#line 90 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (1)].ast); syntaxTree = (yyval.ast); ;}
     break;
 
   case 3:
-
-/* Line 1455 of yacc.c  */
-#line 92 "parser.y"
+#line 93 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = new ast::AST(); (yyval.ast)->addClass((yyvsp[(1) - (1)].classDeclaration)); ;}
     break;
 
   case 4:
-
-/* Line 1455 of yacc.c  */
-#line 93 "parser.y"
+#line 94 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (2)].ast); (yyval.ast)->addClass((yyvsp[(2) - (2)].classDeclaration)); ;}
     break;
 
   case 5:
-
-/* Line 1455 of yacc.c  */
-#line 100 "parser.y"
+#line 101 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (8)].string), std::string(ast::ROOT_CLASS_NAME), (yyvsp[(4) - (8)].stringList), (yyvsp[(7) - (8)].methodsList)); ;}
     break;
 
   case 6:
-
-/* Line 1455 of yacc.c  */
-#line 105 "parser.y"
+#line 106 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (10)].string), *(yyvsp[(4) - (10)].string), (yyvsp[(6) - (10)].stringList), (yyvsp[(9) - (10)].methodsList)); ;}
     break;
 
   case 7:
-
-/* Line 1455 of yacc.c  */
-#line 108 "parser.y"
+#line 109 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = new std::vector<std::string>(); ;}
     break;
 
   case 8:
-
-/* Line 1455 of yacc.c  */
-#line 109 "parser.y"
+#line 110 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = (yyvsp[(2) - (2)].stringList); (yyval.stringList)->push_back(*(yyvsp[(1) - (2)].string)); ;}
     break;
 
   case 9:
-
-/* Line 1455 of yacc.c  */
-#line 112 "parser.y"
+#line 113 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = new std::vector<ast::MethodDeclaration*>(); ;}
     break;
 
   case 10:
-
-/* Line 1455 of yacc.c  */
-#line 113 "parser.y"
+#line 114 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = (yyvsp[(2) - (2)].methodsList); (yyval.methodsList)->push_back((yyvsp[(1) - (2)].methodDeclaration)); ;}
     break;
 
   case 11:
-
-/* Line 1455 of yacc.c  */
-#line 116 "parser.y"
+#line 117 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodDeclaration) = new ast::MethodDeclaration(*(yyvsp[(1) - (3)].string), (yyvsp[(2) - (3)].messagePredicate)->methodSignature, (yyvsp[(2) - (3)].messagePredicate)->methodVars, (ast::CodeBlock*)(yyvsp[(3) - (3)].expression)); ;}
     break;
 
   case 12:
-
-/* Line 1455 of yacc.c  */
-#line 119 "parser.y"
+#line 120 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 13:
-
-/* Line 1455 of yacc.c  */
-#line 120 "parser.y"
+#line 121 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (2)].string))); ;}
     break;
 
   case 14:
-
-/* Line 1455 of yacc.c  */
-#line 121 "parser.y"
+#line 122 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (3)].string))); ;}
     break;
 
   case 15:
-
-/* Line 1455 of yacc.c  */
-#line 126 "parser.y"
+#line 127 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (2)].expression), (yyvsp[(2) - (2)].messagePredicate)); ;}
     break;
 
   case 16:
-
-/* Line 1455 of yacc.c  */
-#line 129 "parser.y"
+#line 130 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 17:
-
-/* Line 1455 of yacc.c  */
-#line 130 "parser.y"
+#line 131 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (2)].expression)); ;}
     break;
 
   case 18:
-
-/* Line 1455 of yacc.c  */
-#line 131 "parser.y"
+#line 132 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (3)].expression)); ;}
     break;
 
   case 19:
-
-/* Line 1455 of yacc.c  */
-#line 135 "parser.y"
+#line 136 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
   case 20:
-
-/* Line 1455 of yacc.c  */
-#line 138 "parser.y"
+#line 139 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::CodeBlock(); ;}
     break;
 
   case 21:
-
-/* Line 1455 of yacc.c  */
-#line 139 "parser.y"
-    { (yyval.expression) = (yyvsp[(1) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(2) - (3)].expression)); ;}
+#line 140 "/Users/endika/LEC-Compiler/parser/parser.y"
+    { (yyval.expression) = (yyvsp[(1) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression(new ast::ReturnStatement()); /*printf("%s\n", "[Return Found]");*/ ;}
     break;
 
   case 22:
+#line 141 "/Users/endika/LEC-Compiler/parser/parser.y"
+    { (yyval.expression) = (yyvsp[(1) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(2) - (3)].expression)); ;}
+    break;
 
-/* Line 1455 of yacc.c  */
-#line 140 "parser.y"
+  case 23:
+#line 142 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(1) - (3)].expression); (yyvsp[(2) - (3)].expression)->setReturningExpression(true); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(2) - (3)].expression)); ;}
     break;
 
-  case 24:
-
-/* Line 1455 of yacc.c  */
-#line 144 "parser.y"
+  case 25:
+#line 146 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(1) - (1)].expression); ;}
     break;
 
-  case 25:
-
-/* Line 1455 of yacc.c  */
-#line 147 "parser.y"
+  case 26:
+#line 149 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeInteger); ;}
     break;
 
-  case 26:
-
-/* Line 1455 of yacc.c  */
-#line 148 "parser.y"
+  case 27:
+#line 150 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeDecimal); ;}
     break;
 
-  case 27:
-
-/* Line 1455 of yacc.c  */
-#line 149 "parser.y"
+  case 28:
+#line 151 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeCharacter); ;}
     break;
 
-  case 28:
-
-/* Line 1455 of yacc.c  */
-#line 150 "parser.y"
+  case 29:
+#line 152 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeString); ;}
     break;
 
-  case 29:
-
-/* Line 1455 of yacc.c  */
-#line 151 "parser.y"
+  case 30:
+#line 153 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Variable(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
-  case 31:
-
-/* Line 1455 of yacc.c  */
-#line 153 "parser.y"
+  case 32:
+#line 155 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
 
-
-/* Line 1455 of yacc.c  */
-#line 1618 "parser.cpp"
+/* Line 1267 of yacc.c.  */
+#line 1572 "/Users/endika/LEC-Compiler/parser/parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1624,6 +1578,7 @@ yyreduce:
   YY_STACK_PRINT (yyss, yyssp);
 
   *++yyvsp = yyval;
+
 
   /* Now `shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
@@ -1689,7 +1644,7 @@ yyerrlab:
 
   if (yyerrstatus == 3)
     {
-      /* If just tried and failed to reuse lookahead token after an
+      /* If just tried and failed to reuse look-ahead token after an
 	 error, discard it.  */
 
       if (yychar <= YYEOF)
@@ -1706,7 +1661,7 @@ yyerrlab:
 	}
     }
 
-  /* Else will try to reuse lookahead token after shifting the error
+  /* Else will try to reuse look-ahead token after shifting the error
      token.  */
   goto yyerrlab1;
 
@@ -1763,6 +1718,9 @@ yyerrlab1:
       YY_STACK_PRINT (yyss, yyssp);
     }
 
+  if (yyn == YYFINAL)
+    YYACCEPT;
+
   *++yyvsp = yylval;
 
 
@@ -1787,7 +1745,7 @@ yyabortlab:
   yyresult = 1;
   goto yyreturn;
 
-#if !defined(yyoverflow) || YYERROR_VERBOSE
+#ifndef yyoverflow
 /*-------------------------------------------------.
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
@@ -1798,7 +1756,7 @@ yyexhaustedlab:
 #endif
 
 yyreturn:
-  if (yychar != YYEMPTY)
+  if (yychar != YYEOF && yychar != YYEMPTY)
      yydestruct ("Cleanup: discarding lookahead",
 		 yytoken, &yylval);
   /* Do not reclaim the symbols of the rule which action triggered
@@ -1824,8 +1782,6 @@ yyreturn:
 }
 
 
-
-/* Line 1675 of yacc.c  */
-#line 156 "parser.y"
+#line 158 "/Users/endika/LEC-Compiler/parser/parser.y"
 
 

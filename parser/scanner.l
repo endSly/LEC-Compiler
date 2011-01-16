@@ -33,13 +33,12 @@ extern "C"
 	int yytest() { return 0; }
 }
 
-
 #else
- 
 
+extern "C"
+{
     int yywrap() { return 1; }
-    
-
+}
 
 #endif // _WIN32
 
