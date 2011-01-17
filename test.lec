@@ -5,26 +5,32 @@ Class Test
 ( @value )
 {
 
+    @Test test {
+		
+		"""((@Test factorial:16) toString) println;"""
+		
+		
+		
+		((@Test fibonacci:22) toString) println;
+		
+		((3 + 2 * 5) > 4) ifTrue:{ "Binary works!" println; };
+
+    }
+
 	@Test factorial:@n {
-		(@n > 1) 
-		? { @n * (@Test factorial:(@n - 1)); }
+		@n > 1
+		? { @n * (@Test factorial:(@n - 1)) }
 		: 1;
 	}
 
-    @Test doWithParam:@param {
-        @param println;
-        
-        (17 toString) println;
-        
-        (@Boolean true); 
-    }
+	@Test fibonacci:@n {
+		@n > 1 
+		? { (@Test fibonacci:@n - 1) + (@Test fibonacci:@n - 2) }
+		: @n
+	}
     
     
-    @Test test {
-		
-		((@Test factorial:16) toString) println;
 
-    }
     
     
 }

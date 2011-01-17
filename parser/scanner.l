@@ -51,12 +51,15 @@ using namespace ast;
 
 identifierLimit     [^ \t\n\{\}\(\)\;\@\"\'0-9]
 identifier          {identifierLimit}([^ \t\n\{\}\(\)\;\@]*{identifierLimit})?
+binaryOpAdd         [\+\-]
+binaryOpMul         [\*\/\%]
+binaryOpLog         [\,\<\>]
 varidentifier       \@[a-zA-Z0-9_]+
 integer             ([\-\+])?[0-9]+
 decimal             ([\-\+])?[0-9]*"."[0-9]+("e"{integer})?
 string              \"[^\"]*\"
 character           \'.\'
-commentIdent        \"\"\"
+commentIdent        \"\"
 comment             {commentIdent}.*{commentIdent}
 
 %%
@@ -76,6 +79,23 @@ Class               { return T_CLASS; }
 \(                  { return T_OP_PARENT; }
 \)                  { return T_CL_PARENT; }
 
+{binaryOpAdd}       { SAVE_TOKEN; return T_BINARY_OP_ADD; }
+"+="                { SAVE_TOKEN; return T_BINARY_OP_ADD; }
+"-="                { SAVE_TOKEN; return T_BINARY_OP_ADD; }
+{binaryOpMul}       { SAVE_TOKEN; return T_BINARY_OP_MUL; }
+"//"                { SAVE_TOKEN; return T_BINARY_OP_MUL; }
+"*="                { SAVE_TOKEN; return T_BINARY_OP_MUL; }
+"/="                { SAVE_TOKEN; return T_BINARY_OP_MUL; }
+{binaryOpLog}       { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"and"               { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"or"                { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"nand"              { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"nor"               { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"xor"               { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"=="                { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"!="                { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+"<="                { SAVE_TOKEN; return T_BINARY_OP_LOG; }
+">="                { SAVE_TOKEN; return T_BINARY_OP_LOG; }
 
 {integer}           { SAVE_TOKEN; return T_INTEGER; }
 {decimal}           { SAVE_TOKEN; return T_DECIMAL; }

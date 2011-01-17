@@ -55,6 +55,7 @@ extern "C"
  */
 /* Literal Identifiers */
 %token <string> T_VARIDENTIFIER T_IDENTIFIER
+%token <string> T_BINARY_OP_ADD T_BINARY_OP_MUL T_BINARY_OP_LOG
 %token <string> T_STRING
 %token <string> T_CHARACTER
 %token <string> T_INTEGER
@@ -74,14 +75,15 @@ extern "C"
 /*
  *  Types
  */
-%type <ast>                 ast             classDeclList
+%type <ast>                 ast classDeclList
 %type <classDeclaration>    classDeclaration
+%type <string>              binaryOp
 %type <stringList>          classVarsDecl 
 %type <methodsList>         classMethsDecl
 %type <methodDeclaration>   methodDecl
-%type <expression>          messageSend
-%type <messagePredicate>    argMethodDecl   messagePred
-%type <expression>          codeBlock       expressionList      expression      singleExpression
+%type <expression>          messageSend binaryMsgSend
+%type <messagePredicate>    argMethodDecl messagePred
+%type <expression>          codeBlock expressionList expression singleExpression
 
 %start ast
 
@@ -117,7 +119,7 @@ classDeclaration    : T_CLASS T_IDENTIFIER
     methodDecl      : T_VARIDENTIFIER argMethodDecl codeBlock { $$ = new ast::MethodDeclaration(*$1, $2->methodSignature, $2->methodVars, (ast::CodeBlock*)$3); }
                     ;
                     
-      argMethodDecl :T_IDENTIFIER                 { $$ = new ast::MessagePredicate(*$1); }
+      argMethodDecl : T_IDENTIFIER                 { $$ = new ast::MessagePredicate(*$1); }
                     | T_IDENTIFIER T_VARIDENTIFIER { $$ = new ast::MessagePredicate(*$1 + "@"); $$->methodVars.insert($$->methodVars.begin(), new ast::Variable(*$2)); }
                     | T_IDENTIFIER T_VARIDENTIFIER argMethodDecl   { $$ = $3; $$->methodSignature.insert(0, *$1 + "@"); $$->methodVars.insert($$->methodVars.begin(), new ast::Variable(*$2)); }
                     
@@ -128,8 +130,14 @@ messageSend         : singleExpression messagePred    { $$ = new ast::MessageSen
                     ;
                 
   messagePred       : T_IDENTIFIER                                { $$ = new ast::MessagePredicate(*$1); }
-                    | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate(*$1 + "@"); $$->methodVars.insert($$->methodVars.begin(), $2); }
+                    | T_IDENTIFIER singleExpression               { $$ = new ast::MessagePredicate(*$1 + "@", $2); }
                     | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature.insert(0, *$1 + "@"); $$->methodVars.insert($$->methodVars.begin(), $2); }
+                    ;
+
+
+binaryOp            : T_BINARY_OP_LOG | T_BINARY_OP_ADD | T_BINARY_OP_MUL ;
+
+binaryMsgSend       : singleExpression binaryOp singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
                     ;
 
 
@@ -142,7 +150,7 @@ expressionList      :                                           { $$ = new ast::
                     ;
                     
 expression          : messageSend 
-                    | singleExpression 
+                    | singleExpression
                     | T_RETURN      { $$ = new ast::ReturnStatement(); }
                     ;
 
@@ -152,6 +160,7 @@ singleExpression    : T_INTEGER     { $$ = new ast::Value(*$1, ast::TypeInteger)
                     | T_STRING      { $$ = new ast::Value(*$1, ast::TypeString); }
                     | T_VARIDENTIFIER { $$ = new ast::Variable(*$1); }
                     | codeBlock
+                    | binaryMsgSend
                     | T_OP_PARENT expression T_CL_PARENT { $$ = $2; }
                     ;
 

@@ -71,7 +71,8 @@ namespace ast {
     
     struct MessagePredicate {
     public:
-        MessagePredicate(const string& signature) : methodSignature(signature) { }
+        MessagePredicate(const string& signature, Expression* expr = NULL) 
+        	: methodSignature(signature) { if (expr) methodVars.push_back(expr); }
         
         string methodSignature;
         vector<Expression*> methodVars;

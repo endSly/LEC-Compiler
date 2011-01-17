@@ -41,37 +41,43 @@
    enum yytokentype {
      T_VARIDENTIFIER = 258,
      T_IDENTIFIER = 259,
-     T_STRING = 260,
-     T_CHARACTER = 261,
-     T_INTEGER = 262,
-     T_DECIMAL = 263,
-     T_CLASS = 264,
-     T_IMPORT = 265,
-     T_RETURN = 266,
-     T_INTERCALATE = 267,
-     T_SEMICOLON = 268,
-     T_OP_BRACE = 269,
-     T_CL_BRACE = 270,
-     T_OP_PARENT = 271,
-     T_CL_PARENT = 272
+     T_BINARY_OP_ADD = 260,
+     T_BINARY_OP_MUL = 261,
+     T_BINARY_OP_LOG = 262,
+     T_STRING = 263,
+     T_CHARACTER = 264,
+     T_INTEGER = 265,
+     T_DECIMAL = 266,
+     T_CLASS = 267,
+     T_IMPORT = 268,
+     T_RETURN = 269,
+     T_INTERCALATE = 270,
+     T_SEMICOLON = 271,
+     T_OP_BRACE = 272,
+     T_CL_BRACE = 273,
+     T_OP_PARENT = 274,
+     T_CL_PARENT = 275
    };
 #endif
 /* Tokens.  */
 #define T_VARIDENTIFIER 258
 #define T_IDENTIFIER 259
-#define T_STRING 260
-#define T_CHARACTER 261
-#define T_INTEGER 262
-#define T_DECIMAL 263
-#define T_CLASS 264
-#define T_IMPORT 265
-#define T_RETURN 266
-#define T_INTERCALATE 267
-#define T_SEMICOLON 268
-#define T_OP_BRACE 269
-#define T_CL_BRACE 270
-#define T_OP_PARENT 271
-#define T_CL_PARENT 272
+#define T_BINARY_OP_ADD 260
+#define T_BINARY_OP_MUL 261
+#define T_BINARY_OP_LOG 262
+#define T_STRING 263
+#define T_CHARACTER 264
+#define T_INTEGER 265
+#define T_DECIMAL 266
+#define T_CLASS 267
+#define T_IMPORT 268
+#define T_RETURN 269
+#define T_INTERCALATE 270
+#define T_SEMICOLON 271
+#define T_OP_BRACE 272
+#define T_CL_BRACE 273
+#define T_OP_PARENT 274
+#define T_CL_PARENT 275
 
 
 
@@ -92,7 +98,7 @@ typedef union YYSTYPE
 	std::vector<ast::MethodDeclaration*>*      methodsList;
 }
 /* Line 1529 of yacc.c.  */
-#line 96 "/Users/endika/LEC-Compiler/parser/parser.hpp"
+#line 102 "/Users/endika/LEC-Compiler/parser/parser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
