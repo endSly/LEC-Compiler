@@ -8,6 +8,7 @@
 
 #include "kernelobjects/Object.h"
 #include "kernelobjects/Class.h"
+#include "kernelobjects/DynamicObject.h"
 #include "kernelobjects/String.h"
 #include "kernelobjects/Character.h"
 #include "kernelobjects/Integer.h"
@@ -37,31 +38,6 @@ namespace execengine {
 	//! the exact same type or a subclass ).
 	//!	False otherwise, or if an error occurs.
     bool checkMethodParams(const vector<Object*> * const, ...);
-    
-    class DynamicObject : public Object {
-    public:
-        Class* objectClass() { return m_class; }
-        ~DynamicObject() { delete m_localVariables; }
-    
-        DynamicObject(Class*);
-        Object* getObjectVariable(const string&);
-        bool setObjectVariable(const string&, Object*);
-
-        static Object* kernel_DynamicClass_new(Object*, const vector<Object*>&);
-
-    private:
-        VariablesMap* m_localVariables;
-        
-        Class* m_class;
-    };
-    
-    class Nil : public Object {    
-    public:
-        static Object* nil() { static Nil s_nil; return &s_nil; }
-        Object* processMessage(const string&, const vector<Object*>&) { return this; }
-        Object* getVariable(const string& varName) { return this; }
-        Class* objectClass() { return Object::ObjectClass(); }
-    };
     
         
 }

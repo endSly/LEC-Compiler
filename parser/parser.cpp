@@ -490,10 +490,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    99,    99,   102,   103,   107,   112,   118,   119,   122,
-     123,   126,   129,   130,   131,   136,   139,   140,   141,   147,
-     148,   149,   153,   156,   157,   158,   161,   162,   163,   166,
-     167,   168,   169,   170,   171,   172,   173
+       0,    98,    98,   101,   102,   106,   111,   117,   118,   121,
+     122,   125,   128,   129,   130,   135,   138,   139,   140,   144,
+     145,   146,   150,   153,   154,   155,   158,   159,   160,   163,
+     164,   165,   166,   167,   168,   169,   170
 };
 #endif
 
@@ -1434,157 +1434,157 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 99 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 98 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (1)].ast); syntaxTree = (yyval.ast); ;}
     break;
 
   case 3:
-#line 102 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 101 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = new ast::AST(); (yyval.ast)->addClass((yyvsp[(1) - (1)].classDeclaration)); ;}
     break;
 
   case 4:
-#line 103 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 102 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (2)].ast); (yyval.ast)->addClass((yyvsp[(2) - (2)].classDeclaration)); ;}
     break;
 
   case 5:
-#line 110 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 109 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (8)].string), std::string(ast::ROOT_CLASS_NAME), (yyvsp[(4) - (8)].stringList), (yyvsp[(7) - (8)].methodsList)); ;}
     break;
 
   case 6:
-#line 115 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 114 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (10)].string), *(yyvsp[(4) - (10)].string), (yyvsp[(6) - (10)].stringList), (yyvsp[(9) - (10)].methodsList)); ;}
     break;
 
   case 7:
-#line 118 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 117 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = new std::vector<std::string>(); ;}
     break;
 
   case 8:
-#line 119 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 118 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = (yyvsp[(2) - (2)].stringList); (yyval.stringList)->push_back(*(yyvsp[(1) - (2)].string)); ;}
     break;
 
   case 9:
-#line 122 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 121 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = new std::vector<ast::MethodDeclaration*>(); ;}
     break;
 
   case 10:
-#line 123 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 122 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = (yyvsp[(2) - (2)].methodsList); (yyval.methodsList)->push_back((yyvsp[(1) - (2)].methodDeclaration)); ;}
     break;
 
   case 11:
-#line 126 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 125 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodDeclaration) = new ast::MethodDeclaration(*(yyvsp[(1) - (3)].string), (yyvsp[(2) - (3)].messagePredicate)->methodSignature, (yyvsp[(2) - (3)].messagePredicate)->methodVars, (ast::CodeBlock*)(yyvsp[(3) - (3)].expression)); ;}
     break;
 
   case 12:
-#line 129 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 128 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 13:
-#line 130 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 129 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (2)].string))); ;}
     break;
 
   case 14:
-#line 131 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 130 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (3)].string))); ;}
     break;
 
   case 15:
-#line 136 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 135 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (2)].expression), (yyvsp[(2) - (2)].messagePredicate)); ;}
     break;
 
   case 16:
-#line 139 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 138 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 17:
-#line 140 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 139 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@", (yyvsp[(2) - (2)].expression)); ;}
     break;
 
   case 18:
-#line 141 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 140 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (3)].expression)); ;}
     break;
 
   case 19:
-#line 147 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 144 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
     break;
 
   case 20:
-#line 148 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 145 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
     break;
 
   case 21:
-#line 149 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 146 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
     break;
 
   case 22:
-#line 153 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 150 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
   case 23:
-#line 156 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 153 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::CodeBlock(); ;}
     break;
 
   case 24:
-#line 157 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 154 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::CodeBlock(); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(1) - (1)].expression)) ;}
     break;
 
   case 25:
-#line 158 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 155 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(3) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(1) - (3)].expression)); ;}
     break;
 
   case 28:
-#line 163 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 160 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::ReturnStatement(); ;}
     break;
 
   case 29:
-#line 166 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 163 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeInteger); ;}
     break;
 
   case 30:
-#line 167 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 164 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeDecimal); ;}
     break;
 
   case 31:
-#line 168 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 165 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeCharacter); ;}
     break;
 
   case 32:
-#line 169 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 166 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeString); ;}
     break;
 
   case 33:
-#line 170 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 167 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Variable(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 36:
-#line 173 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 170 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
@@ -1804,6 +1804,6 @@ yyreturn:
 }
 
 
-#line 176 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 173 "/Users/endika/LEC-Compiler/parser/parser.y"
 
 

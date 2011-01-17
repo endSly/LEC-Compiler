@@ -40,6 +40,7 @@ SET(SOURCE_FILES
   execengine/KernelObjects.cpp
   execengine/kernelobjects/Object.cpp
   execengine/kernelobjects/Class.cpp
+  execengine/kernelobjects/DynamicObject.cpp
   execengine/kernelobjects/String.cpp
   execengine/kernelobjects/Character.cpp
   execengine/kernelobjects/Integer.cpp

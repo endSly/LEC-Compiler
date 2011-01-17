@@ -77,7 +77,6 @@ extern "C"
  */
 %type <ast>                 ast classDeclList
 %type <classDeclaration>    classDeclaration
-%type <string>              binaryOp
 %type <stringList>          classVarsDecl 
 %type <methodsList>         classMethsDecl
 %type <methodDeclaration>   methodDecl
@@ -141,8 +140,6 @@ messageSend         : singleExpression messagePred    { $$ = new ast::MessageSen
                     | T_IDENTIFIER singleExpression messagePred   { $$ = $3; $$->methodSignature.insert(0, *$1 + "@"); $$->methodVars.insert($$->methodVars.begin(), $2); }
                     ;
 
-
-binaryOp            : T_BINARY_OP_LOG | T_BINARY_OP_ADD | T_BINARY_OP_MUL ;
 
 binaryMsgSend       : singleExpression T_BINARY_OP_LOG singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
                     | singleExpression T_BINARY_OP_ADD singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }

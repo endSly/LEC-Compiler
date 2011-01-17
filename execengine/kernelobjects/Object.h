@@ -66,6 +66,14 @@ namespace execengine {
         unsigned int m_refsCount;
     };
     
+    class Nil : public Object {    
+    public:
+        static Object* nil() { static Nil s_nil; return &s_nil; }
+        Object* processMessage(const string&, const vector<Object*>&) { return this; }
+        Object* getVariable(const string& varName) { return this; }
+        Class* objectClass() { return Object::ObjectClass(); }
+    };
+    
 } // namespace execengine
 
 #endif // execengine_kernelobjects_Object_h

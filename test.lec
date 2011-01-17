@@ -19,7 +19,7 @@ Class Test
 
 	@Test factorial:@n {
 		@n > 1
-		? { @n * (@Test factorial:(@n - 1)) }
+		? { @n * (@Test factorial:@n - 1) }
 		: 1;
 	}
 
