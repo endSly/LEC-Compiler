@@ -409,16 +409,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   58
+#define YYLAST   59
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  21
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  16
+#define YYNNTS  15
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  37
+#define YYNRULES  36
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  60
+#define YYNSTATES  61
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -467,8 +467,8 @@ static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     5,     7,    10,    19,    30,    31,    34,
       35,    38,    42,    44,    47,    51,    54,    56,    59,    63,
-      65,    67,    69,    73,    77,    78,    80,    84,    86,    88,
-      90,    92,    94,    96,    98,   100,   102,   104
+      67,    71,    75,    79,    80,    82,    86,    88,    90,    92,
+      94,    96,    98,   100,   102,   104,   106
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -478,22 +478,22 @@ static const yytype_int8 yyrhs[] =
       12,     4,    19,    25,    20,    17,    26,    18,    -1,    12,
        4,    15,     4,    19,    25,    20,    17,    26,    18,    -1,
       -1,     3,    25,    -1,    -1,    27,    26,    -1,     3,    28,
-      33,    -1,     4,    -1,     4,     3,    -1,     4,     3,    28,
-      -1,    36,    30,    -1,     4,    -1,     4,    36,    -1,     4,
-      36,    30,    -1,     7,    -1,     5,    -1,     6,    -1,    36,
-      31,    36,    -1,    17,    34,    18,    -1,    -1,    35,    -1,
-      35,    16,    34,    -1,    29,    -1,    36,    -1,    14,    -1,
-      10,    -1,    11,    -1,     9,    -1,     8,    -1,     3,    -1,
-      33,    -1,    32,    -1,    19,    35,    20,    -1
+      32,    -1,     4,    -1,     4,     3,    -1,     4,     3,    28,
+      -1,    35,    30,    -1,     4,    -1,     4,    35,    -1,     4,
+      35,    30,    -1,    35,     7,    35,    -1,    35,     5,    35,
+      -1,    35,     6,    35,    -1,    17,    33,    18,    -1,    -1,
+      34,    -1,    34,    16,    33,    -1,    29,    -1,    35,    -1,
+      14,    -1,    10,    -1,    11,    -1,     9,    -1,     8,    -1,
+       3,    -1,    32,    -1,    31,    -1,    19,    34,    20,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    92,    92,    95,    96,   100,   105,   111,   112,   115,
-     116,   119,   122,   123,   124,   129,   132,   133,   134,   138,
-     138,   138,   140,   144,   147,   148,   149,   152,   153,   154,
-     157,   158,   159,   160,   161,   162,   163,   164
+       0,    99,    99,   102,   103,   107,   112,   118,   119,   122,
+     123,   126,   129,   130,   131,   136,   139,   140,   141,   147,
+     148,   149,   153,   156,   157,   158,   161,   162,   163,   166,
+     167,   168,   169,   170,   171,   172,   173
 };
 #endif
 
@@ -508,9 +508,8 @@ static const char *const yytname[] =
   "T_RETURN", "T_INTERCALATE", "T_SEMICOLON", "T_OP_BRACE", "T_CL_BRACE",
   "T_OP_PARENT", "T_CL_PARENT", "$accept", "ast", "classDeclList",
   "classDeclaration", "classVarsDecl", "classMethsDecl", "methodDecl",
-  "argMethodDecl", "messageSend", "messagePred", "binaryOp",
-  "binaryMsgSend", "codeBlock", "expressionList", "expression",
-  "singleExpression", 0
+  "argMethodDecl", "messageSend", "messagePred", "binaryMsgSend",
+  "codeBlock", "expressionList", "expression", "singleExpression", 0
 };
 #endif
 
@@ -530,17 +529,17 @@ static const yytype_uint8 yyr1[] =
 {
        0,    21,    22,    23,    23,    24,    24,    25,    25,    26,
       26,    27,    28,    28,    28,    29,    30,    30,    30,    31,
-      31,    31,    32,    33,    34,    34,    34,    35,    35,    35,
-      36,    36,    36,    36,    36,    36,    36,    36
+      31,    31,    32,    33,    33,    33,    34,    34,    34,    35,
+      35,    35,    35,    35,    35,    35,    35
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     1,     2,     8,    10,     0,     2,     0,
-       2,     3,     1,     2,     3,     2,     1,     2,     3,     1,
-       1,     1,     3,     3,     0,     1,     3,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     3
+       2,     3,     1,     2,     3,     2,     1,     2,     3,     3,
+       3,     3,     3,     0,     1,     3,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -550,37 +549,39 @@ static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     2,     3,     0,     1,     4,     0,     7,
        0,     7,     0,     7,     8,     0,     0,     9,     0,     0,
-       0,     9,     9,    12,     0,     5,    10,     0,    13,    24,
-      11,     6,    14,    34,    33,    32,    30,    31,    29,     0,
-      27,    36,    35,     0,    25,    28,     0,    23,    24,    16,
-      20,    21,    19,    15,     0,    37,    26,    17,    22,    18
+       0,     9,     9,    12,     0,     5,    10,     0,    13,    23,
+      11,     6,    14,    33,    32,    31,    29,    30,    28,     0,
+      26,    35,    34,     0,    24,    27,     0,    22,    23,    16,
+       0,     0,     0,    15,    36,    25,    17,    20,    21,    19,
+      18
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
       -1,     2,     3,     4,    12,    20,    21,    24,    40,    53,
-      54,    41,    42,    43,    44,    45
+      41,    42,    43,    44,    45
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -46
+#define YYPACT_NINF -49
 static const yytype_int8 yypact[] =
 {
-      -2,    20,    27,    -2,   -46,     6,   -46,   -46,    29,    31,
-      16,    31,    17,    31,   -46,    19,    18,    36,    23,    37,
-      24,    36,    36,    40,    28,   -46,   -46,    26,    37,    -3,
-     -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,    -3,
-     -46,   -46,   -46,    30,    33,    25,    32,   -46,    -3,     9,
-     -46,   -46,   -46,   -46,     9,   -46,   -46,    25,    -4,   -46
+      -2,    11,    33,    -2,   -49,    -6,   -49,   -49,    30,    32,
+      18,    32,    16,    32,   -49,    21,    19,    37,    25,    39,
+      23,    37,    37,    41,    28,   -49,   -49,    29,    39,    -3,
+     -49,   -49,   -49,   -49,   -49,   -49,   -49,   -49,   -49,    -3,
+     -49,   -49,   -49,    31,    34,    17,    26,   -49,    -3,     9,
+       9,     9,     9,   -49,   -49,   -49,    17,    42,   -49,    24,
+     -49
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -46,   -46,   -46,    43,     2,     1,   -46,    22,   -46,   -10,
-     -46,   -46,    34,     3,    14,   -45
+     -49,   -49,   -49,    48,    14,    10,   -49,    27,   -49,    -4,
+     -49,    35,     5,    15,   -48
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -590,22 +591,22 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      33,    50,    51,    52,    57,    34,    35,    36,    37,    58,
-       1,    38,    33,    14,    29,    16,    39,    34,    35,    36,
-      37,     8,    26,    27,     5,     9,    29,     6,    39,    49,
-      50,    51,    52,    10,    11,    13,    17,    15,    18,    19,
-      22,    23,    25,    28,    31,    29,     7,    59,    47,    48,
-      32,    56,    55,    46,     0,     0,     0,     0,    30
+      33,    56,    57,    58,    59,    34,    35,    36,    37,     8,
+       1,    38,    33,     9,    29,     5,    39,    34,    35,    36,
+      37,    49,    50,    51,    52,    14,    29,    16,    39,    50,
+      51,    26,    27,     6,    10,    11,    15,    13,    17,    18,
+      19,    25,    22,    23,    28,    29,    54,    31,    51,    47,
+      48,     7,    60,    55,    46,    32,     0,     0,     0,    30
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     5,     6,     7,    49,     8,     9,    10,    11,    54,
-      12,    14,     3,    11,    17,    13,    19,     8,     9,    10,
-      11,    15,    21,    22,     4,    19,    17,     0,    19,     4,
-       5,     6,     7,     4,     3,    19,    17,    20,    20,     3,
-      17,     4,    18,     3,    18,    17,     3,    57,    18,    16,
-      28,    48,    20,    39,    -1,    -1,    -1,    -1,    24
+       3,    49,    50,    51,    52,     8,     9,    10,    11,    15,
+      12,    14,     3,    19,    17,     4,    19,     8,     9,    10,
+      11,     4,     5,     6,     7,    11,    17,    13,    19,     5,
+       6,    21,    22,     0,     4,     3,    20,    19,    17,    20,
+       3,    18,    17,     4,     3,    17,    20,    18,     6,    18,
+      16,     3,    56,    48,    39,    28,    -1,    -1,    -1,    24
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -615,9 +616,10 @@ static const yytype_uint8 yystos[] =
        0,    12,    22,    23,    24,     4,     0,    24,    15,    19,
        4,     3,    25,    19,    25,    20,    25,    17,    20,     3,
       26,    27,    17,     4,    28,    18,    26,    26,     3,    17,
-      33,    18,    28,     3,     8,     9,    10,    11,    14,    19,
-      29,    32,    33,    34,    35,    36,    35,    18,    16,     4,
-       5,     6,     7,    30,    31,    20,    34,    36,    36,    30
+      32,    18,    28,     3,     8,     9,    10,    11,    14,    19,
+      29,    31,    32,    33,    34,    35,    34,    18,    16,     4,
+       5,     6,     7,    30,    20,    33,    35,    35,    35,    35,
+      30
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1432,153 +1434,163 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 92 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 99 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (1)].ast); syntaxTree = (yyval.ast); ;}
     break;
 
   case 3:
-#line 95 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 102 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = new ast::AST(); (yyval.ast)->addClass((yyvsp[(1) - (1)].classDeclaration)); ;}
     break;
 
   case 4:
-#line 96 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 103 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.ast) = (yyvsp[(1) - (2)].ast); (yyval.ast)->addClass((yyvsp[(2) - (2)].classDeclaration)); ;}
     break;
 
   case 5:
-#line 103 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 110 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (8)].string), std::string(ast::ROOT_CLASS_NAME), (yyvsp[(4) - (8)].stringList), (yyvsp[(7) - (8)].methodsList)); ;}
     break;
 
   case 6:
-#line 108 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 115 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.classDeclaration) = new ast::ClassDeclaration(*(yyvsp[(2) - (10)].string), *(yyvsp[(4) - (10)].string), (yyvsp[(6) - (10)].stringList), (yyvsp[(9) - (10)].methodsList)); ;}
     break;
 
   case 7:
-#line 111 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 118 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = new std::vector<std::string>(); ;}
     break;
 
   case 8:
-#line 112 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 119 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.stringList) = (yyvsp[(2) - (2)].stringList); (yyval.stringList)->push_back(*(yyvsp[(1) - (2)].string)); ;}
     break;
 
   case 9:
-#line 115 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 122 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = new std::vector<ast::MethodDeclaration*>(); ;}
     break;
 
   case 10:
-#line 116 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 123 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodsList) = (yyvsp[(2) - (2)].methodsList); (yyval.methodsList)->push_back((yyvsp[(1) - (2)].methodDeclaration)); ;}
     break;
 
   case 11:
-#line 119 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 126 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.methodDeclaration) = new ast::MethodDeclaration(*(yyvsp[(1) - (3)].string), (yyvsp[(2) - (3)].messagePredicate)->methodSignature, (yyvsp[(2) - (3)].messagePredicate)->methodVars, (ast::CodeBlock*)(yyvsp[(3) - (3)].expression)); ;}
     break;
 
   case 12:
-#line 122 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 129 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 13:
-#line 123 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 130 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (2)].string))); ;}
     break;
 
   case 14:
-#line 124 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 131 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), new ast::Variable(*(yyvsp[(2) - (3)].string))); ;}
     break;
 
   case 15:
-#line 129 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 136 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (2)].expression), (yyvsp[(2) - (2)].messagePredicate)); ;}
     break;
 
   case 16:
-#line 132 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 139 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 17:
-#line 133 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 140 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = new ast::MessagePredicate(*(yyvsp[(1) - (2)].string) + "@", (yyvsp[(2) - (2)].expression)); ;}
     break;
 
   case 18:
-#line 134 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 141 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.messagePredicate) = (yyvsp[(3) - (3)].messagePredicate); (yyval.messagePredicate)->methodSignature.insert(0, *(yyvsp[(1) - (3)].string) + "@"); (yyval.messagePredicate)->methodVars.insert((yyval.messagePredicate)->methodVars.begin(), (yyvsp[(2) - (3)].expression)); ;}
     break;
 
-  case 22:
-#line 140 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 19:
+#line 147 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
     break;
 
-  case 23:
-#line 144 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 20:
+#line 148 "/Users/endika/LEC-Compiler/parser/parser.y"
+    { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
+    break;
+
+  case 21:
+#line 149 "/Users/endika/LEC-Compiler/parser/parser.y"
+    { (yyval.expression) = new ast::MessageSend((yyvsp[(1) - (3)].expression), new ast::MessagePredicate(*(yyvsp[(2) - (3)].string) + "@", (yyvsp[(3) - (3)].expression))); ;}
+    break;
+
+  case 22:
+#line 153 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
-  case 24:
-#line 147 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 23:
+#line 156 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::CodeBlock(); ;}
     break;
 
-  case 25:
-#line 148 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 24:
+#line 157 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::CodeBlock(); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(1) - (1)].expression)) ;}
     break;
 
-  case 26:
-#line 149 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 25:
+#line 158 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(3) - (3)].expression); ((ast::CodeBlock*)(yyval.expression))->addExpression((yyvsp[(1) - (3)].expression)); ;}
     break;
 
-  case 29:
-#line 154 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 28:
+#line 163 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::ReturnStatement(); ;}
     break;
 
-  case 30:
-#line 157 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 29:
+#line 166 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeInteger); ;}
     break;
 
-  case 31:
-#line 158 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 30:
+#line 167 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeDecimal); ;}
     break;
 
-  case 32:
-#line 159 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 31:
+#line 168 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeCharacter); ;}
     break;
 
-  case 33:
-#line 160 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 32:
+#line 169 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Value(*(yyvsp[(1) - (1)].string), ast::TypeString); ;}
     break;
 
-  case 34:
-#line 161 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 33:
+#line 170 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = new ast::Variable(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
-  case 37:
-#line 164 "/Users/endika/LEC-Compiler/parser/parser.y"
+  case 36:
+#line 173 "/Users/endika/LEC-Compiler/parser/parser.y"
     { (yyval.expression) = (yyvsp[(2) - (3)].expression); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1582 "/Users/endika/LEC-Compiler/parser/parser.cpp"
+#line 1594 "/Users/endika/LEC-Compiler/parser/parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1792,6 +1804,6 @@ yyreturn:
 }
 
 
-#line 167 "/Users/endika/LEC-Compiler/parser/parser.y"
+#line 176 "/Users/endika/LEC-Compiler/parser/parser.y"
 
 

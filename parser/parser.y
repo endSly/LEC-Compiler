@@ -85,6 +85,13 @@ extern "C"
 %type <messagePredicate>    argMethodDecl messagePred
 %type <expression>          codeBlock expressionList expression singleExpression
 
+
+
+%left T_BINARY_OP_LOG
+%left T_BINARY_OP_ADD
+%left T_BINARY_OP_MUL
+
+
 %start ast
 
 %%
@@ -137,7 +144,9 @@ messageSend         : singleExpression messagePred    { $$ = new ast::MessageSen
 
 binaryOp            : T_BINARY_OP_LOG | T_BINARY_OP_ADD | T_BINARY_OP_MUL ;
 
-binaryMsgSend       : singleExpression binaryOp singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
+binaryMsgSend       : singleExpression T_BINARY_OP_LOG singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
+                    | singleExpression T_BINARY_OP_ADD singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
+                    | singleExpression T_BINARY_OP_MUL singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
                     ;
 
 

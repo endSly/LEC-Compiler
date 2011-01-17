@@ -11,9 +11,9 @@ Class Test
 		
 		
 		
-		((@Test fibonacci:22) toString) println;
+		((@Test fibonacci:20) toString) println;
 		
-		((3 + 2 * 5) > 4) ifTrue:{ "Binary works!" println; };
+		((2 * 5 + 3 - 21 / 7 - 20 // 7) toString) println;
 
     }
 
