@@ -26,6 +26,7 @@ Class* Class::ObjectClass()
     if (!s_objectClass) {
         MethodsMap* methodsMap = new MethodsMap();
         (*methodsMap)[string("className")] = new KernelMethod(string("className"), Class::kernel_Class_className);
+        (*methodsMap)[string("new")] = new KernelMethod(string("new"), Class::kernel_Class_new);
         
         MethodsMap* classMethodsMap = new MethodsMap();
         
@@ -70,14 +71,6 @@ Object* Class::processMessage(const string& method, const vector<Object*>& param
     } 
     
     return this->objectClass()->processObjectMessage(this, method, params); 
-    
-    /*
-    if (m_superClass)
-        return m_superClass->processMessage(method, params);
-    
-    execengineWarning(string("Trying to access to undefined class method. @nil returned. ") + this->className() + " " +  method);
-    return Nil::nil();
-    */
     
 }
 

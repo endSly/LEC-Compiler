@@ -86,7 +86,7 @@ void ExecEngine::initializeEngine(ast::AST* tree)
             if (methodDecl->subject() == classVar) { // We have class method
                 classMethods->insert(pair<string, Method*>(methodDecl->name(), new DynamicMethod(methodDecl)));
                 
-            } else if (methodDecl->subject() == string("@self")) { // We have an object method
+            } else if (methodDecl->subject() == "@self") { // We have an object method
                 objectMethods->insert(pair<string, Method*>(methodDecl->name(), new DynamicMethod(methodDecl)));
                 
             } else {
@@ -134,31 +134,23 @@ Object* ExecContext::getVariable(const string& varName)
     ExecEngine::execengineError("Trying to access to undefined variable: " + varName);
 }
 
-void ExecContext::setVariable(const string& varName, Object* value)
+Object* ExecContext::setVariable(const string& varName, Object* value)
 {
-    // Find in context variable
-    VariablesMap::iterator it = m_contextVariables.find(varName);
-    if (it != m_contextVariables.end()) {
-        it->second->releaseObject();
-        it->second = value->retainObject();
-        return;
-    }
-    
     // Find in Object
     if (m_self->setObjectVariable(varName, value)) {
-        return;
+        return value;
     }
     
     // Find in global variables
-    it = globalVariables()->find(varName);
+    VariablesMap::iterator it = globalVariables()->find(varName);
     if (it != globalVariables()->end()) {
         it->second->releaseObject();
         it->second = value->retainObject();
-        return;
+        return value;
     }
     
-    // Undefined variable
-    ExecEngine::execengineError("Trying to access to undefined variable: " + varName);
+    // Set in context variable if not exists create the new variable
+    m_contextVariables[varName] = value;
 }
 
 } // namespace execengine

@@ -373,8 +373,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 22
-#define YY_END_OF_BUFFER 23
+#define YY_NUM_RULES 23
+#define YY_END_OF_BUFFER 24
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -384,14 +384,14 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[81] =
     {   0,
-        0,    0,   23,   20,    1,    1,   20,   21,   13,   21,
-       10,   11,   13,   12,   14,   12,   20,   13,   15,    7,
-       14,   20,   14,   21,   20,   20,   20,    6,   20,   20,
-       20,   20,    8,    9,   20,    0,   14,    0,   17,    0,
-       13,   20,   15,   12,   16,    0,   15,   19,   20,   20,
-       20,   20,   20,   20,   20,   17,    0,    0,   18,   20,
-       16,   20,   20,   20,   20,    2,   20,   16,    0,   20,
-       20,   20,    0,   16,    5,   20,   20,    4,    3,    0
+        0,    0,   24,   21,    1,    1,   21,   22,   14,   22,
+       10,   11,   14,   13,   15,   13,   21,   14,   16,    7,
+       15,   12,   15,   22,   21,   21,   21,    6,   21,   21,
+       21,   21,    8,    9,   21,    0,   15,    0,   18,    0,
+       14,   21,   16,   13,   17,    0,   16,   20,   21,   21,
+       21,   21,   21,   21,   21,   18,    0,    0,   19,   21,
+       17,   21,   21,   21,   21,    2,   21,   17,    0,   21,
+       21,   21,    0,   17,    5,   21,   21,    4,    3,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -548,10 +548,10 @@ static yyconst flex_int16_t yy_chk[355] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[23] =
+static yyconst flex_int32_t yy_rule_can_match_eol[24] =
     {   0,
-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 
-    0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
+    0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -946,61 +946,66 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 82 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_BINARY_OP_ADD; }
+#line 81 "/Users/endika/LEC-Compiler/parser/scanner.l"
+{ return T_ASSIGNAMENT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 83 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_BINARY_OP_MUL; }
+{ SAVE_TOKEN; return T_BINARY_OP_ADD; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 84 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_BINARY_OP_LOG; }
+{ SAVE_TOKEN; return T_BINARY_OP_MUL; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 86 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_INTEGER; }
+#line 85 "/Users/endika/LEC-Compiler/parser/scanner.l"
+{ SAVE_TOKEN; return T_BINARY_OP_LOG; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 87 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_DECIMAL; }
+{ SAVE_TOKEN; return T_INTEGER; }
 	YY_BREAK
 case 17:
-/* rule 17 can match eol */
 YY_RULE_SETUP
 #line 88 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_STRING; }
+{ SAVE_TOKEN; return T_DECIMAL; }
 	YY_BREAK
 case 18:
+/* rule 18 can match eol */
 YY_RULE_SETUP
 #line 89 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_CHARACTER; }
+{ SAVE_TOKEN; return T_STRING; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 91 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_VARIDENTIFIER; }
+#line 90 "/Users/endika/LEC-Compiler/parser/scanner.l"
+{ SAVE_TOKEN; return T_CHARACTER; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 92 "/Users/endika/LEC-Compiler/parser/scanner.l"
-{ SAVE_TOKEN; return T_IDENTIFIER; }
+{ SAVE_TOKEN; return T_VARIDENTIFIER; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 94 "/Users/endika/LEC-Compiler/parser/scanner.l"
-printf("Syntax error at line:%i!\n", yylineno); yyterminate(); exit(1);
+#line 93 "/Users/endika/LEC-Compiler/parser/scanner.l"
+{ SAVE_TOKEN; return T_IDENTIFIER; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 96 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 95 "/Users/endika/LEC-Compiler/parser/scanner.l"
+printf("Syntax error at line:%i!\n", yylineno); yyterminate(); exit(1);
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 97 "/Users/endika/LEC-Compiler/parser/scanner.l"
 ECHO;
 	YY_BREAK
-#line 1004 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
+#line 1009 "/Users/endika/LEC-Compiler/parser/scanner.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2006,7 +2011,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 96 "/Users/endika/LEC-Compiler/parser/scanner.l"
+#line 97 "/Users/endika/LEC-Compiler/parser/scanner.l"
 
 
 

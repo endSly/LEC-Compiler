@@ -78,6 +78,7 @@ Class               { return T_CLASS; }
 \}                  { return T_CL_BRACE; }
 \(                  { return T_OP_PARENT; }
 \)                  { return T_CL_PARENT; }
+\=                  { return T_ASSIGNAMENT; }
 
 {binaryOpAdd}       { SAVE_TOKEN; return T_BINARY_OP_ADD; }
 {binaryOpMul}       { SAVE_TOKEN; return T_BINARY_OP_MUL; }

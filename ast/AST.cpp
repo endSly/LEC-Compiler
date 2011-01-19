@@ -80,6 +80,11 @@ Object* Value::evaluate(ExecContext* context)
     }
 }
 
+Object* Assignament::evaluate(ExecContext* context) 
+{
+    return context->setVariable(m_destVar->name(), m_expression->evaluate(context));
+}
+
 Object* Variable::evaluate(ExecContext* context) 
 {
     return context->getVariable(m_varName);

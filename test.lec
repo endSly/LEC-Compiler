@@ -7,9 +7,13 @@ Class Test
 
     @Test test {
 		
-		"""((@Test factorial:16) toString) println;"""
 		
 		
+		@self = (@Test new);
+
+        ((@self class) className) println;
+
+        ((@self factorial:16) toString) println;
 		
 		((@Test fibonacci:20) toString) println;
 		
@@ -17,9 +21,9 @@ Class Test
 
     }
 
-	@Test factorial:@n {
+	@self factorial:@n {
 		@n > 1
-		? { @n * (@Test factorial:@n - 1) }
+		? { @n * (@self factorial:@n - 1) }
 		: 1;
 	}
 

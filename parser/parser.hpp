@@ -52,11 +52,12 @@
      T_IMPORT = 268,
      T_RETURN = 269,
      T_INTERCALATE = 270,
-     T_SEMICOLON = 271,
-     T_OP_BRACE = 272,
-     T_CL_BRACE = 273,
-     T_OP_PARENT = 274,
-     T_CL_PARENT = 275
+     T_ASSIGNAMENT = 271,
+     T_SEMICOLON = 272,
+     T_OP_BRACE = 273,
+     T_CL_BRACE = 274,
+     T_OP_PARENT = 275,
+     T_CL_PARENT = 276
    };
 #endif
 /* Tokens.  */
@@ -73,11 +74,12 @@
 #define T_IMPORT 268
 #define T_RETURN 269
 #define T_INTERCALATE 270
-#define T_SEMICOLON 271
-#define T_OP_BRACE 272
-#define T_CL_BRACE 273
-#define T_OP_PARENT 274
-#define T_CL_PARENT 275
+#define T_ASSIGNAMENT 271
+#define T_SEMICOLON 272
+#define T_OP_BRACE 273
+#define T_CL_BRACE 274
+#define T_OP_PARENT 275
+#define T_CL_PARENT 276
 
 
 
@@ -98,7 +100,7 @@ typedef union YYSTYPE
 	std::vector<ast::MethodDeclaration*>*      methodsList;
 }
 /* Line 1529 of yacc.c.  */
-#line 102 "/Users/endika/LEC-Compiler/parser/parser.hpp"
+#line 104 "/Users/endika/LEC-Compiler/parser/parser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

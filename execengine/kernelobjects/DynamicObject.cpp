@@ -16,6 +16,9 @@ DynamicObject::DynamicObject(Class* objClass)
 
 Object* DynamicObject::getObjectVariable(const string& varName)
 {
+    if (varName == "@self")
+        return this;
+    
     VariablesMap::iterator it = m_localVariables->find(varName);
     if (it != m_localVariables->end()) 
         return it->second;

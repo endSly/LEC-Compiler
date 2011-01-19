@@ -136,7 +136,7 @@ namespace ast {
     public:
         Value(string val, ValueType type) : m_value(val), m_type(type) { }
         
-        string toString() { return string("Value[") + m_value + "]"; }
+        string toString() { return "Value[" + m_value + "]"; }
         string value() { return m_value; }
         
         Object* evaluate(ExecContext*);
@@ -146,18 +146,30 @@ namespace ast {
         string m_value;
     };
     
-    
     class Variable : public Expression {
     public:
         Variable(string name) : m_varName(name) { }
         
         string toString() { return m_varName; }
-        string name() { return m_varName; }
+        inline string name() { return m_varName; }
         
         Object* evaluate(ExecContext*);
         
     private:
         string m_varName;
+    };
+    
+    class Assignament : public Expression {
+    public:
+    	Assignament(Variable* var, Expression* expr) : m_destVar(var), m_expression(expr) { }
+    	
+    	string toString() { return "Assignament(" + m_destVar->toString() + "=" + m_expression->toString() + ")"; }
+    	
+    	Object* evaluate(ExecContext*);
+    	
+    private:
+    	Variable* m_destVar;
+    	Expression* m_expression;
     };
 
 	class ReturnStatement : public Expression {

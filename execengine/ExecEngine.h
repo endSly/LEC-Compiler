@@ -92,7 +92,7 @@ namespace execengine {
         inline VariablesMap* contextVariables() { return &m_contextVariables; }
         
         Object* getVariable(const string&);
-        void setVariable(const string&, Object*);
+        Object* setVariable(const string&, Object*);
     
     private:
         Object* m_self;

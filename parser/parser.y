@@ -66,6 +66,7 @@ extern "C"
 %token T_IMPORT
 %token T_RETURN
 %token T_INTERCALATE
+%token T_ASSIGNAMENT
 
 %token T_SEMICOLON
 
@@ -82,7 +83,7 @@ extern "C"
 %type <methodDeclaration>   methodDecl
 %type <expression>          messageSend binaryMsgSend
 %type <messagePredicate>    argMethodDecl messagePred
-%type <expression>          codeBlock expressionList expression singleExpression
+%type <expression>          codeBlock expressionList expression singleExpression assignament
 
 
 
@@ -146,6 +147,8 @@ binaryMsgSend       : singleExpression T_BINARY_OP_LOG singleExpression  { $$ = 
                     | singleExpression T_BINARY_OP_MUL singleExpression  { $$ = new ast::MessageSend($1, new ast::MessagePredicate(*$2 + "@", $3)); }
                     ;
 
+assignament         : T_VARIDENTIFIER T_ASSIGNAMENT expression  { $$ = new ast::Assignament(new ast::Variable(*$1), $3); }
+                    ;
 
 codeBlock           : T_OP_BRACE expressionList T_CL_BRACE { $$ = $2; }
                     ;
@@ -157,6 +160,7 @@ expressionList      :                                           { $$ = new ast::
                     
 expression          : messageSend 
                     | singleExpression
+                    | assignament
                     | T_RETURN      { $$ = new ast::ReturnStatement(); }
                     ;
 
